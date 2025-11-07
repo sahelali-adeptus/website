@@ -1,6 +1,7 @@
 <script>
   import { onMount } from "svelte";
   import ThemeToggle from "./ThemeToggle.svelte";
+  import logoUrl from "../../images/logo.png";
 
   let isMenuOpen = false;
   let isScrolled = false;
@@ -34,9 +35,9 @@
       <div class="flex-shrink-0">
         <a
           href="/"
-          class="text-2xl font-bold text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 transition-all duration-300 hover:scale-105 transform"
+          class="transition-all duration-300 hover:scale-105 transform"
         >
-          Adeptus
+          <img src={logoUrl} alt="Adeptus" class="h-8 lg:h-10" />
         </a>
       </div>
 

@@ -1,9 +1,13 @@
+<script>
+  import logoUrl from "../../images/logo.png";
+</script>
+
 <footer class="bg-gray-900 text-white">
   <div class="container section-padding">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
       <!-- Company Info -->
       <div class="lg:col-span-1">
-        <h3 class="text-2xl font-bold text-primary-400 mb-4">Adeptus</h3>
+        <img src={logoUrl} alt="Adeptus" class="h-8 lg:h-10" />
         <p class="text-gray-300 mb-6">
           Technology solutions and digital innovation for the modern enterprise.
         </p>
@@ -54,7 +58,9 @@
               class="text-gray-300 hover:text-primary-400 transition-all duration-300 hover:translate-x-2 transform relative group"
             >
               Smart Building Solutions
-              <span class="absolute -bottom-0.5 left-0 w-0 h-0.5 bg-primary-400 transition-all duration-300 group-hover:w-full"></span>
+              <span
+                class="absolute -bottom-0.5 left-0 w-0 h-0.5 bg-primary-400 transition-all duration-300 group-hover:w-full"
+              ></span>
             </a>
           </li>
           <li>
@@ -63,7 +69,9 @@
               class="text-gray-300 hover:text-primary-400 transition-all duration-300 hover:translate-x-2 transform relative group"
             >
               Connected Facilities Management
-              <span class="absolute -bottom-0.5 left-0 w-0 h-0.5 bg-primary-400 transition-all duration-300 group-hover:w-full"></span>
+              <span
+                class="absolute -bottom-0.5 left-0 w-0 h-0.5 bg-primary-400 transition-all duration-300 group-hover:w-full"
+              ></span>
             </a>
           </li>
           <li>
@@ -72,7 +80,9 @@
               class="text-gray-300 hover:text-primary-400 transition-all duration-300 hover:translate-x-2 transform relative group"
             >
               Managed Energy Services
-              <span class="absolute -bottom-0.5 left-0 w-0 h-0.5 bg-primary-400 transition-all duration-300 group-hover:w-full"></span>
+              <span
+                class="absolute -bottom-0.5 left-0 w-0 h-0.5 bg-primary-400 transition-all duration-300 group-hover:w-full"
+              ></span>
             </a>
           </li>
           <li>
@@ -81,7 +91,9 @@
               class="text-gray-300 hover:text-primary-400 transition-all duration-300 hover:translate-x-2 transform relative group"
             >
               Smart Mobile Assets Management
-              <span class="absolute -bottom-0.5 left-0 w-0 h-0.5 bg-primary-400 transition-all duration-300 group-hover:w-full"></span>
+              <span
+                class="absolute -bottom-0.5 left-0 w-0 h-0.5 bg-primary-400 transition-all duration-300 group-hover:w-full"
+              ></span>
             </a>
           </li>
         </ul>
@@ -97,7 +109,9 @@
               class="text-gray-300 hover:text-primary-400 transition-all duration-300 hover:translate-x-2 transform relative group"
             >
               Smart Fixed Assets Management
-              <span class="absolute -bottom-0.5 left-0 w-0 h-0.5 bg-primary-400 transition-all duration-300 group-hover:w-full"></span>
+              <span
+                class="absolute -bottom-0.5 left-0 w-0 h-0.5 bg-primary-400 transition-all duration-300 group-hover:w-full"
+              ></span>
             </a>
           </li>
           <li>
@@ -106,7 +120,9 @@
               class="text-gray-300 hover:text-primary-400 transition-all duration-300 hover:translate-x-2 transform relative group"
             >
               Smart Parking Management
-              <span class="absolute -bottom-0.5 left-0 w-0 h-0.5 bg-primary-400 transition-all duration-300 group-hover:w-full"></span>
+              <span
+                class="absolute -bottom-0.5 left-0 w-0 h-0.5 bg-primary-400 transition-all duration-300 group-hover:w-full"
+              ></span>
             </a>
           </li>
           <li>
@@ -115,7 +131,9 @@
               class="text-gray-300 hover:text-primary-400 transition-all duration-300 hover:translate-x-2 transform relative group"
             >
               Smart Waste Management
-              <span class="absolute -bottom-0.5 left-0 w-0 h-0.5 bg-primary-400 transition-all duration-300 group-hover:w-full"></span>
+              <span
+                class="absolute -bottom-0.5 left-0 w-0 h-0.5 bg-primary-400 transition-all duration-300 group-hover:w-full"
+              ></span>
             </a>
           </li>
           <li>
@@ -124,7 +142,9 @@
               class="text-gray-300 hover:text-primary-400 transition-all duration-300 hover:translate-x-2 transform relative group"
             >
               IT Security Solutions
-              <span class="absolute -bottom-0.5 left-0 w-0 h-0.5 bg-primary-400 transition-all duration-300 group-hover:w-full"></span>
+              <span
+                class="absolute -bottom-0.5 left-0 w-0 h-0.5 bg-primary-400 transition-all duration-300 group-hover:w-full"
+              ></span>
             </a>
           </li>
         </ul>

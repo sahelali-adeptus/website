@@ -281,7 +281,6 @@
                   bind:value={formData.firstName}
                   required
                   class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 focus:scale-105 dark:bg-gray-700 dark:text-white transition-all duration-300 hover:shadow-md"
-                  placeholder="John"
                 />
               </div>
               <div>
@@ -297,7 +296,6 @@
                   bind:value={formData.lastName}
                   required
                   class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:text-white transition-colors"
-                  placeholder="Doe"
                 />
               </div>
             </div>
@@ -317,7 +315,6 @@
                   bind:value={formData.email}
                   required
                   class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:text-white transition-colors"
-                  placeholder="john@company.com"
                 />
               </div>
               <div>
@@ -351,7 +348,6 @@
                 required
                 rows="6"
                 class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:text-white transition-colors resize-none"
-                placeholder="Tell us about your project requirements and how we can help you..."
               ></textarea>
             </div>
 
