@@ -2,8 +2,8 @@ import { writable } from 'svelte/store';
 import { browser } from '$app/environment';
 
 function createThemeStore() {
-  // Default to light theme
-  const { subscribe, set, update } = writable('light');
+  // Default to dark theme
+  const { subscribe, set, update } = writable('dark');
 
   return {
     subscribe,
