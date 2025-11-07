@@ -45,7 +45,7 @@
       <div class="hidden lg:flex items-center space-x-8">
         <a
           href="#digital-services"
-          class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 font-medium transition-all duration-300 relative group"
+          class="text-gray-800 dark:text-gray-200 hover:text-primary-600 dark:hover:text-primary-400 font-medium transition-all duration-300 relative group"
         >
           Smart City Services
           <span
@@ -54,7 +54,7 @@
         </a>
         <a
           href="#learning-tech"
-          class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 font-medium transition-all duration-300 relative group"
+          class="text-gray-800 dark:text-gray-200 hover:text-primary-600 dark:hover:text-primary-400 font-medium transition-all duration-300 relative group"
         >
           Services & Support
           <span
@@ -63,7 +63,7 @@
         </a>
         <a
           href="/partners"
-          class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 font-medium transition-all duration-300 relative group"
+          class="text-gray-800 dark:text-gray-200 hover:text-primary-600 dark:hover:text-primary-400 font-medium transition-all duration-300 relative group"
         >
           Partners
           <span
@@ -72,7 +72,7 @@
         </a>
         <a
           href="#about"
-          class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 font-medium transition-all duration-300 relative group"
+          class="text-gray-800 dark:text-gray-200 hover:text-primary-600 dark:hover:text-primary-400 font-medium transition-all duration-300 relative group"
         >
           News
           <span
@@ -81,14 +81,14 @@
         </a>
         <a
           href="#about"
-          class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 font-medium transition-all duration-300 relative group"
+          class="text-gray-800 dark:text-gray-200 hover:text-primary-600 dark:hover:text-primary-400 font-medium transition-all duration-300 relative group"
         >
           Contact Us
           <span
             class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-600 transition-all duration-300 group-hover:w-full"
           ></span>
         </a>
-        <!-- <ThemeToggle /> -->
+        <ThemeToggle />
       </div>
 
       <!-- Mobile menu button -->
