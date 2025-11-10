@@ -185,7 +185,7 @@
                   Our Experts
                 </a>
                 <a
-                  href="/command-control-center"
+                  href="/24x7ccc"
                   on:click={closeSupportDropdown}
                   class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
                 >
@@ -343,7 +343,7 @@
                 Our Experts
               </a>
               <a
-                href="/command-control-center"
+                href="/24x7ccc"
                 on:click={closeMenu}
                 class="block px-3 py-2 text-sm text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-md transition-colors"
               >
