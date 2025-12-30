@@ -119,7 +119,9 @@
         <div
           class="bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-700 rounded-3xl p-8"
         >
-          <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-8">
+          <h3
+            class="text-2xl font-bold text-gray-900 dark:text-white mb-8 capitalize"
+          >
             Let's Build Something Amazing Together
           </h3>
 
@@ -144,7 +146,9 @@
                 </svg>
               </div>
               <div>
-                <h4 class="font-semibold text-gray-900 dark:text-white">
+                <h4
+                  class="font-semibold text-gray-900 dark:text-white capitalize"
+                >
                   Email Us
                 </h4>
                 <p class="text-gray-600 dark:text-gray-300">
@@ -173,10 +177,12 @@
                 </svg>
               </div>
               <div>
-                <h4 class="font-semibold text-gray-900 dark:text-white">
+                <h4
+                  class="font-semibold text-gray-900 dark:text-white capitalize"
+                >
                   Call Us
                 </h4>
-                <p class="text-gray-600 dark:text-gray-300">04-3972569</p>
+                <p class="text-gray-600 dark:text-gray-300">+971 4 397 2569</p>
               </div>
             </div>
 
@@ -206,12 +212,14 @@
                 </svg>
               </div>
               <div>
-                <h4 class="font-semibold text-gray-900 dark:text-white">
+                <h4
+                  class="font-semibold text-gray-900 dark:text-white capitalize"
+                >
                   Visit Us
                 </h4>
                 <p class="text-gray-600 dark:text-gray-300">
                   Adeptus Technologies L.L.C. <br /> 207, Al Makhawi Building,
-                  Umm Hurair Road,<br /> Dubai, U.A.E. P.O. Box 27630
+                  Umm Hurair Road,<br />P.O. Box 33615,<br /> Dubai, U.A.E.
                 </p>
               </div>
             </div>
@@ -240,7 +248,9 @@
                 </svg>
               </div>
               <div>
-                <h5 class="font-semibold text-gray-900 dark:text-white">
+                <h5
+                  class="font-semibold text-gray-900 dark:text-white capitalize"
+                >
                   Quick Response
                 </h5>
                 <p class="text-sm text-gray-600 dark:text-gray-300">
@@ -261,7 +271,9 @@
         <div
           class="bg-white dark:bg-gray-800 rounded-3xl p-8 shadow-2xl border border-gray-100 dark:border-gray-700"
         >
-          <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-8">
+          <h3
+            class="text-2xl font-bold text-gray-900 dark:text-white mb-8 capitalize"
+          >
             Send Us a Message
           </h3>
 

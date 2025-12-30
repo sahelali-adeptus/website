@@ -8,17 +8,17 @@
 
   const slides = [
     {
-      title: "We Make",
-      highlight: " Things Happen.",
-      description:
-        "With years of honed expertise in cross-platform skills and quality-integrated methodologies, we adopt a competent delivery model in providing value-based solution as well as professional services to clients.  ",
-      background: "bg-gradient-to-br from-gray-800 via-gray-900 to-black",
-    },
-    {
       title: "ADEPT",
       highlight: " in a Smart World.",
       description:
         "We help reduce the energy, maintenance and operational costs by monitoring and managing all geographically dispersed assets including communities, buildings, utilities and more. ",
+      background: "bg-gradient-to-br from-gray-800 via-gray-900 to-black",
+    },
+    {
+      title: "We Make",
+      highlight: " Things Happen.",
+      description:
+        "With years of honed expertise in cross-platform skills and quality-integrated methodologies, we adopt a competent delivery model in providing value-based solution as well as professional services to clients.  ",
       background: "bg-gradient-to-br from-gray-800 via-gray-900 to-black",
     },
     {
@@ -53,7 +53,7 @@
   function startAutoplay() {
     autoplayInterval = setInterval(() => {
       nextSlide();
-    }, 5000);
+    }, 10000);
   }
 
   function stopAutoplay() {
@@ -142,24 +142,26 @@
   {/each}
 
   <!-- Slide Content -->
-  <div class="relative z-10 container text-center -mt-32">
+  <div
+    class="relative z-10 container text-center flex items-center justify-center min-h-screen"
+  >
     <div class="max-w-4xl mx-auto">
       {#each slides as slide, index}
         <div
-          class="absolute inset-0 transition-all duration-700"
+          class="transition-all duration-700"
           class:opacity-100={index === currentSlide}
           class:opacity-0={index !== currentSlide}
           class:translate-y-0={index === currentSlide}
           class:translate-y-8={index !== currentSlide}
+          class:block={index === currentSlide}
+          class:hidden={index !== currentSlide}
         >
           <h1
-            class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500"
+            class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500 capitalize"
             class:animate-slide-up={visible && index === currentSlide}
           >
             {slide.title}
-            <span
-              class="text-white"
-            >
+            <span class="text-white">
               {slide.highlight}
             </span>
           </h1>

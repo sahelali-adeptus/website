@@ -60,7 +60,9 @@
   ></div>
 
   <!-- Hero Content -->
-  <div class="relative z-10 container text-center -mt-32">
+  <div
+    class="relative z-10 container text-center flex items-center justify-center min-h-screen"
+  >
     <div class="max-w-4xl mx-auto">
       <h1
         class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500"
@@ -97,7 +99,7 @@
 </section>
 
 <!-- Content Section -->
-<section class="py-20 bg-gray-900">
+<section class="py-20 bg-gradient-to-br from-gray-900 via-gray-800 to-black">
   <div class="container mx-auto px-6">
     <div class="max-w-4xl mx-auto">
       <div class="space-y-8 text-lg leading-relaxed text-gray-300">
@@ -110,20 +112,20 @@
         </p>
 
         <div class="mt-12">
-          <h2 class="text-2xl md:text-3xl font-bold mb-8 text-white">
+          <h2 class="text-2xl md:text-3xl font-bold mb-8 text-white capitalize">
             Adeptus Command and Control Center offers the following key functions:
           </h2>
           
           <div class="space-y-6">
             <div class="bg-gray-800 rounded-lg p-6 border-l-4 border-yellow-500">
-              <h3 class="text-xl font-semibold mb-3 text-white">1. Improved Service Delivery</h3>
+              <h3 class="text-xl font-semibold mb-3 text-white capitalize">1. Improved Service Delivery</h3>
               <p class="text-gray-300">
                 Through pro-active monitoring thus ensuring immediate response to faults and failures of assets across various sites.
               </p>
             </div>
             
             <div class="bg-gray-800 rounded-lg p-6 border-l-4 border-orange-500">
-              <h3 class="text-xl font-semibold mb-3 text-white">2. Virtual Site Visits</h3>
+              <h3 class="text-xl font-semibold mb-3 text-white capitalize">2. Virtual Site Visits</h3>
               <p class="text-gray-300">
                 Virtual visits to the sites from a central location. Provides an holistic view of the systems at client premises.
               </p>

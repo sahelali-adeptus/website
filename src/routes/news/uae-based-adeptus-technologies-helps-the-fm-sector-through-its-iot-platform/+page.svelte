@@ -2,11 +2,11 @@
   <title>UAE-based Adeptus Technologies helps the FM sector through its IoT platform - Adeptus Technologies</title>
   <meta
     name="description"
-    content="Adeptus Technologies has developed a wide range of applications using IoT technology that can be used in the FM industry, featuring Building Talkz platform with AI and machine learning capabilities."
+    content="Adeptus Technologies has developed a wide range of applications using IoT technology that can be used in the FM industry, featuring Beconix AI Platform platform with AI and machine learning capabilities."
   />
   <meta
     name="keywords"
-    content="UAE Adeptus Technologies, IoT platform, FM sector, Building Talkz, facilities management, AI, machine learning, automation"
+    content="UAE Adeptus Technologies, IoT platform, FM sector, Beconix AI Platform, facilities management, AI, machine learning, automation"
   />
   <meta
     property="og:title"
@@ -24,37 +24,9 @@
   <section class="bg-gradient-to-br from-primary-50 to-primary-100 dark:from-primary-900/20 dark:to-primary-800/20 py-16">
     <div class="container">
       <div class="max-w-4xl mx-auto">
-        <!-- Breadcrumb -->
-        <nav class="flex mb-8" aria-label="Breadcrumb">
-          <ol class="inline-flex items-center space-x-1 md:space-x-3">
-            <li class="inline-flex items-center">
-              <a href="/" class="text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
-                Home
-              </a>
-            </li>
-            <li>
-              <div class="flex items-center">
-                <svg class="w-4 h-4 text-gray-400 mx-1" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
-                </svg>
-                <a href="/news" class="text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
-                  News
-                </a>
-              </div>
-            </li>
-            <li>
-              <div class="flex items-center">
-                <svg class="w-4 h-4 text-gray-400 mx-1" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
-                </svg>
-                <span class="text-gray-500 dark:text-gray-400">UAE-based Adeptus Technologies helps the FM sector</span>
-              </div>
-            </li>
-          </ol>
-        </nav>
 
         <div class="text-center">
-          <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4 leading-tight">
+          <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4 leading-tight capitalize">
             UAE-based Adeptus Technologies helps the FM sector through its IoT platform
           </h1>
           <p class="text-lg text-primary-600 dark:text-primary-400 font-medium mb-4">
@@ -80,7 +52,7 @@
             <!-- Introduction -->
             <div class="prose prose-lg dark:prose-invert max-w-none mb-12">
               <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-6 text-lg">
-                UAE-based Adeptus Technologies is a fast-growing player in the IoT, IIoT, IT and managed services domain. The firm's in-house talent pool of developers and subject-matter experts have spawned an intelligent platform called, Building Talkz, which uses AI and machine learning. The platform works on the continuous collection of data from sensors, actuators and integrated technologies in the equipment or systems, which are then used for real-time monitoring and control, historical analysis or for future predictions. Machine Talkz is another solution by Adeptus available for applying similar logic to heavy equipment, machinery, and vehicles.
+                UAE-based Adeptus Technologies is a fast-growing player in the IoT, IIoT, IT and managed services domain. The firm's in-house talent pool of developers and subject-matter experts have spawned an intelligent platform called, Beconix AI Platform, which uses AI and machine learning. The platform works on the continuous collection of data from sensors, actuators and integrated technologies in the equipment or systems, which are then used for real-time monitoring and control, historical analysis or for future predictions. Machine Talkz is another solution by Adeptus available for applying similar logic to heavy equipment, machinery, and vehicles.
               </p>
             </div>
 
@@ -142,7 +114,7 @@
 
             <!-- Automation Buzz Section -->
             <div class="mb-12">
-              <h2 class="text-2xl font-bold text-primary-600 dark:text-primary-400 mb-6">
+              <h2 class="text-2xl font-bold text-primary-600 dark:text-primary-400 mb-6 capitalize">
                 AUTOMATION BUZZ
               </h2>
               <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
@@ -179,7 +151,7 @@
             <div class="border-t border-gray-200 dark:border-gray-700 pt-8">
               <div class="flex items-center justify-between flex-wrap gap-4">
                 <div>
-                  <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Connect with us</h3>
+                  <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2 capitalize">Connect with us</h3>
                   <p class="text-gray-600 dark:text-gray-400">Follow our latest updates and insights</p>
                 </div>
                 <a

@@ -78,7 +78,7 @@
   ></div>
 
   <!-- Hero Content -->
-  <div class="relative z-10 container text-center -mt-32">
+  <div class="relative z-10 container text-center flex items-center justify-center min-h-screen">
     <div class="max-w-4xl mx-auto">
       <h1
         class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500"
@@ -186,7 +186,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
               </svg>
             </div>
-            <h3 class="text-xl font-semibold text-blue-800 dark:text-blue-300 mb-2">
+            <h3 class="text-xl font-semibold text-blue-800 dark:text-blue-300 mb-2 capitalize">
               Calibration and Classification of Bins
             </h3>
             <p class="text-gray-700 dark:text-gray-300">
@@ -203,7 +203,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
               </svg>
             </div>
-            <h3 class="text-xl font-semibold text-green-800 dark:text-green-300 mb-2">
+            <h3 class="text-xl font-semibold text-green-800 dark:text-green-300 mb-2 capitalize">
               Surveying and Site Inspections
             </h3>
             <p class="text-gray-700 dark:text-gray-300">
@@ -220,7 +220,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
               </svg>
             </div>
-            <h3 class="text-xl font-semibold text-purple-800 dark:text-purple-300 mb-2">
+            <h3 class="text-xl font-semibold text-purple-800 dark:text-purple-300 mb-2 capitalize">
               Smart Bins
             </h3>
             <p class="text-gray-700 dark:text-gray-300">
@@ -237,7 +237,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path>
               </svg>
             </div>
-            <h3 class="text-xl font-semibold text-yellow-800 dark:text-yellow-300 mb-2">
+            <h3 class="text-xl font-semibold text-yellow-800 dark:text-yellow-300 mb-2 capitalize">
               Connected Waste Collection Fleet
             </h3>
             <p class="text-gray-700 dark:text-gray-300">
@@ -254,7 +254,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
               </svg>
             </div>
-            <h3 class="text-xl font-semibold text-red-800 dark:text-red-300 mb-2">
+            <h3 class="text-xl font-semibold text-red-800 dark:text-red-300 mb-2 capitalize">
               Operator Identification
             </h3>
             <p class="text-gray-700 dark:text-gray-300">
@@ -271,7 +271,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path>
               </svg>
             </div>
-            <h3 class="text-xl font-semibold text-teal-800 dark:text-teal-300 mb-2">
+            <h3 class="text-xl font-semibold text-teal-800 dark:text-teal-300 mb-2 capitalize">
               Optimized Routing and Auto Scheduling
             </h3>
             <p class="text-gray-700 dark:text-gray-300">
@@ -298,7 +298,7 @@
               </svg>
             </div>
             <div>
-              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2 capitalize">
                 Measured Waste Management
               </h3>
               <p class="text-gray-600 dark:text-gray-300">
@@ -317,7 +317,7 @@
               </svg>
             </div>
             <div>
-              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2 capitalize">
                 Extensive Data Analytics and MIS Reporting
               </h3>
               <p class="text-gray-600 dark:text-gray-300">
@@ -337,7 +337,7 @@
               </svg>
             </div>
             <div>
-              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2 capitalize">
                 Geospatial Analytics
               </h3>
               <p class="text-gray-600 dark:text-gray-300">
@@ -356,7 +356,7 @@
               </svg>
             </div>
             <div>
-              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2 capitalize">
                 Workforce Management and Smart Job Management
               </h3>
               <p class="text-gray-600 dark:text-gray-300">
@@ -375,7 +375,7 @@
               </svg>
             </div>
             <div>
-              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2 capitalize">
                 Public Engagement
               </h3>
               <p class="text-gray-600 dark:text-gray-300">

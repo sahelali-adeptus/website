@@ -78,7 +78,7 @@
   ></div>
 
   <!-- Hero Content -->
-  <div class="relative z-10 container text-center -mt-32">
+  <div class="relative z-10 container text-center flex items-center justify-center min-h-screen">
     <div class="max-w-4xl mx-auto">
       <h1
         class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500"
@@ -160,7 +160,7 @@
           <div class="flex items-start space-x-4">
             <div class="w-3 h-3 bg-green-600 rounded-full mt-2 flex-shrink-0"></div>
             <div>
-              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3 capitalize">
                 Energy Management
               </h3>
               <p class="text-gray-600 dark:text-gray-300">
@@ -175,7 +175,7 @@
           <div class="flex items-start space-x-4">
             <div class="w-3 h-3 bg-blue-600 rounded-full mt-2 flex-shrink-0"></div>
             <div>
-              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3 capitalize">
                 Measurement & Verifications
               </h3>
               <p class="text-gray-600 dark:text-gray-300">
@@ -190,7 +190,7 @@
           <div class="flex items-start space-x-4">
             <div class="w-3 h-3 bg-purple-600 rounded-full mt-2 flex-shrink-0"></div>
             <div>
-              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3 capitalize">
                 Energy Consulting Services
               </h3>
               <p class="text-gray-600 dark:text-gray-300">
@@ -205,7 +205,7 @@
           <div class="flex items-start space-x-4">
             <div class="w-3 h-3 bg-yellow-600 rounded-full mt-2 flex-shrink-0"></div>
             <div>
-              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3 capitalize">
                 Energy Modeling
               </h3>
               <p class="text-gray-600 dark:text-gray-300">
@@ -220,7 +220,7 @@
           <div class="flex items-start space-x-4">
             <div class="w-3 h-3 bg-teal-600 rounded-full mt-2 flex-shrink-0"></div>
             <div>
-              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3 capitalize">
                 Renewable Energy
               </h3>
               <p class="text-gray-600 dark:text-gray-300">
@@ -235,7 +235,7 @@
           <div class="flex items-start space-x-4">
             <div class="w-3 h-3 bg-red-600 rounded-full mt-2 flex-shrink-0"></div>
             <div>
-              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3 capitalize">
                 Energy Performance Contracting
               </h3>
               <p class="text-gray-600 dark:text-gray-300">
@@ -307,7 +307,7 @@
                 ></path>
               </svg>
             </div>
-            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2 capitalize">
               Metering Services
             </h3>
             <p class="text-gray-600 dark:text-gray-300">
@@ -338,7 +338,7 @@
                 ></path>
               </svg>
             </div>
-            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2 capitalize">
               Measurement and Verifications
             </h3>
             <p class="text-gray-600 dark:text-gray-300">
@@ -369,7 +369,7 @@
                 ></path>
               </svg>
             </div>
-            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2 capitalize">
               Energy Analysis and Optimization
             </h3>
             <p class="text-gray-600 dark:text-gray-300">
@@ -400,7 +400,7 @@
                 ></path>
               </svg>
             </div>
-            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2 capitalize">
               Fault Detection and Diagnostics
             </h3>
             <p class="text-gray-600 dark:text-gray-300">
@@ -431,7 +431,7 @@
                 ></path>
               </svg>
             </div>
-            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2 capitalize">
               24×7 Monitoring
             </h3>
             <p class="text-gray-600 dark:text-gray-300">
@@ -462,7 +462,7 @@
                 ></path>
               </svg>
             </div>
-            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2 capitalize">
               Dashboards and Reports
             </h3>
             <p class="text-gray-600 dark:text-gray-300">

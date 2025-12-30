@@ -78,7 +78,7 @@
   ></div>
 
   <!-- Hero Content -->
-  <div class="relative z-10 container text-center -mt-32">
+  <div class="relative z-10 container text-center flex items-center justify-center min-h-screen">
     <div class="max-w-4xl mx-auto">
       <h1
         class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500"
@@ -160,7 +160,7 @@
               </svg>
             </div>
             <div>
-              <h3 class="text-xl font-bold text-red-800 dark:text-red-300 mb-2">
+              <h3 class="text-xl font-bold text-red-800 dark:text-red-300 mb-2 capitalize">
                 Performance Deterioration
               </h3>
               <p class="text-gray-700 dark:text-gray-300">
@@ -298,7 +298,7 @@
               </svg>
             </div>
             <div>
-              <h3 class="text-xl font-bold text-red-800 dark:text-red-300 mb-2">
+              <h3 class="text-xl font-bold text-red-800 dark:text-red-300 mb-2 capitalize">
                 Accidents
               </h3>
               <p class="text-gray-700 dark:text-gray-300">
@@ -382,7 +382,7 @@
               class="w-3 h-3 bg-blue-600 rounded-full mt-2 flex-shrink-0"
             ></div>
             <div>
-              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3 capitalize">
                 Real Time Data Acquisition
               </h3>
               <p class="text-gray-600 dark:text-gray-300">
@@ -400,7 +400,7 @@
               class="w-3 h-3 bg-green-600 rounded-full mt-2 flex-shrink-0"
             ></div>
             <div>
-              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3 capitalize">
                 Remote Performance Fix
               </h3>
               <p class="text-gray-600 dark:text-gray-300">
@@ -418,7 +418,7 @@
               class="w-3 h-3 bg-purple-600 rounded-full mt-2 flex-shrink-0"
             ></div>
             <div>
-              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3 capitalize">
                 Downtime Prediction
               </h3>
               <p class="text-gray-600 dark:text-gray-300">
@@ -436,7 +436,7 @@
               class="w-3 h-3 bg-yellow-600 rounded-full mt-2 flex-shrink-0"
             ></div>
             <div>
-              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3 capitalize">
                 AI & Expert Analytics
               </h3>
               <p class="text-gray-600 dark:text-gray-300">
@@ -454,7 +454,7 @@
               class="w-3 h-3 bg-red-600 rounded-full mt-2 flex-shrink-0"
             ></div>
             <div>
-              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3 capitalize">
                 Service Planner
               </h3>
               <p class="text-gray-600 dark:text-gray-300">
@@ -472,7 +472,7 @@
               class="w-3 h-3 bg-teal-600 rounded-full mt-2 flex-shrink-0"
             ></div>
             <div>
-              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3 capitalize">
                 Shift Planner
               </h3>
               <p class="text-gray-600 dark:text-gray-300">

@@ -22,10 +22,10 @@
       gradient: "from-purple-500 to-pink-500",
     },
     {
-      title: "IT Security Solution",
+      title: "Digital Twin",
       icon: "🔒",
       description:
-        "Robust cybersecurity solutions protecting your digital assets and ensuring business continuity.",
+        "AI-powered digital replicas enhanced with ML algorithms for real-time monitoring, predictive analytics, and autonomous decision-making.",
 
       gradient: "from-red-500 to-orange-500",
     },
@@ -119,7 +119,7 @@
 
           <!-- Service Title -->
           <h3
-            class="relative z-10 text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-4 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:{service.gradient} transition-all duration-300"
+            class="relative z-10 text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-4 group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:{service.gradient} transition-all duration-300"
           >
             {service.title}
           </h3>

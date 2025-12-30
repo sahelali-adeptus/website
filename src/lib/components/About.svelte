@@ -81,13 +81,13 @@
       <h2
         class="text-3xl md:text-3xl lg:text-3xl font-bold text-gray-900 dark:text-white mb-8 leading-tight"
       >
-        Enabling our clients to
+        Enabling Our Clients To
         <span
           class="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-purple-600"
         >
-          monitor, control, and automate
+          Monitor, Control, And Automate
         </span>
-        building systems for improved energy efficiency and reduced operational costs
+        Building Systems For Improved Energy Efficiency And Reduced Operational Costs
       </h2>
     </div>
 
@@ -107,7 +107,9 @@
           >
             {feature.icon}
           </div>
-          <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">
+          <h3
+            class="text-xl font-bold text-gray-900 dark:text-white mb-3 capitalize"
+          >
             {feature.title}
           </h3>
           <p class="text-gray-600 dark:text-gray-300 leading-relaxed">
@@ -142,7 +144,7 @@
             >
               Innovation
             </div>
-            <h3 class="text-3xl md:text-4xl font-bold mb-4">
+            <h3 class="text-3xl md:text-4xl font-bold mb-4 capitalize">
               Delivering Enterprise Solutions
             </h3>
             <p class="text-white/90 text-lg leading-relaxed">

@@ -12,19 +12,10 @@ function createThemeStore() {
     toggle: () => update(theme => theme === 'light' ? 'dark' : 'light'),
     init: () => {
       if (browser) {
-        // Check localStorage first
-        const stored = localStorage.getItem('theme');
-        if (stored) {
-          set(stored);
-          document.documentElement.classList.toggle('dark', stored === 'dark');
-          return;
-        }
-        
-        // Check system preference
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        const systemTheme = prefersDark ? 'dark' : 'light';
-        set(systemTheme);
-        document.documentElement.classList.toggle('dark', systemTheme === 'dark');
+        // Always set to dark theme
+        set('dark');
+        document.documentElement.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
       }
     },
     setTheme: (theme) => {

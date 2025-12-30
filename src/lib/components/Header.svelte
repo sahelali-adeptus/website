@@ -213,15 +213,6 @@
             class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-600 transition-all duration-300 group-hover:w-full"
           ></span>
         </a>
-        <a
-          href="#about"
-          class="text-gray-800 dark:text-gray-200 hover:text-primary-600 dark:hover:text-primary-400 font-medium transition-all duration-300 relative group"
-        >
-          Contact Us
-          <span
-            class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-600 transition-all duration-300 group-hover:w-full"
-          ></span>
-        </a>
         <ThemeToggle />
       </div>
 
@@ -364,13 +355,6 @@
             class="block px-3 py-2 text-base font-medium text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-md transition-colors"
           >
             About
-          </a>
-          <a
-            href="#contact"
-            on:click={closeMenu}
-            class="block px-3 py-2 text-base font-medium btn btn-primary mt-4"
-          >
-            Contact
           </a>
         </div>
       </div>

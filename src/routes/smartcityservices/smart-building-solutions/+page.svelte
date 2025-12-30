@@ -29,10 +29,10 @@
 </script>
 
 <svelte:head>
-  <title>BuildingTalkz Platform - Adeptus Technologies</title>
+  <title>Beconix AI Platform - Adeptus Technologies</title>
   <meta
     name="description"
-    content="BuildingTalkz Platform - Extensive real-time reporting with predictive analysis capabilities for building management and monitoring."
+    content="Beconix AI Platform - Extensive real-time reporting with predictive analysis capabilities for building management and monitoring."
   />
 </svelte:head>
 
@@ -78,13 +78,13 @@
   ></div>
 
   <!-- Hero Content -->
-  <div class="relative z-10 container text-center -mt-32">
+  <div class="relative z-10 container text-center flex items-center justify-center min-h-screen">
     <div class="max-w-4xl mx-auto">
       <h1
-        class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500"
+        class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500 capitalize"
         class:animate-slide-up={visible}
       >
-        BuildingTalkz
+        Beconix AI
         <span class="text-white block md:inline">Platform</span>
       </h1>
 
@@ -123,9 +123,9 @@
   <div class="container">
     <div class="max-w-4xl mx-auto">
       <h2
-        class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-8 text-center"
+        class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-8 text-center capitalize"
       >
-        BuildingTalkz Platform
+        Beconix AI Platform
       </h2>
 
       <div class="prose prose-lg max-w-none text-gray-700 dark:text-gray-300">
@@ -154,7 +154,7 @@
   <div class="container">
     <div class="max-w-6xl mx-auto">
       <h2
-        class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-12 text-center"
+        class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-12 text-center capitalize"
       >
         Platform Capabilities
       </h2>
@@ -183,7 +183,7 @@
               </svg>
             </div>
             <div>
-              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3 capitalize">
                 Real-time Reporting & Analytics
               </h3>
               <p class="text-gray-600 dark:text-gray-300 leading-relaxed">
@@ -216,7 +216,7 @@
               </svg>
             </div>
             <div>
-              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3 capitalize">
                 Advanced Anomaly Detection
               </h3>
               <p class="text-gray-600 dark:text-gray-300 leading-relaxed">
@@ -249,7 +249,7 @@
               </svg>
             </div>
             <div>
-              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3 capitalize">
                 SME Training Sets & UML
               </h3>
               <p class="text-gray-600 dark:text-gray-300 leading-relaxed">
@@ -282,7 +282,7 @@
               </svg>
             </div>
             <div>
-              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3 capitalize">
                 Intelligent Data Models
               </h3>
               <p class="text-gray-600 dark:text-gray-300 leading-relaxed">
@@ -302,7 +302,7 @@
     <div class="max-w-6xl mx-auto">
       <div class="text-center mb-12">
         <h2
-          class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6"
+          class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6 capitalize"
         >
           Intelligent Infrastructure Foundation
         </h2>
@@ -318,7 +318,7 @@
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
         <!-- Key Features -->
         <div class="bg-blue-50 dark:bg-blue-900/20 p-8 rounded-2xl">
-          <h3 class="text-2xl font-bold text-blue-800 dark:text-blue-300 mb-6 text-center">
+          <h3 class="text-2xl font-bold text-blue-800 dark:text-blue-300 mb-6 text-center capitalize">
             KEY FEATURES
           </h3>
           <div class="space-y-4">
@@ -351,7 +351,7 @@
 
         <!-- Key Benefits -->
         <div class="bg-green-50 dark:bg-green-900/20 p-8 rounded-2xl">
-          <h3 class="text-2xl font-bold text-green-800 dark:text-green-300 mb-6 text-center">
+          <h3 class="text-2xl font-bold text-green-800 dark:text-green-300 mb-6 text-center capitalize">
             KEY BENEFITS
           </h3>
           <div class="space-y-4">

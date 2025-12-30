@@ -29,10 +29,10 @@
 </script>
 
 <svelte:head>
-  <title>Building Talkz Xpress on-prem IoT Platform - Adeptus Technologies</title>
+  <title>Beconix AI Platform Xpress on-prem IoT Platform - Adeptus Technologies</title>
   <meta
     name="description"
-    content="Building Talkz Xpress on-prem IoT Platform - An evolutionary solution that bridges the gap between legacy BMS and Smart IoT based buildings operations."
+    content="Beconix AI Platform Xpress on-prem IoT Platform - An evolutionary solution that bridges the gap between legacy BMS and Smart IoT based buildings operations."
   />
 </svelte:head>
 
@@ -78,13 +78,13 @@
   ></div>
 
   <!-- Hero Content -->
-  <div class="relative z-10 container text-center -mt-32">
+  <div class="relative z-10 container text-center flex items-center justify-center min-h-screen">
     <div class="max-w-4xl mx-auto">
       <h1
         class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500"
         class:animate-slide-up={visible}
       >
-        Building Talkz Xpress
+        Beconix AI Platform Xpress
         <span class="text-white block md:inline">on-prem IoT Platform</span>
       </h1>
 
@@ -130,18 +130,18 @@
 
       <div class="prose prose-lg max-w-none text-gray-700 dark:text-gray-300">
         <p class="text-xl leading-relaxed mb-6">
-          Adeptus Technologies has developed a customized state of the art IoT Platform to manage and control all standalone Building Management Systems (BMS) known as 'Building Talkz'. The platform is an Enterprise level application that brings communities, buildings and utilities under one umbrella. With our existing software capabilities in proptech and genuine passion to bring revolutionary, cost-effective Smart Buildings technology to our customers, we have brought in all the features of an enterprise IoT platform to a small scaled version.
+          Adeptus Technologies has developed a customized state of the art IoT Platform to manage and control all standalone Building Management Systems (BMS) known as 'Beconix AI Platform'. The platform is an Enterprise level application that brings communities, buildings and utilities under one umbrella. With our existing software capabilities in proptech and genuine passion to bring revolutionary, cost-effective Smart Buildings technology to our customers, we have brought in all the features of an enterprise IoT platform to a small scaled version.
         </p>
 
         <p class="text-xl leading-relaxed">
-          Using our rich experience in System integration, latest IoT and Building technology and successful Building Talkz deployments, we have developed 'Building Talkz Xpress' a small scaled version of our enterprise platform to effectively cater to our customers needs with standalone/on-premises requirements. With BT Xpress, all our customers get a chance to experience advanced features of an IoT platform without the need to invest in enterprise IT infrastructure.
+          Using our rich experience in System integration, latest IoT and Building technology and successful Beconix AI Platform deployments, we have developed 'Beconix AI Platform Xpress' a small scaled version of our enterprise platform to effectively cater to our customers needs with standalone/on-premises requirements. With Beconix AI Xpress, all our customers get a chance to experience advanced features of an IoT platform without the need to invest in enterprise IT infrastructure.
         </p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Building Talkz Xpress Platform Section -->
+<!-- Beconix AI Platform Xpress Platform Section -->
 <section class="section-padding bg-gray-50 dark:bg-gray-800">
   <div class="container">
     <div class="max-w-4xl mx-auto">
@@ -149,7 +149,7 @@
         <h2
           class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6"
         >
-          Building Talkz Xpress Platform
+          Beconix AI Platform Xpress Platform
         </h2>
         <div class="w-24 h-1 bg-primary-600 mx-auto mb-8"></div>
       </div>
@@ -179,7 +179,7 @@
         </h2>
         <div class="w-24 h-1 bg-primary-600 mx-auto mb-8"></div>
         <p class="text-xl text-gray-700 dark:text-gray-300 max-w-4xl mx-auto">
-          Building Talkz Xpress provides property owners the right tool to achieve desired functionalities in BMS. They get to choose from the following product features and functionalities mix:
+          Beconix AI Platform Xpress provides property owners the right tool to achieve desired functionalities in BMS. They get to choose from the following product features and functionalities mix:
         </p>
       </div>
 
@@ -189,7 +189,7 @@
           <div class="flex items-start space-x-4">
             <div class="w-3 h-3 bg-blue-600 rounded-full mt-2 flex-shrink-0"></div>
             <div>
-              <h3 class="text-lg font-bold text-blue-800 dark:text-blue-300 mb-2">
+              <h3 class="text-lg font-bold text-blue-800 dark:text-blue-300 mb-2 capitalize">
                 Event/Work Order Management
               </h3>
               <p class="text-gray-700 dark:text-gray-300 text-sm">
@@ -204,7 +204,7 @@
           <div class="flex items-start space-x-4">
             <div class="w-3 h-3 bg-green-600 rounded-full mt-2 flex-shrink-0"></div>
             <div>
-              <h3 class="text-lg font-bold text-green-800 dark:text-green-300 mb-2">
+              <h3 class="text-lg font-bold text-green-800 dark:text-green-300 mb-2 capitalize">
                 Holistic Customizable User-Friendly UI
               </h3>
               <p class="text-gray-700 dark:text-gray-300 text-sm">
@@ -219,7 +219,7 @@
           <div class="flex items-start space-x-4">
             <div class="w-3 h-3 bg-purple-600 rounded-full mt-2 flex-shrink-0"></div>
             <div>
-              <h3 class="text-lg font-bold text-purple-800 dark:text-purple-300 mb-2">
+              <h3 class="text-lg font-bold text-purple-800 dark:text-purple-300 mb-2 capitalize">
                 Real-time Operational Dashboard
               </h3>
               <p class="text-gray-700 dark:text-gray-300 text-sm">
@@ -234,7 +234,7 @@
           <div class="flex items-start space-x-4">
             <div class="w-3 h-3 bg-yellow-600 rounded-full mt-2 flex-shrink-0"></div>
             <div>
-              <h3 class="text-lg font-bold text-yellow-800 dark:text-yellow-300 mb-2">
+              <h3 class="text-lg font-bold text-yellow-800 dark:text-yellow-300 mb-2 capitalize">
                 Energy Analytics
               </h3>
               <p class="text-gray-700 dark:text-gray-300 text-sm">
@@ -249,7 +249,7 @@
           <div class="flex items-start space-x-4">
             <div class="w-3 h-3 bg-red-600 rounded-full mt-2 flex-shrink-0"></div>
             <div>
-              <h3 class="text-lg font-bold text-red-800 dark:text-red-300 mb-2">
+              <h3 class="text-lg font-bold text-red-800 dark:text-red-300 mb-2 capitalize">
                 Measurement and Verification
               </h3>
               <p class="text-gray-700 dark:text-gray-300 text-sm">
@@ -264,7 +264,7 @@
           <div class="flex items-start space-x-4">
             <div class="w-3 h-3 bg-teal-600 rounded-full mt-2 flex-shrink-0"></div>
             <div>
-              <h3 class="text-lg font-bold text-teal-800 dark:text-teal-300 mb-2">
+              <h3 class="text-lg font-bold text-teal-800 dark:text-teal-300 mb-2 capitalize">
                 Fault Detection and Diagnostics (FDD)
               </h3>
               <p class="text-gray-700 dark:text-gray-300 text-sm">
@@ -279,7 +279,7 @@
           <div class="flex items-start space-x-4">
             <div class="w-3 h-3 bg-indigo-600 rounded-full mt-2 flex-shrink-0"></div>
             <div>
-              <h3 class="text-lg font-bold text-indigo-800 dark:text-indigo-300 mb-2">
+              <h3 class="text-lg font-bold text-indigo-800 dark:text-indigo-300 mb-2 capitalize">
                 Role Management
               </h3>
               <p class="text-gray-700 dark:text-gray-300 text-sm">
@@ -294,7 +294,7 @@
           <div class="flex items-start space-x-4">
             <div class="w-3 h-3 bg-pink-600 rounded-full mt-2 flex-shrink-0"></div>
             <div>
-              <h3 class="text-lg font-bold text-pink-800 dark:text-pink-300 mb-2">
+              <h3 class="text-lg font-bold text-pink-800 dark:text-pink-300 mb-2 capitalize">
                 Mobile Application
               </h3>
               <p class="text-gray-700 dark:text-gray-300 text-sm">
@@ -309,7 +309,7 @@
           <div class="flex items-start space-x-4">
             <div class="w-3 h-3 bg-orange-600 rounded-full mt-2 flex-shrink-0"></div>
             <div>
-              <h3 class="text-lg font-bold text-orange-800 dark:text-orange-300 mb-2">
+              <h3 class="text-lg font-bold text-orange-800 dark:text-orange-300 mb-2 capitalize">
                 Advanced Billing and Normalization
               </h3>
               <p class="text-gray-700 dark:text-gray-300 text-sm">
@@ -324,7 +324,7 @@
           <div class="flex items-start space-x-4">
             <div class="w-3 h-3 bg-cyan-600 rounded-full mt-2 flex-shrink-0"></div>
             <div>
-              <h3 class="text-lg font-bold text-cyan-800 dark:text-cyan-300 mb-2">
+              <h3 class="text-lg font-bold text-cyan-800 dark:text-cyan-300 mb-2 capitalize">
                 Weather API Integration and Analysis
               </h3>
               <p class="text-gray-700 dark:text-gray-300 text-sm">
@@ -339,7 +339,7 @@
           <div class="flex items-start space-x-4">
             <div class="w-3 h-3 bg-lime-600 rounded-full mt-2 flex-shrink-0"></div>
             <div>
-              <h3 class="text-lg font-bold text-lime-800 dark:text-lime-300 mb-2">
+              <h3 class="text-lg font-bold text-lime-800 dark:text-lime-300 mb-2 capitalize">
                 Predictive Analysis
               </h3>
               <p class="text-gray-700 dark:text-gray-300 text-sm">
@@ -354,7 +354,7 @@
           <div class="flex items-start space-x-4">
             <div class="w-3 h-3 bg-emerald-600 rounded-full mt-2 flex-shrink-0"></div>
             <div>
-              <h3 class="text-lg font-bold text-emerald-800 dark:text-emerald-300 mb-2">
+              <h3 class="text-lg font-bold text-emerald-800 dark:text-emerald-300 mb-2 capitalize">
                 Machine Learning
               </h3>
               <p class="text-gray-700 dark:text-gray-300 text-sm">
@@ -369,7 +369,7 @@
           <div class="flex items-start space-x-4">
             <div class="w-3 h-3 bg-violet-600 rounded-full mt-2 flex-shrink-0"></div>
             <div>
-              <h3 class="text-lg font-bold text-violet-800 dark:text-violet-300 mb-2">
+              <h3 class="text-lg font-bold text-violet-800 dark:text-violet-300 mb-2 capitalize">
                 Asset Documentation Management
               </h3>
               <p class="text-gray-700 dark:text-gray-300 text-sm">
@@ -384,7 +384,7 @@
           <div class="flex items-start space-x-4">
             <div class="w-3 h-3 bg-rose-600 rounded-full mt-2 flex-shrink-0"></div>
             <div>
-              <h3 class="text-lg font-bold text-rose-800 dark:text-rose-300 mb-2">
+              <h3 class="text-lg font-bold text-rose-800 dark:text-rose-300 mb-2 capitalize">
                 Reports and Dashboards Creation
               </h3>
               <p class="text-gray-700 dark:text-gray-300 text-sm">
@@ -399,7 +399,7 @@
           <div class="flex items-start space-x-4">
             <div class="w-3 h-3 bg-sky-600 rounded-full mt-2 flex-shrink-0"></div>
             <div>
-              <h3 class="text-lg font-bold text-sky-800 dark:text-sky-300 mb-2">
+              <h3 class="text-lg font-bold text-sky-800 dark:text-sky-300 mb-2 capitalize">
                 Email, SMS Alerts Configuration
               </h3>
               <p class="text-gray-700 dark:text-gray-300 text-sm">
@@ -428,7 +428,7 @@
 
       <div class="prose prose-lg max-w-none text-gray-700 dark:text-gray-300">
         <p class="text-xl leading-relaxed text-center mb-8">
-          To entrust customers with this technology, we provide installation, maintenance and Software upgrade support such that our customers enjoy new features with new releases of BT Xpress.
+          To entrust customers with this technology, we provide installation, maintenance and Software upgrade support such that our customers enjoy new features with new releases of Beconix AI Xpress.
         </p>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -439,7 +439,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
               </svg>
             </div>
-            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">
+            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3 capitalize">
               Installation Support
             </h3>
             <p class="text-gray-600 dark:text-gray-300">
@@ -455,7 +455,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
               </svg>
             </div>
-            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">
+            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3 capitalize">
               Maintenance Services
             </h3>
             <p class="text-gray-600 dark:text-gray-300">
@@ -470,7 +470,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"></path>
               </svg>
             </div>
-            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">
+            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3 capitalize">
               Software Upgrades
             </h3>
             <p class="text-gray-600 dark:text-gray-300">
@@ -498,7 +498,7 @@
 
       <div class="prose prose-lg max-w-none text-gray-700 dark:text-gray-300">
         <p class="text-xl leading-relaxed text-center mb-8">
-          Whether you are a small building owner or FM company servicing even one or hundreds of buildings, looking for enhancing building operations and energy savings with localized IoT capabilities look no further than BT Xpress.
+          Whether you are a small building owner or FM company servicing even one or hundreds of buildings, looking for enhancing building operations and energy savings with localized IoT capabilities look no further than Beconix AI Xpress.
         </p>
 
         <div class="text-center">

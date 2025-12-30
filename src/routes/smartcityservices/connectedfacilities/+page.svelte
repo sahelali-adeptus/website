@@ -78,10 +78,12 @@
   ></div>
 
   <!-- Hero Content -->
-  <div class="relative z-10 container text-center -mt-32">
+  <div
+    class="relative z-10 container text-center flex items-center justify-center min-h-screen"
+  >
     <div class="max-w-4xl mx-auto">
       <h1
-        class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500"
+        class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500 capitalize"
         class:animate-slide-up={visible}
       >
         Connected Facilities
@@ -124,22 +126,32 @@
   <div class="container">
     <div class="max-w-4xl mx-auto">
       <h2
-        class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-8 text-center"
+        class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-8 text-center capitalize"
       >
         Connected Facilities Management
       </h2>
 
       <div class="prose prose-lg max-w-none text-gray-700 dark:text-gray-300">
         <p class="text-xl leading-relaxed mb-6">
-          The concept defines virtual relocation of the Facility to Adeptus Command and Control Center (ACCC). The data captured from the building assets facility level is updated to the central repository (ACCC) on a regular basis.
+          The concept defines virtual relocation of the Facility to Adeptus
+          Command and Control Center (ACCC). The data captured from the building
+          assets facility level is updated to the central repository (ACCC) on a
+          regular basis.
         </p>
 
         <p class="text-xl leading-relaxed mb-6">
-          Our Command Control Center is equipped with enterprise level tools and software solutions to provide essential monitoring and verification services. These services are supported by subject matter experts (SMEs) who have extensive experience in the service and support of HVAC, electrical, and energy systems.
+          Our Command Control Center is equipped with enterprise level tools and
+          software solutions to provide essential monitoring and verification
+          services. These services are supported by subject matter experts
+          (SMEs) who have extensive experience in the service and support of
+          HVAC, electrical, and energy systems.
         </p>
 
         <p class="text-xl leading-relaxed">
-          Our team ensures that all building assets are monitored on a 24x7 basis which includes alarm notification to the concerned Facilities team, Proactive Maintenance notification, diagnostic analysis and Reporting.
+          Our team ensures that all building assets are monitored on a 24x7
+          basis which includes alarm notification to the concerned Facilities
+          team, Proactive Maintenance notification, diagnostic analysis and
+          Reporting.
         </p>
       </div>
     </div>
@@ -152,27 +164,47 @@
     <div class="max-w-6xl mx-auto">
       <div class="text-center mb-12">
         <h2
-          class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6"
+          class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6 capitalize"
         >
           Industry Verticals
         </h2>
         <div class="w-24 h-1 bg-primary-600 mx-auto mb-8"></div>
       </div>
 
-      <p class="text-xl text-gray-700 dark:text-gray-300 text-center mb-12 max-w-4xl mx-auto">
-        Focusing on diverse industry verticals and facilities such as educational institutions, commercial buildings, Banking and financial sectors, residential buildings and government services.
+      <p
+        class="text-xl text-gray-700 dark:text-gray-300 text-center mb-12 max-w-4xl mx-auto"
+      >
+        Focusing on diverse industry verticals and facilities such as
+        educational institutions, commercial buildings, Banking and financial
+        sectors, residential buildings and government services.
       </p>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         <!-- Educational Institutions -->
-        <div class="bg-white dark:bg-gray-900 p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
+        <div
+          class="bg-white dark:bg-gray-900 p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+        >
           <div class="flex flex-col items-center text-center">
-            <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center mb-4">
-              <svg class="w-8 h-8 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+            <div
+              class="w-16 h-16 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center mb-4"
+            >
+              <svg
+                class="w-8 h-8 text-blue-600 dark:text-blue-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+                ></path>
               </svg>
             </div>
-            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+            <h3
+              class="text-xl font-semibold text-gray-900 dark:text-white mb-2 capitalize"
+            >
               Educational Institutions
             </h3>
             <p class="text-gray-600 dark:text-gray-300">
@@ -182,14 +214,30 @@
         </div>
 
         <!-- Commercial Buildings -->
-        <div class="bg-white dark:bg-gray-900 p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
+        <div
+          class="bg-white dark:bg-gray-900 p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+        >
           <div class="flex flex-col items-center text-center">
-            <div class="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mb-4">
-              <svg class="w-8 h-8 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+            <div
+              class="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mb-4"
+            >
+              <svg
+                class="w-8 h-8 text-green-600 dark:text-green-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+                ></path>
               </svg>
             </div>
-            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+            <h3
+              class="text-xl font-semibold text-gray-900 dark:text-white mb-2 capitalize"
+            >
               Commercial Buildings
             </h3>
             <p class="text-gray-600 dark:text-gray-300">
@@ -199,14 +247,30 @@
         </div>
 
         <!-- Banking & Financial -->
-        <div class="bg-white dark:bg-gray-900 p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
+        <div
+          class="bg-white dark:bg-gray-900 p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+        >
           <div class="flex flex-col items-center text-center">
-            <div class="w-16 h-16 bg-yellow-100 dark:bg-yellow-900/30 rounded-full flex items-center justify-center mb-4">
-              <svg class="w-8 h-8 text-yellow-600 dark:text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            <div
+              class="w-16 h-16 bg-yellow-100 dark:bg-yellow-900/30 rounded-full flex items-center justify-center mb-4"
+            >
+              <svg
+                class="w-8 h-8 text-yellow-600 dark:text-yellow-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                ></path>
               </svg>
             </div>
-            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+            <h3
+              class="text-xl font-semibold text-gray-900 dark:text-white mb-2 capitalize"
+            >
               Banking & Financial
             </h3>
             <p class="text-gray-600 dark:text-gray-300">
@@ -216,14 +280,30 @@
         </div>
 
         <!-- Residential Buildings -->
-        <div class="bg-white dark:bg-gray-900 p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
+        <div
+          class="bg-white dark:bg-gray-900 p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+        >
           <div class="flex flex-col items-center text-center">
-            <div class="w-16 h-16 bg-purple-100 dark:bg-purple-900/30 rounded-full flex items-center justify-center mb-4">
-              <svg class="w-8 h-8 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+            <div
+              class="w-16 h-16 bg-purple-100 dark:bg-purple-900/30 rounded-full flex items-center justify-center mb-4"
+            >
+              <svg
+                class="w-8 h-8 text-purple-600 dark:text-purple-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                ></path>
               </svg>
             </div>
-            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+            <h3
+              class="text-xl font-semibold text-gray-900 dark:text-white mb-2 capitalize"
+            >
               Residential Buildings
             </h3>
             <p class="text-gray-600 dark:text-gray-300">
@@ -233,14 +313,30 @@
         </div>
 
         <!-- Government Services -->
-        <div class="bg-white dark:bg-gray-900 p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
+        <div
+          class="bg-white dark:bg-gray-900 p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+        >
           <div class="flex flex-col items-center text-center">
-            <div class="w-16 h-16 bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center mb-4">
-              <svg class="w-8 h-8 text-red-600 dark:text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3.5-2 3.5 2 3.5-2 3.5 2z"></path>
+            <div
+              class="w-16 h-16 bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center mb-4"
+            >
+              <svg
+                class="w-8 h-8 text-red-600 dark:text-red-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3.5-2 3.5 2 3.5-2 3.5 2z"
+                ></path>
               </svg>
             </div>
-            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+            <h3
+              class="text-xl font-semibold text-gray-900 dark:text-white mb-2 capitalize"
+            >
               Government Services
             </h3>
             <p class="text-gray-600 dark:text-gray-300">
@@ -259,7 +355,7 @@
     <div class="max-w-6xl mx-auto">
       <div class="text-center mb-12">
         <h2
-          class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6"
+          class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6 capitalize"
         >
           Key Features
         </h2>
@@ -270,13 +366,18 @@
         <!-- Feature 1 -->
         <div class="bg-blue-50 dark:bg-blue-900/20 p-8 rounded-xl">
           <div class="flex items-start space-x-4">
-            <div class="w-3 h-3 bg-blue-600 rounded-full mt-2 flex-shrink-0"></div>
+            <div
+              class="w-3 h-3 bg-blue-600 rounded-full mt-2 flex-shrink-0"
+            ></div>
             <div>
-              <h3 class="text-xl font-bold text-blue-800 dark:text-blue-300 mb-3">
+              <h3
+                class="text-xl font-bold text-blue-800 dark:text-blue-300 mb-3 capitalize"
+              >
                 Eliminate Unnecessary Service Calls and Visits
               </h3>
               <p class="text-gray-700 dark:text-gray-300">
-                Remote diagnostics reduce on-site visits and unnecessary service calls through proactive monitoring.
+                Remote diagnostics reduce on-site visits and unnecessary service
+                calls through proactive monitoring.
               </p>
             </div>
           </div>
@@ -285,13 +386,18 @@
         <!-- Feature 2 -->
         <div class="bg-green-50 dark:bg-green-900/20 p-8 rounded-xl">
           <div class="flex items-start space-x-4">
-            <div class="w-3 h-3 bg-green-600 rounded-full mt-2 flex-shrink-0"></div>
+            <div
+              class="w-3 h-3 bg-green-600 rounded-full mt-2 flex-shrink-0"
+            ></div>
             <div>
-              <h3 class="text-xl font-bold text-green-800 dark:text-green-300 mb-3">
+              <h3
+                class="text-xl font-bold text-green-800 dark:text-green-300 mb-3 capitalize"
+              >
                 Holistic View of Facilities and Systems Connected
               </h3>
               <p class="text-gray-700 dark:text-gray-300">
-                Comprehensive oversight of all connected systems and facilities from a single interface.
+                Comprehensive oversight of all connected systems and facilities
+                from a single interface.
               </p>
             </div>
           </div>
@@ -300,13 +406,18 @@
         <!-- Feature 3 -->
         <div class="bg-purple-50 dark:bg-purple-900/20 p-8 rounded-xl">
           <div class="flex items-start space-x-4">
-            <div class="w-3 h-3 bg-purple-600 rounded-full mt-2 flex-shrink-0"></div>
+            <div
+              class="w-3 h-3 bg-purple-600 rounded-full mt-2 flex-shrink-0"
+            ></div>
             <div>
-              <h3 class="text-xl font-bold text-purple-800 dark:text-purple-300 mb-3">
+              <h3
+                class="text-xl font-bold text-purple-800 dark:text-purple-300 mb-3 capitalize"
+              >
                 Increased Availability and Reliability
               </h3>
               <p class="text-gray-700 dark:text-gray-300">
-                Enhanced system uptime and reliability through continuous monitoring and proactive maintenance.
+                Enhanced system uptime and reliability through continuous
+                monitoring and proactive maintenance.
               </p>
             </div>
           </div>
@@ -315,28 +426,38 @@
         <!-- Feature 4 -->
         <div class="bg-red-50 dark:bg-red-900/20 p-8 rounded-xl">
           <div class="flex items-start space-x-4">
-            <div class="w-3 h-3 bg-red-600 rounded-full mt-2 flex-shrink-0"></div>
+            <div
+              class="w-3 h-3 bg-red-600 rounded-full mt-2 flex-shrink-0"
+            ></div>
             <div>
-              <h3 class="text-xl font-bold text-red-800 dark:text-red-300 mb-3">
+              <h3 class="text-xl font-bold text-red-800 dark:text-red-300 mb-3 capitalize">
                 Quicker Action in the Event of Breakdown
               </h3>
               <p class="text-gray-700 dark:text-gray-300">
-                Rapid response capabilities with immediate notification and diagnostic analysis.
+                Rapid response capabilities with immediate notification and
+                diagnostic analysis.
               </p>
             </div>
           </div>
         </div>
 
         <!-- Feature 5 -->
-        <div class="bg-teal-50 dark:bg-teal-900/20 p-8 rounded-xl md:col-span-2">
+        <div
+          class="bg-teal-50 dark:bg-teal-900/20 p-8 rounded-xl md:col-span-2"
+        >
           <div class="flex items-start space-x-4">
-            <div class="w-3 h-3 bg-teal-600 rounded-full mt-2 flex-shrink-0"></div>
+            <div
+              class="w-3 h-3 bg-teal-600 rounded-full mt-2 flex-shrink-0"
+            ></div>
             <div>
-              <h3 class="text-xl font-bold text-teal-800 dark:text-teal-300 mb-3">
+              <h3
+                class="text-xl font-bold text-teal-800 dark:text-teal-300 mb-3 capitalize"
+              >
                 Remote Configuration and Troubleshooting
               </h3>
               <p class="text-gray-700 dark:text-gray-300">
-                First response step in case of an event/issue with remote configuration and troubleshooting capabilities.
+                First response step in case of an event/issue with remote
+                configuration and troubleshooting capabilities.
               </p>
             </div>
           </div>
@@ -351,7 +472,7 @@
   <div class="container">
     <div class="max-w-6xl mx-auto">
       <h2
-        class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-12 text-center"
+        class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-12 text-center capitalize"
       >
         Adeptus Command and Control Centre (ACCC) Services
       </h2>
@@ -380,12 +501,9 @@
               </svg>
             </div>
             <div>
-              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">
+              <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-3 capitalize">
                 24×7 Monitoring
               </h3>
-              <p class="text-gray-600 dark:text-gray-300 leading-relaxed">
-                Continuous monitoring of all building assets with alarm notifications.
-              </p>
             </div>
           </div>
         </div>
@@ -419,12 +537,9 @@
               </svg>
             </div>
             <div>
-              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">
+              <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-3 capitalize">
                 Proactive Maintenance
               </h3>
-              <p class="text-gray-600 dark:text-gray-300 leading-relaxed">
-                Preventive maintenance notifications and scheduling.
-              </p>
             </div>
           </div>
         </div>
@@ -452,12 +567,9 @@
               </svg>
             </div>
             <div>
-              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">
+              <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-3 capitalize">
                 Diagnostic Analysis
               </h3>
-              <p class="text-gray-600 dark:text-gray-300 leading-relaxed">
-                Advanced diagnostic analysis and troubleshooting.
-              </p>
             </div>
           </div>
         </div>
@@ -485,12 +597,9 @@
               </svg>
             </div>
             <div>
-              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">
+              <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-3 capitalize">
                 Comprehensive Reporting
               </h3>
-              <p class="text-gray-600 dark:text-gray-300 leading-relaxed">
-                Detailed reports and analytics on facility performance.
-              </p>
             </div>
           </div>
         </div>

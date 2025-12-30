@@ -78,7 +78,7 @@
   ></div>
 
   <!-- Hero Content -->
-  <div class="relative z-10 container text-center -mt-32">
+  <div class="relative z-10 container text-center flex items-center justify-center min-h-screen">
     <div class="max-w-4xl mx-auto">
       <h1
         class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500"
@@ -182,7 +182,7 @@
                 </svg>
               </div>
               <div>
-                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2 capitalize">
                   Smart Ground Sensors
                 </h3>
                 <p class="text-gray-600 dark:text-gray-300">
@@ -201,7 +201,7 @@
                 </svg>
               </div>
               <div>
-                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2 capitalize">
                   Mounted Camera Systems
                 </h3>
                 <p class="text-gray-600 dark:text-gray-300">
@@ -220,7 +220,7 @@
                 </svg>
               </div>
               <div>
-                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2 capitalize">
                   Wireless Gateway
                 </h3>
                 <p class="text-gray-600 dark:text-gray-300">
@@ -262,7 +262,7 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
             </svg>
           </div>
-          <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+          <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2 capitalize">
             Time Savings
           </h3>
           <p class="text-gray-600 dark:text-gray-300">
@@ -277,7 +277,7 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
             </svg>
           </div>
-          <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+          <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2 capitalize">
             Fuel Savings
           </h3>
           <p class="text-gray-600 dark:text-gray-300">
@@ -292,7 +292,7 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2"></path>
             </svg>
           </div>
-          <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+          <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2 capitalize">
             Traffic Reduction
           </h3>
           <p class="text-gray-600 dark:text-gray-300">
@@ -307,7 +307,7 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064"></path>
             </svg>
           </div>
-          <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+          <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2 capitalize">
             Pollution Reduction
           </h3>
           <p class="text-gray-600 dark:text-gray-300">
@@ -345,7 +345,7 @@
               </svg>
             </div>
             <div>
-              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3 capitalize">
                 Real-time Status Applications
               </h3>
               <p class="text-gray-600 dark:text-gray-300 mb-4">
@@ -383,7 +383,7 @@
               </svg>
             </div>
             <div>
-              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3 capitalize">
                 Historical Analytics Reports
               </h3>
               <p class="text-gray-600 dark:text-gray-300 mb-4">

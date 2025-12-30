@@ -78,10 +78,12 @@
   ></div>
 
   <!-- Hero Content -->
-  <div class="relative z-10 container text-center -mt-32">
+  <div
+    class="relative z-10 container text-center flex items-center justify-center min-h-screen"
+  >
     <div class="max-w-4xl mx-auto">
       <h1
-        class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500"
+        class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500 text-center"
         class:animate-slide-up={visible}
       >
         Smart City
@@ -89,11 +91,16 @@
       </h1>
 
       <p
-        class="text-xl md:text-2xl mb-8 text-gray-100 max-w-3xl mx-auto leading-relaxed"
+        class="text-xl md:text-2xl mb-8 text-gray-100 max-w-6xl mx-auto leading-relaxed"
         class:animate-slide-up={visible}
         style="animation-delay: 0.2s;"
       >
-        Leading edge software and hardware components connected to a City centric cloud based platform
+        Adeptus Technologies makes use of leading edge software and hardware
+        components and connects them to a City centric cloud based platform (<span
+          class="text-blue-400 font-semibold">Beconix AI</span
+        > Platform). The platform enables the users to monitor and manage all varied
+        systems connected through a single point allowing the city managers to attain
+        control of their services with a central management framework.
       </p>
     </div>
   </div>
@@ -115,30 +122,6 @@
         d="M19 14l-7 7m0 0l-7-7m7 7V3"
       />
     </svg>
-  </div>
-</section>
-
-<!-- Content Section -->
-<section class="section-padding bg-white dark:bg-gray-900">
-  <div class="container">
-    <div class="max-w-4xl mx-auto">
-      <h2
-        class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-8 text-center"
-      >
-        Smart City Services
-      </h2>
-
-      <div class="prose prose-lg max-w-none text-gray-700 dark:text-gray-300">
-        <p class="text-xl leading-relaxed">
-          Adeptus Technologies makes use of leading edge software and hardware
-          components and connects them to a City centric cloud based platform
-          (Datalkz Platform). The platform enables the users to monitor and
-          manage all varied systems connected through a single point allowing
-          the city managers to attain control of their services with a central
-          management framework.
-        </p>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -421,9 +404,8 @@
         <p class="text-xl leading-relaxed mb-6">
           Smart City Services build on Datalkz Platform enables to link any
           systems and equipment's, whether existing or new empowering the
-          business owners for a smooth transition from a traditional approach
-          to a Smart city approach in stages using Adeptus Technologies
-          solutions.
+          business owners for a smooth transition from a traditional approach to
+          a Smart city approach in stages using Adeptus Technologies solutions.
         </p>
 
         <p class="text-xl leading-relaxed">
@@ -451,23 +433,35 @@
 
       <div class="prose prose-lg max-w-none text-gray-700 dark:text-gray-300">
         <p class="text-xl leading-relaxed mb-6">
-          Adeptus Technologies City centric cloud based platform delivers services for managing the complete environs of various enterprises. The platform is designed to deliver technologies for the solutions of the future that will add tremendous value to various domains and industries. The platform is distributed and horizontally scalable with normalized data store.
+          Adeptus Technologies City centric cloud based platform delivers
+          services for managing the complete environs of various enterprises.
+          The platform is designed to deliver technologies for the solutions of
+          the future that will add tremendous value to various domains and
+          industries. The platform is distributed and horizontally scalable with
+          normalized data store.
         </p>
 
         <p class="text-xl leading-relaxed mb-6">
-          The generic nature of the data store and the core platform APIs help developers to design solutions for their needs without being concerned about the complexity of manipulating the data.
+          The generic nature of the data store and the core platform APIs help
+          developers to design solutions for their needs without being concerned
+          about the complexity of manipulating the data.
         </p>
 
         <p class="text-xl leading-relaxed mb-8">
-          The platform supports core functionalities including stream processing, batch processing, near real-time event analytics and reporting. Our Platform's Machine Learning (ML) capabilities provide systems the ability to automatically learn and improve from experience without being explicitly programmed.
+          The platform supports core functionalities including stream
+          processing, batch processing, near real-time event analytics and
+          reporting. Our Platform's Machine Learning (ML) capabilities provide
+          systems the ability to automatically learn and improve from experience
+          without being explicitly programmed.
         </p>
 
         <div class="bg-primary-600 text-white p-8 rounded-2xl text-center">
-          <h3 class="text-2xl md:text-3xl font-bold mb-4">
+          <h3 class="text-2xl md:text-3xl font-bold mb-4 capitalize">
             SMART CITY SERVICES FOR INDUSTRY VERTICAL SECTORS
           </h3>
           <p class="text-xl font-semibold">
-            GOVERNMENT, HOSPITALITY, HEALTHCARE, RETAIL AND MORE ON A SINGLE PLATFORM
+            GOVERNMENT, HOSPITALITY, HEALTHCARE, RETAIL AND MORE ON A SINGLE
+            PLATFORM
           </p>
         </div>
       </div>

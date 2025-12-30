@@ -56,7 +56,7 @@
       <h2
         class="text-3xl md:text-3xl lg:text-3xl font-bold text-gray-900 dark:text-white mb-8"
       >
-        Adeptus Technologies LLC
+        Adeptus Technologies
       </h2>
     </div>
 
@@ -87,16 +87,18 @@
                 />
               </svg>
             </div>
-            <h3 class="text-xl font-bold text-gray-900 dark:text-white">
+            <h3
+              class="text-xl font-bold text-gray-900 dark:text-white capitalize"
+            >
               Fast-Growing IoT Leader
             </h3>
           </div>
 
           <p class="text-gray-600 dark:text-gray-300 leading-relaxed mb-6">
-            Adeptus Technologies LLC is a fast-growing player in the IoT and
-            Managed Services domain. Our operations are driven by a talent pool
-            of young technology entrepreneurs and software developers with
-            skills entrenched in AI and Machine Learning.
+            Adeptus Technologies is an extablished player in the IoT and Managed
+            Services domain. Our operations are driven by a talent pool of young
+            technology entrepreneurs and software developers with skills
+            entrenched in AI and Machine Learning.
           </p>
 
           <p class="text-gray-600 dark:text-gray-300 leading-relaxed">
@@ -120,7 +122,9 @@
         >
           <div class="flex items-center mb-6">
             <div class="text-3xl mr-4">🇦🇪</div>
-            <h3 class="text-xl font-bold text-gray-900 dark:text-white">
+            <h3
+              class="text-xl font-bold text-gray-900 dark:text-white capitalize"
+            >
               Made in UAE
             </h3>
           </div>
@@ -514,7 +518,9 @@
                 />
               </svg>
             </div>
-            <h4 class="text-xl font-bold text-gray-900 dark:text-white">
+            <h4
+              class="text-xl font-bold text-gray-900 dark:text-white capitalize"
+            >
               Client Success
             </h4>
           </div>
@@ -550,7 +556,9 @@
                 />
               </svg>
             </div>
-            <h4 class="text-xl font-bold text-gray-900 dark:text-white">
+            <h4
+              class="text-xl font-bold text-gray-900 dark:text-white capitalize"
+            >
               Industry Recognition
             </h4>
           </div>
@@ -636,7 +644,9 @@
                   </svg>
                 </div>
                 <div>
-                  <h4 class="text-2xl font-bold text-gray-900 dark:text-white">
+                  <h4
+                    class="text-2xl font-bold text-gray-900 dark:text-white capitalize"
+                  >
                     Intelligent Control
                   </h4>
                   <p class="text-cyan-600 dark:text-cyan-400 font-medium">
@@ -707,7 +717,9 @@
                   </svg>
                 </div>
                 <div>
-                  <h5 class="text-lg font-bold text-gray-900 dark:text-white">
+                  <h5
+                    class="text-lg font-bold text-gray-900 dark:text-white capitalize"
+                  >
                     24/7 Command Center
                   </h5>
                   <p class="text-gray-600 dark:text-gray-300 text-sm">
@@ -740,7 +752,9 @@
                   </svg>
                 </div>
                 <div>
-                  <h5 class="text-lg font-bold text-gray-900 dark:text-white">
+                  <h5
+                    class="text-lg font-bold text-gray-900 dark:text-white capitalize"
+                  >
                     GCC-Wide Reach
                   </h5>
                   <p class="text-gray-600 dark:text-gray-300 text-sm">
@@ -761,7 +775,9 @@
                   <div class="text-xl">🇦🇪</div>
                 </div>
                 <div>
-                  <h5 class="text-lg font-bold text-gray-900 dark:text-white">
+                  <h5
+                    class="text-lg font-bold text-gray-900 dark:text-white capitalize"
+                  >
                     100% Made in UAE
                   </h5>
                   <p class="text-gray-600 dark:text-gray-300 text-sm">
@@ -801,7 +817,7 @@
         </div>
 
         <div class="relative z-10 text-center">
-          <h4 class="text-2xl md:text-2xl font-bold mb-6">
+          <h4 class="text-2xl md:text-2xl font-bold mb-6 capitalize">
             Powering Smart Buildings Across the Region
           </h4>
           <p class="text-gray-300 text-lg mb-8 max-w-3xl mx-auto">

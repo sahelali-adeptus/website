@@ -78,7 +78,7 @@
   ></div>
 
   <!-- Hero Content -->
-  <div class="relative z-10 container text-center -mt-32">
+  <div class="relative z-10 container text-center flex items-center justify-center min-h-screen">
     <div class="max-w-4xl mx-auto">
       <h1
         class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500"
@@ -192,7 +192,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
               </svg>
             </div>
-            <h3 class="text-xl font-semibold text-blue-800 dark:text-blue-300 mb-2">
+            <h3 class="text-xl font-semibold text-blue-800 dark:text-blue-300 mb-2 capitalize">
               Real-time Data Acquisition
             </h3>
             <p class="text-gray-700 dark:text-gray-300">
@@ -210,7 +210,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
               </svg>
             </div>
-            <h3 class="text-xl font-semibold text-green-800 dark:text-green-300 mb-2">
+            <h3 class="text-xl font-semibold text-green-800 dark:text-green-300 mb-2 capitalize">
               Control and Monitoring
             </h3>
             <p class="text-gray-700 dark:text-gray-300">
@@ -227,7 +227,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9V3m0 13.5a7.5 7.5 0 01-7.5-7.5M12 3a9 9 0 019 9m-9-9a9 9 0 00-9 9m9 0a9 9 0 01-9-9"></path>
               </svg>
             </div>
-            <h3 class="text-xl font-semibold text-purple-800 dark:text-purple-300 mb-2">
+            <h3 class="text-xl font-semibold text-purple-800 dark:text-purple-300 mb-2 capitalize">
               Universal Web Browser Access
             </h3>
             <p class="text-gray-700 dark:text-gray-300">
@@ -244,7 +244,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
               </svg>
             </div>
-            <h3 class="text-xl font-semibold text-yellow-800 dark:text-yellow-300 mb-2">
+            <h3 class="text-xl font-semibold text-yellow-800 dark:text-yellow-300 mb-2 capitalize">
               Aggregation
             </h3>
             <p class="text-gray-700 dark:text-gray-300">
@@ -261,7 +261,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
               </svg>
             </div>
-            <h3 class="text-xl font-semibold text-red-800 dark:text-red-300 mb-2">
+            <h3 class="text-xl font-semibold text-red-800 dark:text-red-300 mb-2 capitalize">
               Presentation
             </h3>
             <p class="text-gray-700 dark:text-gray-300">
@@ -278,7 +278,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
               </svg>
             </div>
-            <h3 class="text-xl font-semibold text-teal-800 dark:text-teal-300 mb-2">
+            <h3 class="text-xl font-semibold text-teal-800 dark:text-teal-300 mb-2 capitalize">
               Predictive Analysis
             </h3>
             <p class="text-gray-700 dark:text-gray-300">
@@ -314,7 +314,7 @@
               </svg>
             </div>
             <div>
-              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2 capitalize">
                 Preventive Maintenance
               </h3>
               <p class="text-gray-600 dark:text-gray-300">
@@ -331,7 +331,7 @@
               </svg>
             </div>
             <div>
-              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2 capitalize">
                 Predictive Maintenance
               </h3>
               <p class="text-gray-600 dark:text-gray-300">
@@ -348,7 +348,7 @@
               </svg>
             </div>
             <div>
-              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2 capitalize">
                 Early Fault Detection
               </h3>
               <p class="text-gray-600 dark:text-gray-300">
@@ -365,7 +365,7 @@
               </svg>
             </div>
             <div>
-              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2 capitalize">
                 24/7 Monitoring
               </h3>
               <p class="text-gray-600 dark:text-gray-300">

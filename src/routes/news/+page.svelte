@@ -12,7 +12,7 @@
       title: "UAE-based Adeptus Technologies helps the FM sector through its IoT platform",
       date: "Oct 27, 2019",
       subheading: "facilitiesmanagement October 2019",
-      excerpt: "Adeptus Technologies has developed a wide range of applications using IoT technology that can be used in the FM industry, featuring their intelligent Building Talkz platform.",
+      excerpt: "Adeptus Technologies has developed a wide range of applications using IoT technology that can be used in the FM industry, featuring their intelligent Beconix AI Platform platform.",
       slug: "uae-based-adeptus-technologies-helps-the-fm-sector-through-its-iot-platform"
     },
     {
@@ -51,7 +51,7 @@
   <section class="bg-gradient-to-br from-primary-50 to-primary-100 dark:from-primary-900/20 dark:to-primary-800/20 py-24">
     <div class="container">
       <div class="max-w-4xl mx-auto text-center">
-        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6">
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6 capitalize">
           Latest News
         </h1>
         <p class="text-xl text-gray-600 dark:text-gray-300 mb-8">
@@ -71,7 +71,7 @@
               <div class="p-8">
                 <div class="flex items-start justify-between mb-4">
                   <div class="flex-1">
-                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-2 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-2 hover:text-primary-600 dark:hover:text-primary-400 transition-colors capitalize">
                       <a href="/news/{article.slug}" class="block">
                         {article.title}
                       </a>

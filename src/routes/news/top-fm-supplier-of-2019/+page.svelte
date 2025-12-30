@@ -6,7 +6,7 @@
   />
   <meta
     name="keywords"
-    content="Top FM Supplier 2019, facilities management, IoT platform, BuildingTalkz, smart buildings, Adeptus Technologies"
+    content="Top FM Supplier 2019, facilities management, IoT platform, Beconix AI Platform, smart buildings, Adeptus Technologies"
   />
   <meta
     property="og:title"
@@ -24,37 +24,9 @@
   <section class="bg-gradient-to-br from-primary-50 to-primary-100 dark:from-primary-900/20 dark:to-primary-800/20 py-16">
     <div class="container">
       <div class="max-w-4xl mx-auto">
-        <!-- Breadcrumb -->
-        <nav class="flex mb-8" aria-label="Breadcrumb">
-          <ol class="inline-flex items-center space-x-1 md:space-x-3">
-            <li class="inline-flex items-center">
-              <a href="/" class="text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
-                Home
-              </a>
-            </li>
-            <li>
-              <div class="flex items-center">
-                <svg class="w-4 h-4 text-gray-400 mx-1" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
-                </svg>
-                <a href="/news" class="text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
-                  News
-                </a>
-              </div>
-            </li>
-            <li>
-              <div class="flex items-center">
-                <svg class="w-4 h-4 text-gray-400 mx-1" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
-                </svg>
-                <span class="text-gray-500 dark:text-gray-400">Top FM Supplier of 2019</span>
-              </div>
-            </li>
-          </ol>
-        </nav>
 
         <div class="text-center">
-          <h1 class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+          <h1 class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4 capitalize">
             Top FM Supplier of 2019
           </h1>
           <p class="text-lg text-primary-600 dark:text-primary-400 font-medium mb-4">
@@ -76,7 +48,7 @@
           <div class="p-8 md:p-12">
             <!-- Question 1 -->
             <div class="mb-12">
-              <h2 class="text-2xl font-bold text-primary-600 dark:text-primary-400 mb-6">
+              <h2 class="text-2xl font-bold text-primary-600 dark:text-primary-400 mb-6 capitalize">
                 What is your firm looking forward to next year? What will the focus be?
               </h2>
               <div class="prose prose-lg dark:prose-invert max-w-none">
@@ -91,7 +63,7 @@
 
             <!-- Question 2 -->
             <div class="mb-12">
-              <h2 class="text-2xl font-bold text-primary-600 dark:text-primary-400 mb-6">
+              <h2 class="text-2xl font-bold text-primary-600 dark:text-primary-400 mb-6 capitalize">
                 Any more product launches/enhancements we can expect?
               </h2>
               <div class="prose prose-lg dark:prose-invert max-w-none">
@@ -106,12 +78,12 @@
 
             <!-- Question 3 -->
             <div class="mb-12">
-              <h2 class="text-2xl font-bold text-primary-600 dark:text-primary-400 mb-6">
+              <h2 class="text-2xl font-bold text-primary-600 dark:text-primary-400 mb-6 capitalize">
                 What are some of the company's greatest achievements in 2019?
               </h2>
               <div class="prose prose-lg dark:prose-invert max-w-none">
                 <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
-                  Several hours of listening and interacting with our clients and tireless work from our R&D and software development team created our in-house IOT platform BuildingTalkz. As on date, we have successfully connected more than 25 million sq.ft of mixed use including home, commercial and retail space across the region, onboarding 10,000+ assets for some of our prestigious clients, who are themselves leaders across various industry verticals.
+                  Several hours of listening and interacting with our clients and tireless work from our R&D and software development team created our in-house IOT platform Beconix AI Platform. As on date, we have successfully connected more than 25 million sq.ft of mixed use including home, commercial and retail space across the region, onboarding 10,000+ assets for some of our prestigious clients, who are themselves leaders across various industry verticals.
                 </p>
                 <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
                   Testimony to our achievement is on-boarding key elite accounts including:
@@ -126,12 +98,12 @@
 
             <!-- Question 4 -->
             <div class="mb-12">
-              <h2 class="text-2xl font-bold text-primary-600 dark:text-primary-400 mb-6">
+              <h2 class="text-2xl font-bold text-primary-600 dark:text-primary-400 mb-6 capitalize">
                 What are the challenges your firm faced in the industry and your strategy to overcome them?
               </h2>
               <div class="prose prose-lg dark:prose-invert max-w-none">
                 <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
-                  This is a combination of various factors, both internal and external. But, in general, although customers are curious and want to be early adopters of cutting-edge technologies, there is still a fair amount of hesitation. Convincing them could mean change in key processes and more importantly, expectations are high due to not having had the best results while previously using legacy technology not living up to that high expectation. Our approach is to let our work speak for itself and see an increasing trend in visits (at our 24x7 Command and Control Centre) from and POCs for large and reputed players from the facilities management and building owners community. Feedback is positive and they are enthusiastic about the potential and adoption of Building Talkz, as an IOT platform of choice. We are here to help in streamlining operations and create value to end users, at the same time, trimming costs and create overall efficiency from a day-to-day perspective.
+                  This is a combination of various factors, both internal and external. But, in general, although customers are curious and want to be early adopters of cutting-edge technologies, there is still a fair amount of hesitation. Convincing them could mean change in key processes and more importantly, expectations are high due to not having had the best results while previously using legacy technology not living up to that high expectation. Our approach is to let our work speak for itself and see an increasing trend in visits (at our 24x7 Command and Control Centre) from and POCs for large and reputed players from the facilities management and building owners community. Feedback is positive and they are enthusiastic about the potential and adoption of Beconix AI Platform, as an IOT platform of choice. We are here to help in streamlining operations and create value to end users, at the same time, trimming costs and create overall efficiency from a day-to-day perspective.
                 </p>
               </div>
             </div>
@@ -140,7 +112,7 @@
             <div class="border-t border-gray-200 dark:border-gray-700 pt-8">
               <div class="flex items-center justify-between flex-wrap gap-4">
                 <div>
-                  <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Connect with us</h3>
+                  <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2 capitalize">Connect with us</h3>
                   <p class="text-gray-600 dark:text-gray-400">Follow our latest updates and insights</p>
                 </div>
                 <a
