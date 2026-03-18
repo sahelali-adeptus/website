@@ -14,7 +14,7 @@
       gradient: "from-blue-500 to-cyan-500",
     },
     {
-      title: "Smart IT Solution",
+      title: "Smart IT Solutions",
       icon: "💻",
       description:
         "Advanced technology solutions leveraging AI, Machine Learning, and IoT for business transformation.",

@@ -78,11 +78,6 @@
       name: "Belcom",
       logo: "https://static.wixstatic.com/media/ea99b6_369b9ac437624849a23178c773c9f3d5~mv2.jpg/v1/fill/w_280,h_251,al_c,lg_1,q_80,enc_avif,quality_auto/belcom2471.jpg",
     },
-    {
-      name: "Redscan",
-      logo: "https://static.wixstatic.com/media/ea99b6_e9c3c8a22fa141b980ad66eb68a96bf1~mv2.jpg/v1/fill/w_280,h_251,al_c,lg_1,q_80,enc_avif,quality_auto/redscan.jpg",
-      url: "https://www.redscan.com/",
-    },
   ];
 
   onMount(() => {

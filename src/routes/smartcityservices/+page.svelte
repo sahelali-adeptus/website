@@ -32,7 +32,7 @@
   <title>Smart City Services - Adeptus Technologies</title>
   <meta
     name="description"
-    content="Adeptus Technologies Smart City Services - Leading edge software and hardware components connected to a City centric cloud based platform (Datalkz Platform)."
+    content="Adeptus Technologies Smart City Services - Leading edge software and hardware components connected to a City centric cloud based platform (Beconix AI Platform)."
   />
 </svelte:head>
 
@@ -378,7 +378,7 @@
   </div>
 </section>
 
-<!-- Datalkz Platform Section -->
+<!-- Beconix AI Platform Section -->
 <section class="section-padding bg-white dark:bg-gray-900">
   <div class="container">
     <div class="max-w-4xl mx-auto">
@@ -386,7 +386,7 @@
         <h2
           class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6"
         >
-          The Datalkz Platform
+          The Beconix AI Platform
         </h2>
         <div class="w-24 h-1 bg-primary-600 mx-auto mb-8"></div>
       </div>
@@ -395,14 +395,14 @@
         <p class="text-xl leading-relaxed mb-6">
           Adeptus Technologies makes use of leading edge software and hardware
           components and connects them to a City centric cloud based platform
-          (Datalkz Platform). The platform enables the users to monitor and
+          (Beconix AI Platform). The platform enables the users to monitor and
           manage all varied systems connected through a single point, allowing
           the city managers to attain control of their services with a central
           management framework.
         </p>
 
         <p class="text-xl leading-relaxed mb-6">
-          Smart City Services build on Datalkz Platform enables to link any
+          Smart City Services build on Beconix AI Platform enables to link any
           systems and equipment's, whether existing or new empowering the
           business owners for a smooth transition from a traditional approach to
           a Smart city approach in stages using Adeptus Technologies solutions.
@@ -418,7 +418,7 @@
   </div>
 </section>
 
-<!-- Datalkz IoT Platform Section -->
+<!-- Beconix AI IoT Platform Section -->
 <section class="section-padding bg-gray-50 dark:bg-gray-800">
   <div class="container">
     <div class="max-w-4xl mx-auto">
@@ -426,7 +426,7 @@
         <h2
           class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6"
         >
-          Datalkz IoT Platform
+          Beconix AI IoT Platform
         </h2>
         <div class="w-24 h-1 bg-primary-600 mx-auto mb-8"></div>
       </div>

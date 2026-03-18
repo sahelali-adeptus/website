@@ -31,7 +31,7 @@
   <!-- Background Image -->
   <div
     class="absolute inset-0 bg-cover bg-center bg-no-repeat"
-    style="background-image: url('https://static.wixstatic.com/media/ea99b6_84f6b87fca3041908e686db5387d63b6~mv2.jpg/v1/fill/w_915,h_768,al_c,q_85,enc_avif,quality_auto/ea99b6_84f6b87fca3041908e686db5387d63b6~mv2.jpg');"
+    style="background-image: url('https://beconixai.me/team.jpg');"
   ></div>
 
   <!-- Dark Overlay -->
@@ -102,78 +102,149 @@
 <section class="py-20 bg-gradient-to-br from-gray-900 via-gray-800 to-black">
   <div class="container mx-auto px-6">
     <div class="max-w-6xl mx-auto">
-      
       <!-- Introduction -->
       <div class="text-center mb-16">
         <h2 class="text-3xl md:text-4xl font-bold text-white mb-6 capitalize">
           Excellence in Every Solution
         </h2>
         <p class="text-xl text-gray-300 max-w-3xl mx-auto">
-          Our team's expertise allows us to provide our customers with utmost professional service, ensuring that we meet all their business requirements along the way.
+          Our team's expertise allows us to provide our customers with utmost
+          professional service, ensuring that we meet all their business
+          requirements along the way.
         </p>
       </div>
 
       <!-- Feature Cards -->
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-        
         <!-- Unique Approach Card -->
-        <div class="bg-gray-800 rounded-xl p-8 border border-gray-700 hover:border-yellow-500 transition-all duration-300 transform hover:scale-105">
-          <div class="w-16 h-16 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-lg flex items-center justify-center mb-6">
-            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+        <div
+          class="bg-gray-800 rounded-xl p-8 border border-gray-700 hover:border-yellow-500 transition-all duration-300 transform hover:scale-105"
+        >
+          <div
+            class="w-16 h-16 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-lg flex items-center justify-center mb-6"
+          >
+            <svg
+              class="w-8 h-8 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+              />
             </svg>
           </div>
-          <h3 class="text-xl font-bold text-white mb-4 capitalize">Unique Approach</h3>
+          <h3 class="text-xl font-bold text-white mb-4 capitalize">
+            Unique Approach
+          </h3>
           <p class="text-gray-300 leading-relaxed">
-            Our value addition emanates from a unique approach in planning, implementing and managing our client's technological needs.
+            Our value addition emanates from a unique approach in planning,
+            implementing and managing our client's technological needs.
           </p>
         </div>
 
         <!-- Expert Team Card -->
-        <div class="bg-gray-800 rounded-xl p-8 border border-gray-700 hover:border-yellow-500 transition-all duration-300 transform hover:scale-105">
-          <div class="w-16 h-16 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-lg flex items-center justify-center mb-6">
-            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+        <div
+          class="bg-gray-800 rounded-xl p-8 border border-gray-700 hover:border-yellow-500 transition-all duration-300 transform hover:scale-105"
+        >
+          <div
+            class="w-16 h-16 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-lg flex items-center justify-center mb-6"
+          >
+            <svg
+              class="w-8 h-8 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+              />
             </svg>
           </div>
-          <h3 class="text-xl font-bold text-white mb-4 capitalize">Expert Team</h3>
+          <h3 class="text-xl font-bold text-white mb-4 capitalize">
+            Expert Team
+          </h3>
           <p class="text-gray-300 leading-relaxed">
-            We have a carefully chosen and highly motivated team of qualified, trained and experienced specialists and consultants at your service.
+            We have a carefully chosen and highly motivated team of qualified,
+            trained and experienced specialists and consultants at your service.
           </p>
         </div>
 
         <!-- Customer Focus Card -->
-        <div class="bg-gray-800 rounded-xl p-8 border border-gray-700 hover:border-yellow-500 transition-all duration-300 transform hover:scale-105">
-          <div class="w-16 h-16 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-lg flex items-center justify-center mb-6">
-            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+        <div
+          class="bg-gray-800 rounded-xl p-8 border border-gray-700 hover:border-yellow-500 transition-all duration-300 transform hover:scale-105"
+        >
+          <div
+            class="w-16 h-16 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-lg flex items-center justify-center mb-6"
+          >
+            <svg
+              class="w-8 h-8 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+              />
             </svg>
           </div>
-          <h3 class="text-xl font-bold text-white mb-4 capitalize">Customer Centric</h3>
+          <h3 class="text-xl font-bold text-white mb-4 capitalize">
+            Customer Centric
+          </h3>
           <p class="text-gray-300 leading-relaxed">
-            We believe in a strong customer centric approach which will give you peace of mind and confidence in our business policy.
+            We believe in a strong customer centric approach which will give you
+            peace of mind and confidence in our business policy.
           </p>
         </div>
       </div>
 
       <!-- Support Section -->
-      <div class="bg-gradient-to-r from-gray-800 to-gray-700 rounded-2xl p-8 md:p-12">
+      <div
+        class="bg-gradient-to-r from-gray-800 to-gray-700 rounded-2xl p-8 md:p-12"
+      >
         <div class="grid lg:grid-cols-2 gap-8 items-center">
           <div>
             <div class="flex items-center mb-6">
-              <div class="w-12 h-12 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-lg flex items-center justify-center mr-4">
-                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              <div
+                class="w-12 h-12 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-lg flex items-center justify-center mr-4"
+              >
+                <svg
+                  class="w-6 h-6 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
                 </svg>
               </div>
-              <h3 class="text-2xl font-bold text-white capitalize">24/7 Support Excellence</h3>
+              <h3 class="text-2xl font-bold text-white capitalize">
+                24/7 Support Excellence
+              </h3>
             </div>
             <p class="text-gray-300 text-lg leading-relaxed">
-              With a strong focus on delighting the customer every time, our solutions are backed-up with unmatched after-sales support and service which is a benchmark in the industry.
+              With a strong focus on delighting the customer every time, our
+              solutions are backed-up with unmatched after-sales support and
+              service which is a benchmark in the industry.
             </p>
           </div>
           <div class="bg-gray-900 rounded-xl p-6 border border-yellow-500/20">
-            <h4 class="text-xl font-semibold text-white mb-4 capitalize">Our Technical Team</h4>
+            <h4 class="text-xl font-semibold text-white mb-4 capitalize">
+              Our Technical Team
+            </h4>
             <ul class="space-y-3 text-gray-300">
               <li class="flex items-center">
                 <div class="w-2 h-2 bg-yellow-500 rounded-full mr-3"></div>
@@ -195,7 +266,6 @@
           </div>
         </div>
       </div>
-
     </div>
   </div>
 </section>

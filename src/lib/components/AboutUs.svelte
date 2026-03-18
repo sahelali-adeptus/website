@@ -90,7 +90,7 @@
             <h3
               class="text-xl font-bold text-gray-900 dark:text-white capitalize"
             >
-              Fast-Growing IoT Leader
+              Established IoT Provider
             </h3>
           </div>
 

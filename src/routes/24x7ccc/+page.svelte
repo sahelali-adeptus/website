@@ -34,7 +34,7 @@
   <!-- Background Image -->
   <div
     class="absolute inset-0 bg-cover bg-center bg-no-repeat"
-    style="background-image: url('https://static.wixstatic.com/media/ea99b6_5b15e066ff69481d9e47c457bfd88c68~mv2.png/v1/fill/w_1296,h_433,al_c,q_90,enc_avif,quality_auto/ea99b6_5b15e066ff69481d9e47c457bfd88c68~mv2.png');"
+    style="background-image: url('https://beconixai.me/controlroom.jpg');"
   ></div>
 
   <!-- Dark Overlay -->
@@ -104,38 +104,58 @@
     <div class="max-w-4xl mx-auto">
       <div class="space-y-8 text-lg leading-relaxed text-gray-300">
         <p>
-          Adeptus Technologies operates a futuristic Command and Control Center that offers 24x7x365 days client support by remotely monitoring & managing their assets.
+          Adeptus Technologies operates a futuristic Command and Control Center
+          that offers 24x7x365 days client support by remotely monitoring &
+          managing their assets.
         </p>
 
         <p>
-          Our Command & Control Center currently extends to some of our prestigious clients in the UAE. The Center ensures real time monitoring & control of all electro-mechanical systems at the client facilities, thus reducing operational and energy costs.
+          Our Command & Control Center currently extends to some of our
+          prestigious clients in the UAE. The Center ensures real time
+          monitoring & control of all electro-mechanical systems at the client
+          facilities, thus reducing operational and energy costs.
         </p>
 
         <div class="mt-12">
           <h2 class="text-2xl md:text-3xl font-bold mb-8 text-white capitalize">
-            Adeptus Command and Control Center offers the following key functions:
+            Adeptus Command and Control Center offers the following key
+            functions:
           </h2>
-          
+
           <div class="space-y-6">
-            <div class="bg-gray-800 rounded-lg p-6 border-l-4 border-yellow-500">
-              <h3 class="text-xl font-semibold mb-3 text-white capitalize">1. Improved Service Delivery</h3>
+            <div
+              class="bg-gray-800 rounded-lg p-6 border-l-4 border-yellow-500"
+            >
+              <h3 class="text-xl font-semibold mb-3 text-white capitalize">
+                1. Improved Service Delivery
+              </h3>
               <p class="text-gray-300">
-                Through pro-active monitoring thus ensuring immediate response to faults and failures of assets across various sites.
+                Through pro-active monitoring thus ensuring immediate response
+                to faults and failures of assets across various sites.
               </p>
             </div>
-            
-            <div class="bg-gray-800 rounded-lg p-6 border-l-4 border-orange-500">
-              <h3 class="text-xl font-semibold mb-3 text-white capitalize">2. Virtual Site Visits</h3>
+
+            <div
+              class="bg-gray-800 rounded-lg p-6 border-l-4 border-orange-500"
+            >
+              <h3 class="text-xl font-semibold mb-3 text-white capitalize">
+                2. Virtual Site Visits
+              </h3>
               <p class="text-gray-300">
-                Virtual visits to the sites from a central location. Provides an holistic view of the systems at client premises.
+                Virtual visits to the sites from a central location. Provides an
+                holistic view of the systems at client premises.
               </p>
             </div>
           </div>
         </div>
 
-        <div class="mt-12 bg-gradient-to-r from-gray-800 to-gray-700 rounded-lg p-8 text-center">
+        <div
+          class="mt-12 bg-gradient-to-r from-gray-800 to-gray-700 rounded-lg p-8 text-center"
+        >
           <p class="text-xl text-white font-medium">
-            So if you want to know what REAL service is about we urge you to come by our facilities at any time to see just how engaged our team are. Always ready. Always serving.
+            So if you want to know what REAL service is about we urge you to
+            come by our facilities at any time to see just how engaged our team
+            are. Always ready. Always serving.
           </p>
         </div>
       </div>

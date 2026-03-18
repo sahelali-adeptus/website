@@ -65,7 +65,7 @@
           </h5>
           <div class="flex space-x-3">
             <a
-              href="https://www.linkedin.com/company/adeptus-technologies"
+              href="https://www.linkedin.com/company/adeptus-technologies-llc/"
               target="_blank"
               rel="noopener noreferrer"
               class="group w-10 h-10 bg-gray-800/50 backdrop-blur rounded-xl flex items-center justify-center hover:bg-blue-600 transition-all duration-300 hover:scale-110 hover:rotate-3"
@@ -424,7 +424,7 @@
         <!-- Copyright -->
         <div class="text-center lg:text-right">
           <p class="text-gray-400 text-sm">
-            © 2019 by Adeptus Technologies. All rights reserved.
+            © 2025 by Adeptus Technologies. All rights reserved.
           </p>
         </div>
       </div>

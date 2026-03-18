@@ -86,11 +86,11 @@
                 clients within the FM, Real Estate development and Property
                 Management sectors from their 24/7 Command & Control Centre
                 based in Dubai. The centre is powered by their in-house designed
-                Datalkz IoT platform providing a data-driven management solution
-                delivers community centric automation services to streamline and
-                centralize a building's operation including HVAC, power,
-                security and other mechanical / electrical systems vital for the
-                ecosystem to remain stable and secure.
+                Beconix AI IoT platform providing a data-driven management
+                solution delivers community centric automation services to
+                streamline and centralize a building's operation including HVAC,
+                power, security and other mechanical / electrical systems vital
+                for the ecosystem to remain stable and secure.
               </p>
             </div>
 
@@ -304,7 +304,7 @@
                   </p>
                 </div>
                 <a
-                  href="https://www.linkedin.com/company/adeptus-technologies"
+                  href="https://www.linkedin.com/company/adeptus-technologies-llc/"
                   target="_blank"
                   rel="noopener noreferrer"
                   class="inline-flex items-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors"
