@@ -4,6 +4,7 @@
   // ── DOM refs ──────────────────────────────────────────────────────────────
   let containerEl, sectionEl, panel0El, panel1El;
   let navFillEl, navIndicatorEl, navItem0El, navItem1El, dot0El, dot1El;
+  let exitOverlayEl;
 
   // ── State ─────────────────────────────────────────────────────────────────
   let count          = 0;
@@ -101,6 +102,12 @@
     if (p >= 0.5) triggerPanel1In();
     if (p <  0.42) resetPanel1();
 
+    // Exit overlay — fades in as section ends (progress 0.8 → 1)
+    if (exitOverlayEl) {
+      const exitT = Math.max(0, Math.min(1, (p - 0.8) / 0.2));
+      exitOverlayEl.style.opacity = String(exitT);
+    }
+
     rafId = requestAnimationFrame(frame);
   }
 
@@ -149,6 +156,9 @@
 
   <!-- Shared background grid -->
   <div class="bg-grid" aria-hidden="true"></div>
+
+  <!-- Exit fade-to-dark overlay -->
+  <div class="about-exit-overlay" bind:this={exitOverlayEl} aria-hidden="true"></div>
 
   <!-- Shared static watermark — lives outside both panels so it never moves -->
   <div class="watermark-shared" aria-hidden="true">ADEPTUS</div>
@@ -433,6 +443,17 @@
     height: 100vh;
     background: #1d2323;
     overflow: hidden;
+  }
+
+  /* ── Exit fade-to-dark overlay ────────────────────────────────────────── */
+  .about-exit-overlay {
+    position: absolute;
+    inset: 0;
+    background: #1d2323;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 100;
+    will-change: opacity;
   }
 
   /* ── Background grid ──────────────────────────────────────────────────── */
