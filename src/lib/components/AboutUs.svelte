@@ -1,854 +1,607 @@
 <script>
   import { onMount } from "svelte";
 
-  let aboutUsElement;
+  let sectionEl;
   let visible = false;
 
-  const verticals = [
-    { name: "Real Estate", icon: "🏢" },
-    { name: "Facilities Management", icon: "🔧" },
-    { name: "Government", icon: "🏛️" },
-    { name: "Construction & Contracting", icon: "🏗️" },
-    { name: "Educational Institutions", icon: "🎓" },
-    { name: "Heavy Machinery & Fleet", icon: "🚛" },
-    { name: "Manufacturing", icon: "🏭" },
-    { name: "Waste Management", icon: "♻️" },
-  ];
-
   onMount(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            visible = true;
-          }
-        });
+    const io = new IntersectionObserver(
+      ([e]) => {
+        if (e.isIntersecting) visible = true;
       },
-      { threshold: 0.1 }
+      { threshold: 0.05 },
     );
-
-    if (aboutUsElement) {
-      observer.observe(aboutUsElement);
-    }
-
-    return () => {
-      if (aboutUsElement) {
-        observer.unobserve(aboutUsElement);
-      }
-    };
+    if (sectionEl) io.observe(sectionEl);
+    return () => io.disconnect();
   });
 </script>
 
 <section
   id="about-us"
-  bind:this={aboutUsElement}
-  class="section-padding bg-white dark:bg-gray-900"
+  bind:this={sectionEl}
+  class="au-wrap"
+  class:au-vis={visible}
 >
-  <div class="container">
-    <!-- Section Header -->
-    <div class="text-center mb-16" class:animate-slide-up={visible}>
-      <div
-        class="inline-flex items-center px-4 py-2 bg-primary-100 dark:bg-primary-900/30 rounded-full text-primary-600 dark:text-primary-400 text-sm font-semibold mb-6"
-      >
-        <span class="w-2 h-2 bg-primary-500 rounded-full mr-2"></span>
-        About Us
-      </div>
-      <h2
-        class="text-3xl md:text-3xl lg:text-3xl font-bold text-gray-900 dark:text-white mb-8"
-      >
-        Adeptus Technologies
-      </h2>
-    </div>
+  <!-- ── Background grid (matches About.svelte) ── -->
+  <div class="au-bg-grid" aria-hidden="true"></div>
 
-    <!-- Main Content -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start mb-16">
-      <!-- Left Column - Company Overview -->
-      <div
-        class="space-y-8"
-        class:animate-slide-up={visible}
-        style="animation-delay: 0.2s;"
-      >
-        <div class="bg-gray-50 dark:bg-gray-800 rounded-2xl p-8">
-          <div class="flex items-center mb-6">
-            <div
-              class="w-12 h-12 bg-gradient-to-br from-primary-500 to-purple-500 rounded-xl flex items-center justify-center mr-4"
-            >
-              <svg
-                class="w-6 h-6 text-white"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M13 10V3L4 14h7v7l9-11h-7z"
-                />
-              </svg>
-            </div>
-            <h3
-              class="text-xl font-bold text-gray-900 dark:text-white capitalize"
-            >
-              Established IoT Provider
-            </h3>
-          </div>
+  <!-- ── Ambient glow behind the orb ── -->
+  <div class="au-bg-glow" aria-hidden="true"></div>
 
-          <p class="text-gray-600 dark:text-gray-300 leading-relaxed mb-6">
-            Adeptus Technologies is an extablished player in the IoT and Managed
-            Services domain. Our operations are driven by a talent pool of young
-            technology entrepreneurs and software developers with skills
-            entrenched in AI and Machine Learning.
-          </p>
+  <!-- ── Scan-line texture overlay ── -->
+  <div class="au-scanlines" aria-hidden="true"></div>
 
-          <p class="text-gray-600 dark:text-gray-300 leading-relaxed">
-            We are focused on delivering futuristic solutions for different
-            verticals from Real Estate, Facilities Management, Govt.,
-            Construction & Contracting, Educational Institutions, Heavy
-            Machinery & fleet, Manufacturing, Waste management entities amongst
-            others.
-          </p>
-        </div>
-      </div>
+  <!-- ── HUD corner frame brackets ── -->
+  <div class="au-hud" aria-hidden="true">
+    <span class="au-hud-tl"></span>
+    <span class="au-hud-tr"></span>
+    <span class="au-hud-bl"></span>
+    <span class="au-hud-br"></span>
+  </div>
 
-      <!-- Right Column - Made in UAE -->
-      <div
-        class="space-y-8"
-        class:animate-slide-up={visible}
-        style="animation-delay: 0.4s;"
-      >
-        <div
-          class="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-2xl p-8 border border-green-200 dark:border-green-800"
-        >
-          <div class="flex items-center mb-6">
-            <div class="text-3xl mr-4">🇦🇪</div>
-            <h3
-              class="text-xl font-bold text-gray-900 dark:text-white capitalize"
-            >
-              Made in UAE
-            </h3>
-          </div>
+  <!-- ════════════════════════════════════════════
+       GIANT BACKGROUND WORD — sits behind the orb
+  ════════════════════════════════════════════ -->
+  <div class="au-word" aria-hidden="true">
+    <span class="au-word-solid">About </span><span class="au-word-outline">Us</span>
+  </div>
 
-          <p class="text-gray-600 dark:text-gray-300 leading-relaxed mb-6">
-            Adeptus is proudly 'Made in UAE', in the sense our IoT platform, <strong
-              class="text-primary-600 dark:text-primary-400">Beconix AI</strong
-            >, is fully developed locally and in-house by our team of software
-            developers, based in the UAE.
-          </p>
-
-          <p class="text-gray-600 dark:text-gray-300 leading-relaxed">
-            We have a GCC-wide reach for addressing various client projects. Our
-            Head Office hosts an intelligent 24x7 Command and Control Centre,
-            powered by Beconix AI used by our operators to deliver managed
-            services.
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Verticals Grid -->
-    <div
-      class="mb-16"
-      class:animate-slide-up={visible}
-      style="animation-delay: 0.6s;"
+  <!-- ════════════════════════════════════════════
+       CENTER ORB — z-index 2, overlaps the word
+  ════════════════════════════════════════════ -->
+  <div class="au-orb-wrap">
+    <svg
+      class="au-orb-svg"
+      viewBox="0 0 440 440"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
     >
-      <h3
-        class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white text-center mb-12"
-      >
-        Industries We Serve
-      </h3>
-
-      <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-6">
-        {#each verticals as vertical, i}
-          <div
-            class="group bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100 dark:border-gray-700 text-center"
-            style="animation-delay: {0.7 + i * 0.05}s;"
-          >
-            <div
-              class="text-3xl mb-3 group-hover:scale-110 transition-transform duration-300"
-            >
-              {vertical.icon}
-            </div>
-            <h4
-              class="text-sm font-semibold text-gray-900 dark:text-white leading-tight"
-            >
-              {vertical.name}
-            </h4>
-          </div>
-        {/each}
-      </div>
-    </div>
-
-    <!-- Statistics Section -->
-    <div
-      class="mb-16 relative"
-      class:animate-slide-up={visible}
-      style="animation-delay: 0.8s;"
-    >
-      <!-- Background Design -->
-      <div class="absolute inset-0 rounded-3xl opacity-5">
-        <!-- Animated background gradient -->
-        <div
-          class="absolute inset-0 bg-gradient-to-r from-primary-500/10 via-purple-500/10 to-blue-500/10 rounded-3xl animate-pulse-gentle"
-        ></div>
-        <!-- Floating background elements -->
-        <div
-          class="absolute top-4 right-8 w-16 h-16 bg-primary-400/20 rounded-full animate-float"
-          style="animation-delay: 0.5s;"
-        ></div>
-        <div
-          class="absolute bottom-8 left-12 w-12 h-12 bg-purple-400/30 rounded-full animate-bounce-gentle"
-          style="animation-delay: 1.5s;"
-        ></div>
-        <div
-          class="absolute top-1/2 right-1/4 w-8 h-8 bg-blue-400/25 rounded-full animate-float"
-          style="animation-delay: 2.5s;"
-        ></div>
-      </div>
-      <div class="relative z-10 p-8 md:p-12">
-        <div class="text-center mb-16">
-          <div
-            class="inline-flex items-center px-4 py-2 bg-primary-100 dark:bg-primary-900/30 rounded-full text-primary-600 dark:text-primary-400 text-sm font-semibold mb-6"
-          >
-            <span class="w-2 h-2 bg-primary-500 rounded-full mr-2"></span>
-            Impact Metrics
-          </div>
-          <h3
-            class="text-3xl md:text-3xl font-bold text-gray-900 dark:text-white mb-6 hover:scale-105 transition-all duration-500 cursor-default"
-          >
-            Our Growing
-            <span
-              class="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-purple-600 hover:animate-shimmer relative overflow-hidden"
-            >
-              Footprint
-            </span>
-          </h3>
-          <p
-            class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed"
-          >
-            Our footprint is getting bigger by the day and as on date our
-            technology has achieved remarkable milestones
-          </p>
-        </div>
-
-        <!-- Central Feature with Surrounding Stats -->
-        <div class="relative max-w-6xl mx-auto">
-          <!-- Central Circle -->
-          <div
-            class="relative z-20 bg-gradient-to-br from-primary-600 to-purple-600 rounded-full w-48 h-48 md:w-64 md:h-64 mx-auto flex items-center justify-center text-white shadow-2xl hover:scale-110 transition-all duration-700 cursor-pointer animate-pulse-gentle hover:animate-glow"
-          >
-            <div class="text-center">
-              <div class="text-2xl md:text-3xl font-bold mb-2">UAE</div>
-              <div class="text-sm md:text-base opacity-90">Technology Hub</div>
-              <div class="text-xs md:text-sm opacity-75 mt-1">Since 2019</div>
-            </div>
-          </div>
-
-          <!-- Floating Stats Cards -->
-          <div class="absolute inset-0 z-10">
-            <!-- Top Left -->
-            <div
-              class="absolute top-0 left-0 md:left-8 lg:left-16 transform -translate-y-4 lg:-translate-y-8"
-            >
-              <div
-                class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-xl border border-blue-200 dark:border-blue-800 group hover:scale-105 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 hover:animate-glow cursor-pointer"
-              >
-                <div class="flex items-center space-x-3">
-                  <div
-                    class="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-12 transition-all duration-500"
-                  >
-                    <div class="text-2xl group-hover:animate-bounce-gentle">
-                      🏢
-                    </div>
-                  </div>
-                  <div>
-                    <div
-                      class="text-2xl font-bold text-blue-600 dark:text-blue-400 group-hover:animate-number-pop relative overflow-hidden"
-                    >
-                      <span class="relative z-10">25M+</span>
-                      <div
-                        class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:animate-shimmer"
-                      ></div>
-                    </div>
-                    <div
-                      class="text-sm font-medium text-gray-700 dark:text-gray-300"
-                    >
-                      Sq.Ft. Served
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Top Right -->
-            <div
-              class="absolute top-0 right-0 md:right-8 lg:right-16 transform -translate-y-4 lg:-translate-y-8"
-            >
-              <div
-                class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-xl border border-green-200 dark:border-green-800 group hover:scale-105 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 hover:animate-glow cursor-pointer"
-              >
-                <div class="flex items-center space-x-3">
-                  <div
-                    class="w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-12 transition-all duration-500"
-                  >
-                    <div class="text-2xl group-hover:animate-bounce-gentle">
-                      🏗️
-                    </div>
-                  </div>
-                  <div>
-                    <div
-                      class="text-2xl font-bold text-green-600 dark:text-green-400 group-hover:animate-number-pop relative overflow-hidden"
-                    >
-                      <span class="relative z-10">100+</span>
-                      <div
-                        class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:animate-shimmer"
-                      ></div>
-                    </div>
-                    <div
-                      class="text-sm font-medium text-gray-700 dark:text-gray-300"
-                    >
-                      Buildings
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Bottom Left -->
-            <div
-              class="absolute bottom-0 left-0 md:left-8 lg:left-16 transform translate-y-4 lg:translate-y-8"
-            >
-              <div
-                class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-xl border border-purple-200 dark:border-purple-800 group hover:scale-105 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 hover:animate-glow cursor-pointer"
-              >
-                <div class="flex items-center space-x-3">
-                  <div
-                    class="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-12 transition-all duration-500"
-                  >
-                    <div class="text-2xl group-hover:animate-bounce-gentle">
-                      ⚙️
-                    </div>
-                  </div>
-                  <div>
-                    <div
-                      class="text-2xl font-bold text-purple-600 dark:text-purple-400 group-hover:animate-number-pop relative overflow-hidden"
-                    >
-                      <span class="relative z-10">10K+</span>
-                      <div
-                        class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:animate-shimmer"
-                      ></div>
-                    </div>
-                    <div
-                      class="text-sm font-medium text-gray-700 dark:text-gray-300"
-                    >
-                      Assets
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Bottom Right -->
-            <div
-              class="absolute bottom-0 right-0 md:right-8 lg:right-16 transform translate-y-4 lg:translate-y-8"
-            >
-              <div
-                class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-xl border border-orange-200 dark:border-orange-800 group hover:scale-105 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 hover:animate-glow cursor-pointer"
-              >
-                <div class="flex items-center space-x-3">
-                  <div
-                    class="w-12 h-12 bg-orange-100 dark:bg-orange-900/30 rounded-xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-12 transition-all duration-500"
-                  >
-                    <div class="text-2xl group-hover:animate-bounce-gentle">
-                      👥
-                    </div>
-                  </div>
-                  <div>
-                    <div
-                      class="text-2xl font-bold text-orange-600 dark:text-orange-400 group-hover:animate-number-pop relative overflow-hidden"
-                    >
-                      <span class="relative z-10">500K+</span>
-                      <div
-                        class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:animate-shimmer"
-                      ></div>
-                    </div>
-                    <div
-                      class="text-sm font-medium text-gray-700 dark:text-gray-300"
-                    >
-                      Residents
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Connecting Lines and Animated Elements -->
-          <div class="absolute inset-0 z-0 hidden lg:block">
-            <!-- Animated connecting paths -->
-            <svg class="w-full h-full opacity-30" viewBox="0 0 400 300">
-              <!-- Diagonal connecting lines -->
-              <path
-                d="M100 100 Q200 150 300 100"
-                stroke="url(#gradient)"
-                stroke-width="3"
-                fill="none"
-                stroke-dasharray="8,8"
-              >
-                <animate
-                  attributeName="stroke-dashoffset"
-                  values="0;16"
-                  dur="3s"
-                  repeatCount="indefinite"
-                />
-              </path>
-              <path
-                d="M100 200 Q200 150 300 200"
-                stroke="url(#gradient)"
-                stroke-width="3"
-                fill="none"
-                stroke-dasharray="8,8"
-              >
-                <animate
-                  attributeName="stroke-dashoffset"
-                  values="16;0"
-                  dur="3s"
-                  repeatCount="indefinite"
-                />
-              </path>
-              <!-- Cross connecting lines -->
-              <path
-                d="M100 100 Q200 150 300 200"
-                stroke="url(#gradient2)"
-                stroke-width="2"
-                fill="none"
-                stroke-dasharray="5,10"
-                opacity="0.5"
-              >
-                <animate
-                  attributeName="stroke-dashoffset"
-                  values="0;15"
-                  dur="4s"
-                  repeatCount="indefinite"
-                />
-              </path>
-              <path
-                d="M300 100 Q200 150 100 200"
-                stroke="url(#gradient2)"
-                stroke-width="2"
-                fill="none"
-                stroke-dasharray="5,10"
-                opacity="0.5"
-              >
-                <animate
-                  attributeName="stroke-dashoffset"
-                  values="15;0"
-                  dur="4s"
-                  repeatCount="indefinite"
-                />
-              </path>
-              <defs>
-                <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" style="stop-color:#f97316;stop-opacity:1" />
-                  <stop
-                    offset="50%"
-                    style="stop-color:#facc15;stop-opacity:1"
-                  />
-                  <stop
-                    offset="100%"
-                    style="stop-color:#a855f7;stop-opacity:1"
-                  />
-                </linearGradient>
-                <linearGradient
-                  id="gradient2"
-                  x1="0%"
-                  y1="0%"
-                  x2="100%"
-                  y2="100%"
-                >
-                  <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
-                  <stop
-                    offset="100%"
-                    style="stop-color:#10b981;stop-opacity:1"
-                  />
-                </linearGradient>
-              </defs>
-            </svg>
-
-            <!-- Floating particles -->
-            <div
-              class="absolute top-1/4 left-1/3 w-3 h-3 bg-primary-400 rounded-full animate-float opacity-60"
-              style="animation-delay: 1s;"
-            ></div>
-            <div
-              class="absolute top-3/4 right-1/3 w-2 h-2 bg-purple-400 rounded-full animate-bounce-gentle opacity-40"
-              style="animation-delay: 2s;"
-            ></div>
-            <div
-              class="absolute top-1/2 left-1/4 w-4 h-4 bg-blue-400 rounded-full animate-pulse-gentle opacity-50"
-              style="animation-delay: 3s;"
-            ></div>
-            <div
-              class="absolute bottom-1/4 right-1/4 w-3 h-3 bg-green-400 rounded-full animate-float opacity-45"
-              style="animation-delay: 4s;"
-            ></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Client Success & Awards -->
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <!-- Client Savings -->
-        <div class=" rounded-2xl p-8">
-          <div class="flex items-center mb-6">
-            <div
-              class="w-12 h-12 bg-gradient-to-br from-emerald-500 to-green-500 rounded-xl flex items-center justify-center mr-4"
-            >
-              <svg
-                class="w-6 h-6 text-white"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
-                />
-              </svg>
-            </div>
-            <h4
-              class="text-xl font-bold text-gray-900 dark:text-white capitalize"
-            >
-              Client Success
-            </h4>
-          </div>
-          <div
-            class="text-5xl font-bold text-emerald-600 dark:text-emerald-400 mb-4"
-          >
-            50%+
-          </div>
-          <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
-            Feedback from clients has been very encouraging so far, as they have
-            seen significant savings in energy consumption, in many cases, more
-            than <strong>50% savings in overall OPEX</strong>.
-          </p>
-        </div>
-
-        <!-- Award Recognition -->
-        <div class=" p-8">
-          <div class="flex items-center mb-6">
-            <div
-              class="w-12 h-12 bg-gradient-to-br from-amber-500 to-yellow-500 rounded-xl flex items-center justify-center mr-4"
-            >
-              <svg
-                class="w-6 h-6 text-white"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"
-                />
-              </svg>
-            </div>
-            <h4
-              class="text-xl font-bold text-gray-900 dark:text-white capitalize"
-            >
-              Industry Recognition
-            </h4>
-          </div>
-          <div
-            class="text-2xl font-bold text-amber-600 dark:text-amber-400 mb-4"
-          >
-            Top FM Supplier 2019
-          </div>
-          <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
-            We have been voted one of the <strong
-              >Top FM Suppliers for 2019</strong
-            >
-            (technology vendor), by
-            <em>Facilities Management ME (ITP Media Group)</em>.
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Beconix AI Platform Showcase -->
-    <div
-      class="relative"
-      class:animate-fade-in={visible}
-      style="animation-delay: 1.0s;"
-    >
-      <div class="text-center mb-12">
-        <div
-          class="inline-flex items-center px-4 py-2 bg-primary-100 dark:bg-primary-900/30 rounded-full text-primary-600 dark:text-primary-400 text-sm font-semibold mb-6"
+      <defs>
+        <!-- Sphere gradient: bright top-left → dark edges -->
+        <radialGradient
+          id="auSphere"
+          cx="37%"
+          cy="31%"
+          r="63%"
+          fx="37%"
+          fy="31%"
         >
-          <span class="w-2 h-2 bg-primary-500 rounded-full mr-2"></span>
-          Our Platform
-        </div>
-        <h3
-          class="text-3xl md:text-3xl font-bold text-gray-900 dark:text-white mb-6"
-        >
-          Meet
-          <span
-            class="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-purple-600"
-          >
-            Beconix AI
-          </span>
-        </h3>
-        <p
-          class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed"
-        >
-          Our flagship IoT platform, powering intelligent building management
-          and 24x7 command & control operations across the GCC region.
-        </p>
-      </div>
+          <stop offset="0%" stop-color="#ffb460" />
+          <stop offset="14%" stop-color="#F45E2A" />
+          <stop offset="44%" stop-color="#c03c10" stop-opacity=".92" />
+          <stop offset="70%" stop-color="#6a1e08" stop-opacity=".78" />
+          <stop offset="100%" stop-color="#1a0804" stop-opacity=".3" />
+        </radialGradient>
+        <!-- Inner halo -->
+        <radialGradient id="auHalo" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#F45E2A" stop-opacity=".28" />
+          <stop offset="55%" stop-color="#F45E2A" stop-opacity=".08" />
+          <stop offset="100%" stop-color="#F45E2A" stop-opacity="0" />
+        </radialGradient>
+        <!-- Wide outer glow -->
+        <radialGradient id="auOuter" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#F45E2A" stop-opacity=".11" />
+          <stop offset="100%" stop-color="#F45E2A" stop-opacity="0" />
+        </radialGradient>
+        <!-- Glow filter for nodes -->
+        <filter id="auGlow" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="3" result="blur" />
+          <feMerge>
+            <feMergeNode in="blur" />
+            <feMergeNode in="SourceGraphic" />
+          </feMerge>
+        </filter>
+        <!-- Soft glow filter for the orb sphere -->
+        <filter id="auSphereGlow" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur stdDeviation="6" result="blur" />
+          <feMerge>
+            <feMergeNode in="blur" />
+            <feMergeNode in="SourceGraphic" />
+          </feMerge>
+        </filter>
+      </defs>
 
-      <!-- Platform Features Grid -->
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
-        <!-- Left: Platform Overview -->
-        <div class="space-y-6">
-          <div
-            class="bg-gradient-to-br from-cyan-50 to-blue-50 dark:from-cyan-900/20 dark:to-blue-900/20 rounded-3xl p-8 border border-cyan-200 dark:border-cyan-800 relative overflow-hidden"
-          >
-            <!-- Decorative elements -->
-            <div
-              class="absolute top-0 right-0 w-24 h-24 bg-cyan-300/20 rounded-full -translate-y-8 translate-x-8"
-            ></div>
-            <div
-              class="absolute bottom-0 left-0 w-16 h-16 bg-blue-300/20 rounded-full translate-y-6 -translate-x-6"
-            ></div>
+      <!-- Wide ambient -->
+      <circle cx="220" cy="220" r="210" fill="url(#auOuter)" />
 
-            <div class="relative z-10">
-              <div class="flex items-center mb-6">
-                <div
-                  class="w-16 h-16 bg-gradient-to-br from-cyan-500 to-blue-500 rounded-2xl flex items-center justify-center mr-4"
-                >
-                  <svg
-                    class="w-8 h-8 text-white"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                    />
-                  </svg>
-                </div>
-                <div>
-                  <h4
-                    class="text-2xl font-bold text-gray-900 dark:text-white capitalize"
-                  >
-                    Intelligent Control
-                  </h4>
-                  <p class="text-cyan-600 dark:text-cyan-400 font-medium">
-                    Real-time Monitoring
-                  </p>
-                </div>
-              </div>
+      <!-- Inner halo -->
+      <circle cx="220" cy="220" r="158" fill="url(#auHalo)" />
 
-              <p class="text-gray-600 dark:text-gray-300 leading-relaxed mb-6">
-                Advanced AI-powered platform that seamlessly integrates with
-                building systems to provide comprehensive monitoring, control,
-                and automation capabilities.
-              </p>
+      <!-- Bokeh spots -->
+      <circle cx="292" cy="128" r="24" fill="#F45E2A" fill-opacity=".055" />
+      <circle cx="138" cy="305" r="17" fill="#F45E2A" fill-opacity=".045" />
+      <circle cx="335" cy="315" r="13" fill="#ff8c5a" fill-opacity=".035" />
+      <circle cx="110" cy="148" r="10" fill="#F45E2A" fill-opacity=".03" />
 
-              <div class="grid grid-cols-2 gap-4">
-                <div
-                  class="text-center p-4 bg-white/50 dark:bg-gray-800/50 rounded-xl"
-                >
-                  <div
-                    class="text-2xl font-bold text-cyan-600 dark:text-cyan-400"
-                  >
-                    AI-Driven
-                  </div>
-                  <div class="text-sm text-gray-600 dark:text-gray-400">
-                    Analytics
-                  </div>
-                </div>
-                <div
-                  class="text-center p-4 bg-white/50 dark:bg-gray-800/50 rounded-xl"
-                >
-                  <div
-                    class="text-2xl font-bold text-blue-600 dark:text-blue-400"
-                  >
-                    Cloud-Based
-                  </div>
-                  <div class="text-sm text-gray-600 dark:text-gray-400">
-                    Infrastructure
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+      <!-- ── Innermost orbit ring (new — adds depth) ── -->
+      <circle
+        cx="220"
+        cy="220"
+        r="128"
+        fill="none"
+        stroke="#F45E2A"
+        stroke-opacity=".12"
+        stroke-width=".6"
+        stroke-dasharray="2 14"
+        class="au-ring-cw"
+      />
 
-        <!-- Right: Key Capabilities -->
-        <div class="space-y-6">
-          <div class="grid grid-cols-1 gap-6">
-            <!-- 24/7 Command Center -->
-            <div
-              class="group bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700"
-            >
-              <div class="flex items-center space-x-4">
-                <div
-                  class="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-500 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform"
-                >
-                  <svg
-                    class="w-6 h-6 text-white"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                    />
-                  </svg>
-                </div>
-                <div>
-                  <h5
-                    class="text-lg font-bold text-gray-900 dark:text-white capitalize"
-                  >
-                    24/7 Command Center
-                  </h5>
-                  <p class="text-gray-600 dark:text-gray-300 text-sm">
-                    Round-the-clock monitoring and support
-                  </p>
-                </div>
-              </div>
-            </div>
+      <!-- ── Main sphere ── -->
+      <circle cx="220" cy="220" r="112" fill="url(#auSphere)" />
 
-            <!-- GCC-Wide Reach -->
-            <div
-              class="group bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700"
-            >
-              <div class="flex items-center space-x-4">
-                <div
-                  class="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform"
-                >
-                  <svg
-                    class="w-6 h-6 text-white"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                    />
-                  </svg>
-                </div>
-                <div>
-                  <h5
-                    class="text-lg font-bold text-gray-900 dark:text-white capitalize"
-                  >
-                    GCC-Wide Reach
-                  </h5>
-                  <p class="text-gray-600 dark:text-gray-300 text-sm">
-                    Regional coverage and scalability
-                  </p>
-                </div>
-              </div>
-            </div>
+      <!-- Crystalline facet lines -->
+      <line x1="144" y1="170" x2="220" y2="220" stroke="#ffa050" stroke-opacity=".22" stroke-width=".9" />
+      <line x1="296" y1="153" x2="220" y2="220" stroke="#ffa050" stroke-opacity=".20" stroke-width=".9" />
+      <line x1="134" y1="272" x2="220" y2="220" stroke="#ffa050" stroke-opacity=".17" stroke-width=".8" />
+      <line x1="310" y1="290" x2="220" y2="220" stroke="#ffa050" stroke-opacity=".14" stroke-width=".8" />
+      <line x1="220" y1="110" x2="220" y2="220" stroke="#ffa050" stroke-opacity=".19" stroke-width=".9" />
+      <line x1="163" y1="315" x2="220" y2="220" stroke="#ffa050" stroke-opacity=".11" stroke-width=".7" />
+      <line x1="318" y1="178" x2="220" y2="220" stroke="#ffa050" stroke-opacity=".13" stroke-width=".7" />
 
-            <!-- Made in UAE -->
-            <div
-              class="group bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700"
-            >
-              <div class="flex items-center space-x-4">
-                <div
-                  class="w-12 h-12 bg-gradient-to-br from-amber-500 to-orange-500 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform"
-                >
-                  <div class="text-xl">🇦🇪</div>
-                </div>
-                <div>
-                  <h5
-                    class="text-lg font-bold text-gray-900 dark:text-white capitalize"
-                  >
-                    100% Made in UAE
-                  </h5>
-                  <p class="text-gray-600 dark:text-gray-300 text-sm">
-                    Locally developed and supported
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <!-- Crystalline facet polygons -->
+      <polygon points="164,178 186,190 177,166" fill="#ffb460" fill-opacity=".18" />
+      <polygon points="260,148 280,161 264,138" fill="#ffb460" fill-opacity=".14" />
+      <polygon points="154,252 175,242 161,270" fill="#ffb460" fill-opacity=".1" />
+      <polygon points="292,264 308,248 316,274" fill="#ffb460" fill-opacity=".09" />
 
-      <!-- Platform Stats -->
-      <div
-        class="bg-gradient-to-r from-gray-900 to-gray-800 dark:from-gray-800 dark:to-gray-900 rounded-3xl p-8 md:p-12 text-white relative overflow-hidden"
-      >
-        <!-- Background pattern -->
-        <div class="absolute inset-0 opacity-10">
-          <svg class="w-full h-full" viewBox="0 0 100 100">
-            <defs>
-              <pattern
-                id="grid"
-                width="10"
-                height="10"
-                patternUnits="userSpaceOnUse"
-              >
-                <path
-                  d="M 10 0 L 0 0 0 10"
-                  fill="none"
-                  stroke="white"
-                  stroke-width="0.5"
-                />
-              </pattern>
-            </defs>
-            <rect width="100" height="100" fill="url(#grid)" />
-          </svg>
-        </div>
+      <!-- Specular highlight -->
+      <circle cx="176" cy="165" r="22" fill="rgba(255,190,120,.26)" />
+      <circle cx="169" cy="158" r="11" fill="rgba(255,218,168,.43)" />
+      <circle cx="166" cy="155" r="5" fill="rgba(255,240,210,.62)" />
 
-        <div class="relative z-10 text-center">
-          <h4 class="text-2xl md:text-2xl font-bold mb-6 capitalize">
-            Powering Smart Buildings Across the Region
-          </h4>
-          <p class="text-gray-300 text-lg mb-8 max-w-3xl mx-auto">
-            Beconix AI integrates seamlessly with existing infrastructure to
-            deliver unprecedented insights and control capabilities.
-          </p>
+      <!-- Sphere edge vignette -->
+      <circle cx="220" cy="220" r="112" fill="none" stroke="rgba(100,38,12,.4)" stroke-width="2.5" />
 
-          <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div class="text-center">
-              <div class="text-3xl font-bold text-cyan-400 mb-2">Real-time</div>
-              <div class="text-gray-300 text-sm">Data Processing</div>
-            </div>
-            <div class="text-center">
-              <div class="text-3xl font-bold text-blue-400 mb-2">
-                Predictive
-              </div>
-              <div class="text-gray-300 text-sm">Maintenance</div>
-            </div>
-            <div class="text-center">
-              <div class="text-3xl font-bold text-purple-400 mb-2">
-                Automated
-              </div>
-              <div class="text-gray-300 text-sm">Controls</div>
-            </div>
-            <div class="text-center">
-              <div class="text-3xl font-bold text-emerald-400 mb-2">Energy</div>
-              <div class="text-gray-300 text-sm">Optimization</div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <!-- ── Outer rotating ring ── -->
+      <circle
+        cx="220"
+        cy="220"
+        r="150"
+        fill="none"
+        stroke="#F45E2A"
+        stroke-opacity=".65"
+        stroke-width="1.5"
+        class="au-ring-cw"
+      />
+
+      <!-- ── Second ring — dashed, counter-rotate ── -->
+      <circle
+        cx="220"
+        cy="220"
+        r="164"
+        fill="none"
+        stroke="#F45E2A"
+        stroke-opacity=".22"
+        stroke-width=".8"
+        stroke-dasharray="5 9"
+        class="au-ring-ccw"
+      />
+
+      <!-- Ring cardinal tick marks -->
+      <line x1="220" y1="68" x2="220" y2="58" stroke="#F45E2A" stroke-opacity=".7" stroke-width="1.5" />
+      <line x1="220" y1="372" x2="220" y2="382" stroke="#F45E2A" stroke-opacity=".7" stroke-width="1.5" />
+      <line x1="68" y1="220" x2="58" y2="220" stroke="#F45E2A" stroke-opacity=".7" stroke-width="1.5" />
+      <line x1="372" y1="220" x2="382" y2="220" stroke="#F45E2A" stroke-opacity=".7" stroke-width="1.5" />
+
+      <!-- Ring 45-degree marks -->
+      <line x1="326" y1="114" x2="333" y2="107" stroke="#F45E2A" stroke-opacity=".45" stroke-width="1.2" />
+      <line x1="114" y1="114" x2="107" y2="107" stroke="#F45E2A" stroke-opacity=".35" stroke-width="1" />
+      <line x1="114" y1="326" x2="107" y2="333" stroke="#F45E2A" stroke-opacity=".45" stroke-width="1.2" />
+      <line x1="326" y1="326" x2="333" y2="333" stroke="#F45E2A" stroke-opacity=".35" stroke-width="1" />
+
+      <!-- Orbit nodes -->
+      <circle cx="316" cy="114" r="4" fill="#F45E2A" fill-opacity=".85" filter="url(#auGlow)" class="au-np" />
+      <circle cx="124" cy="124" r="2.8" fill="#F45E2A" fill-opacity=".55" />
+      <circle cx="344" cy="297" r="3.2" fill="#F45E2A" fill-opacity=".72" />
+      <circle cx="96" cy="320" r="2" fill="#F45E2A" fill-opacity=".48" />
+      <circle cx="220" cy="68" r="2.5" fill="#F45E2A" fill-opacity=".65" />
+      <circle cx="380" cy="220" r="2.2" fill="#F45E2A" fill-opacity=".5" />
+
+      <!-- Center core -->
+      <circle cx="220" cy="220" r="7" fill="#ffb460" fill-opacity=".9" />
+      <circle cx="220" cy="220" r="3.5" fill="#fff" fill-opacity=".85" />
+    </svg>
+  </div>
+
+  <!-- ════════════════════════════════════════════
+       CONNECTOR LINES — block edges → orb ring
+  ════════════════════════════════════════════ -->
+  <svg
+    class="au-lines"
+    viewBox="0 0 100 100"
+    preserveAspectRatio="none"
+    aria-hidden="true"
+  >
+    <!-- TL block → orb top-left ring -->
+    <line
+      x1="26"
+      y1="16"
+      x2="39"
+      y2="36"
+      stroke="#F45E2A"
+      stroke-opacity=".28"
+      stroke-width=".12"
+      vector-effect="non-scaling-stroke"
+    />
+    <!-- BR block → orb bottom-right ring -->
+    <line
+      x1="74"
+      y1="84"
+      x2="61"
+      y2="64"
+      stroke="#F45E2A"
+      stroke-opacity=".28"
+      stroke-width=".12"
+      vector-effect="non-scaling-stroke"
+    />
+    <!-- Terminal dots at orb ring end -->
+    <circle cx="39" cy="36" r=".38" fill="#F45E2A" fill-opacity=".65" />
+    <circle cx="61" cy="64" r=".38" fill="#F45E2A" fill-opacity=".65" />
+    <!-- Start dots at block edges -->
+    <circle cx="26" cy="16" r=".28" fill="#F45E2A" fill-opacity=".4" />
+    <circle cx="74" cy="84" r=".28" fill="#F45E2A" fill-opacity=".4" />
+  </svg>
+
+  <!-- ════════════════════════════════════════════
+       CORNER TEXT BLOCKS
+  ════════════════════════════════════════════ -->
+
+  <!-- TOP LEFT — Synopsis -->
+  <div class="au-block au-tl au-anim" style="--d:0s">
+    <div class="au-label-row">
+      <span class="au-dash"></span>
+      <span class="au-label"><strong>Established</strong> IoT Provider</span>
     </div>
+    <p class="au-body">
+      Adeptus Technologies is an established player in the IoT and Managed
+      Services domain. Our operations are driven by a talent pool of young
+      technology entrepreneurs and software developers with skills entrenched
+      in AI and Machine Learning.
+    </p>
+    <p class="au-body">
+      We are focused on delivering futuristic solutions for different verticals
+      from Real Estate, Facilities Management, Govt., Construction &amp;
+      Contracting, Educational Institutions, Heavy Machinery &amp; Fleet,
+      Manufacturing, Waste Management entities amongst others.
+    </p>
+  </div>
+
+  <!-- BOTTOM RIGHT — History -->
+  <div class="au-block au-br au-anim" style="--d:.1s">
+    <div class="au-label-row">
+      <span class="au-dash"></span>
+      <span class="au-label">🇦🇪 <strong>Made</strong> in UAE</span>
+    </div>
+    <p class="au-body">
+      Adeptus is proudly 'Made in UAE', in the sense our IoT platform, <span class="au-primary">Beconix
+      AI</span>, is fully developed locally and in-house by our team of software
+      developers, based in the UAE.
+    </p>
+    <p class="au-body">
+      We have a GCC-wide reach for addressing various client projects. Our Head
+      Office hosts an intelligent 24×7 Command and Control Centre, powered by
+      <span class="au-primary">Beconix AI</span> used by our operators to deliver managed services.
+    </p>
   </div>
 </section>
+
+<style>
+  /* ── Section ───────────────────────────────────────────────────────────── */
+  .au-wrap {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background: #1d2323;
+    overflow: hidden;
+  }
+
+  /* ── Background grid (identical to About.svelte) ──────────────────────── */
+  .au-bg-grid {
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(
+        rgba(244, 94, 42, 0.03) 1px,
+        transparent 1px
+      ),
+      linear-gradient(90deg, rgba(244, 94, 42, 0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── Ambient center glow — pulses gently ───────────────────────────────── */
+  .au-bg-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70vw;
+    height: 70vh;
+    background: radial-gradient(
+      ellipse at center,
+      rgba(244, 94, 42, 0.13) 0%,
+      transparent 62%
+    );
+    pointer-events: none;
+    z-index: 0;
+    animation: auGlowPulse 6s ease-in-out infinite;
+  }
+
+  /* ── Subtle scan-line texture ──────────────────────────────────────────── */
+  .au-scanlines {
+    position: absolute;
+    inset: 0;
+    background-image: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 3px,
+      rgba(0, 0, 0, 0.045) 3px,
+      rgba(0, 0, 0, 0.045) 4px
+    );
+    pointer-events: none;
+    z-index: 9;
+  }
+
+  /* ── HUD frame corner brackets ─────────────────────────────────────────── */
+  .au-hud {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 8;
+  }
+  .au-hud-tl,
+  .au-hud-tr,
+  .au-hud-bl,
+  .au-hud-br {
+    position: absolute;
+    width: 22px;
+    height: 22px;
+  }
+  .au-hud-tl {
+    top: 18px;
+    left: 18px;
+    border-top: 1px solid rgba(244, 94, 42, 0.5);
+    border-left: 1px solid rgba(244, 94, 42, 0.5);
+  }
+  .au-hud-tr {
+    top: 18px;
+    right: 18px;
+    border-top: 1px solid rgba(244, 94, 42, 0.5);
+    border-right: 1px solid rgba(244, 94, 42, 0.5);
+  }
+  .au-hud-bl {
+    bottom: 18px;
+    left: 18px;
+    border-bottom: 1px solid rgba(244, 94, 42, 0.5);
+    border-left: 1px solid rgba(244, 94, 42, 0.5);
+  }
+  .au-hud-br {
+    bottom: 18px;
+    right: 18px;
+    border-bottom: 1px solid rgba(244, 94, 42, 0.5);
+    border-right: 1px solid rgba(244, 94, 42, 0.5);
+  }
+
+  /* ── Giant background word — matches About.svelte heading style ─────────── */
+  .au-word {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -56%);
+    white-space: nowrap;
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 1.4s cubic-bezier(0.4, 0, 0.2, 1) 0.06s;
+  }
+  .au-vis .au-word {
+    opacity: 1;
+  }
+  .au-word-solid,
+  .au-word-outline {
+    display: inline;
+    font-size: clamp(5rem, 15vw, 14rem);
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  /* "About" — solid white, same as "Our" */
+  .au-word-solid {
+    color: #fff;
+  }
+  /* "Us" — stroke only, same as "Mission." */
+  .au-word-outline {
+    -webkit-text-stroke: 2px rgba(255, 255, 255, 0.45);
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  /* ── Orb container — breathing glow ────────────────────────────────────── */
+  .au-orb-wrap {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: clamp(260px, 40vw, 560px);
+    height: clamp(260px, 40vw, 560px);
+    z-index: 2;
+    animation: auOrbGlow 4.5s ease-in-out infinite;
+  }
+  .au-orb-svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  /* Rotating rings */
+  .au-ring-cw {
+    transform-origin: 220px 220px;
+    animation: auRotateCW 14s linear infinite;
+  }
+  .au-ring-ccw {
+    transform-origin: 220px 220px;
+    animation: auRotateCCW 22s linear infinite;
+  }
+  .au-np {
+    animation: auNodePulse 2.8s ease-in-out infinite;
+  }
+
+  /* ── Full-viewport connector lines ─────────────────────────────────────── */
+  .au-lines {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 3;
+  }
+
+  /* ── Corner blocks — left accent border + glass tint ───────────────────── */
+  .au-block {
+    position: absolute;
+    z-index: 4;
+    max-width: clamp(200px, 18vw, 270px);
+    border-left: 2px solid rgba(244, 94, 42, 0.38);
+    padding-left: 1.1rem;
+    background: rgba(244, 94, 42, 0.025);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+  .au-tl {
+    top: 5%;
+    left: 4%;
+    max-width: 350px;
+  }
+  .au-br {
+    bottom: 5%;
+    right: 4%;
+    max-width: 350px;
+  }
+
+  /* ── Label row ──────────────────────────────────────────────────────────── */
+  .au-label-row {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    margin-bottom: 0.65rem;
+  }
+  .au-dash {
+    width: 16px;
+    height: 2px;
+    background: linear-gradient(90deg, #f45e2a, rgba(244, 94, 42, 0.4));
+    flex-shrink: 0;
+  }
+  .au-label {
+    font-size: clamp(0.58rem, 0.8vw, 0.68rem);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.82);
+    font-weight: 400;
+  }
+  .au-label strong {
+    font-weight: 800;
+  }
+
+  /* ── Body copy ──────────────────────────────────────────────────────────── */
+  .au-body {
+    font-size: clamp(0.62rem, 0.82vw, 0.73rem);
+    color: rgba(255, 255, 255, 0.42);
+    line-height: 1.8;
+    font-weight: 300;
+    margin-bottom: 0.9rem;
+  }
+  .au-primary {
+    color: #f45e2a;
+  }
+
+  /* ── Entrance animations ────────────────────────────────────────────────── */
+  .au-anim {
+    opacity: 0;
+    transform: translateY(18px);
+    transition:
+      opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1) var(--d, 0s),
+      transform 0.9s cubic-bezier(0.4, 0, 0.2, 1) var(--d, 0s);
+  }
+  .au-vis .au-anim {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── Keyframes ──────────────────────────────────────────────────────────── */
+  @keyframes auGlowPulse {
+    0%,
+    100% {
+      opacity: 0.75;
+      transform: translate(-50%, -50%) scale(1);
+    }
+    50% {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1.18);
+    }
+  }
+  @keyframes auOrbGlow {
+    0%,
+    100% {
+      filter: drop-shadow(0 0 24px rgba(244, 94, 42, 0.2));
+    }
+    50% {
+      filter: drop-shadow(0 0 52px rgba(244, 94, 42, 0.48));
+    }
+  }
+  @keyframes auRotateCW {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes auRotateCCW {
+    to {
+      transform: rotate(-360deg);
+    }
+  }
+  @keyframes auNodePulse {
+    0%,
+    100% {
+      opacity: 0.85;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.3;
+      transform: scale(1.8);
+    }
+  }
+
+  /* ── Responsive ─────────────────────────────────────────────────────────── */
+  @media (max-width: 900px) {
+    .au-orb-wrap {
+      width: clamp(200px, 65vw, 380px);
+      height: clamp(200px, 65vw, 380px);
+    }
+    .au-block {
+      max-width: 160px;
+    }
+    .au-tl {
+      top: 3%;
+      left: 3%;
+    }
+    .au-br {
+      bottom: 3%;
+      right: 3%;
+    }
+    .au-word {
+      font-size: clamp(4rem, 18vw, 9rem);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .au-block {
+      display: none;
+    }
+    .au-orb-wrap {
+      width: 80vw;
+      height: 80vw;
+    }
+  }
+</style>
