@@ -1,14 +1,89 @@
 <script>
   import { onMount } from "svelte";
 
+  // ── AboutUs orb ──────────────────────────────────────────────
   let sectionEl;
   let visible = false;
 
+  // ── Industries We Serve ──────────────────────────────────────
   let industryEl;
   let iwsVisible = false;
 
+  // ── Impact Metrics ───────────────────────────────────────────
   let impactEl;
   let impactVisible = false;
+
+  // ── Beconix AI — sticky 2-panel scroll section ───────────────
+  let baiOuterEl;
+  let baiPanel0El, baiPanel1El;
+  let baiNavFillEl, baiNavIndicatorEl;
+  let baiNav0El, baiNav1El, baiDot0El, baiDot1El;
+  let baiExitEl;
+  let baiPanel1Done = false;
+  let baiTarget = 0, baiLerp = 0, baiRaf = null;
+
+
+  function baiScrollTo(i) {
+    if (!baiOuterEl) return;
+    const top = baiOuterEl.getBoundingClientRect().top + window.scrollY;
+    window.scrollTo({ top: top + i * window.innerHeight, behavior: 'smooth' });
+  }
+
+  function trigBaiP1() {
+    if (baiPanel1Done || !baiPanel1El) return;
+    baiPanel1Done = true;
+    baiPanel1El.querySelectorAll('.bai-a1').forEach((el, i) => {
+      setTimeout(() => {
+        el.style.transition = 'opacity .85s cubic-bezier(.22,1,.36,1),transform .85s cubic-bezier(.22,1,.36,1)';
+        el.style.opacity    = '1';
+        el.style.transform  = 'translateY(0) scale(1)';
+      }, i * 95);
+    });
+  }
+
+  function resetBaiP1() {
+    if (!baiPanel1Done || !baiPanel1El) return;
+    baiPanel1Done = false;
+    baiPanel1El.querySelectorAll('.bai-a1').forEach(el => {
+      el.style.transition = 'none';
+      el.style.opacity    = '0';
+      el.style.transform  = 'translateY(30px) scale(.97)';
+    });
+  }
+
+  const _baiCl   = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
+  const _baiEio  = t => t < 0.5 ? 2*t*t : -1 + (4 - 2*t)*t;
+  const _baiEase = (v, a, b) => _baiEio(_baiCl((v - a) / (b - a), 0, 1));
+
+  function baiFrame() {
+    baiLerp += (baiTarget - baiLerp) * 0.072;
+    const p = baiLerp;
+    if (baiNavFillEl)      baiNavFillEl.style.transform = `scaleY(${p})`;
+    if (baiNavIndicatorEl) baiNavIndicatorEl.style.top  = `${p * 100}%`;
+    const sec = p >= 0.5;
+    baiDot0El?.classList.toggle('active', !sec);
+    baiDot1El?.classList.toggle('active',  sec);
+    baiNav0El?.classList.toggle('active', !sec);
+    baiNav1El?.classList.toggle('active',  sec);
+    if (baiPanel0El) {
+      const t0 = _baiEase(p, 0.32, 0.52);
+      baiPanel0El.style.opacity       = String(1 - t0);
+      baiPanel0El.style.transform     = `translateY(${-t0 * 56}px)`;
+      baiPanel0El.style.pointerEvents = t0 > 0.5 ? 'none' : '';
+    }
+    if (baiPanel1El) {
+      const t1 = _baiEase(p, 0.45, 0.65);
+      baiPanel1El.style.opacity   = String(t1);
+      baiPanel1El.style.transform = `translateY(${(1 - t1) * 60}px)`;
+    }
+    if (p >= 0.5)  trigBaiP1();
+    if (p <  0.42) resetBaiP1();
+    if (baiExitEl) {
+      const x = Math.max(0, Math.min(1, (p - 0.8) / 0.2));
+      baiExitEl.style.opacity = String(x);
+    }
+    baiRaf = requestAnimationFrame(baiFrame);
+  }
 
   onMount(() => {
     const io = new IntersectionObserver(
@@ -29,7 +104,32 @@
     );
     if (impactEl) ioIm.observe(impactEl);
 
-    return () => { io.disconnect(); ioIws.disconnect(); ioIm.disconnect(); };
+    // Panel 0 entrance animations (IntersectionObserver)
+    const ioB0 = new IntersectionObserver(
+      entries => entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('bai-vis'); ioB0.unobserve(e.target); }
+      }),
+      { threshold: 0.15 },
+    );
+    baiPanel0El?.querySelectorAll('.bai-a0, .bai-burst-fade').forEach(el => ioB0.observe(el));
+
+    // Scroll-driven bai panel transition
+    function onBaiScroll() {
+      if (!baiOuterEl) return;
+      const rect = baiOuterEl.getBoundingClientRect();
+      baiTarget = Math.min(Math.max(-rect.top / window.innerHeight, 0), 1);
+    }
+    window.addEventListener('scroll', onBaiScroll, { passive: true });
+    baiRaf = requestAnimationFrame(baiFrame);
+
+    return () => {
+      io.disconnect();
+      ioIws.disconnect();
+      ioIm.disconnect();
+      ioB0.disconnect();
+      window.removeEventListener('scroll', onBaiScroll);
+      if (baiRaf) cancelAnimationFrame(baiRaf);
+    };
   });
 </script>
 
@@ -578,6 +678,212 @@
 
   </div>
 </section>
+
+<!-- ════════════════════════════════════════════════════════════
+     BECONIX AI — sticky 2-panel scroll section
+════════════════════════════════════════════════════════════ -->
+<div class="bai-outer" bind:this={baiOuterEl}>
+<section class="bai-wrap">
+
+  <!-- Exit fade-to-dark overlay -->
+  <div class="bai-exit-overlay" bind:this={baiExitEl} aria-hidden="true"></div>
+
+  <!-- Right-side navigation -->
+  <nav class="bai-nav" aria-label="Beconix AI navigation">
+    <button class="bai-nav-item active" bind:this={baiNav0El} on:click={() => baiScrollTo(0)}>
+      <span class="bai-nav-lbl">Platform</span>
+      <span class="bai-nav-idx">01</span>
+      <div class="bai-nav-dot active" bind:this={baiDot0El} aria-hidden="true"></div>
+    </button>
+    <div class="bai-track-wrap" aria-hidden="true">
+      <div class="bai-track">
+        <div class="bai-fill" bind:this={baiNavFillEl}></div>
+        <div class="bai-ind"  bind:this={baiNavIndicatorEl}></div>
+      </div>
+    </div>
+    <button class="bai-nav-item" bind:this={baiNav1El} on:click={() => baiScrollTo(1)}>
+      <span class="bai-nav-lbl">Capabilities</span>
+      <span class="bai-nav-idx">02</span>
+      <div class="bai-nav-dot" bind:this={baiDot1El} aria-hidden="true"></div>
+    </button>
+  </nav>
+
+  <!-- ══ PANEL 0: BECONIX AI PLATFORM ══ -->
+  <div class="bai-panel bai-p0" bind:this={baiPanel0El}>
+
+    <!-- Background layers -->
+    <div class="bai-p0-grid"     aria-hidden="true"></div>
+    <div class="bai-p0-scanlines" aria-hidden="true"></div>
+    <div class="bai-p0-ghost"    aria-hidden="true">AI</div>
+    <div class="bai-p0-hud"      aria-hidden="true">
+      <span class="bai-p0-hud-tl"></span><span class="bai-p0-hud-tr"></span>
+      <span class="bai-p0-hud-bl"></span><span class="bai-p0-hud-br"></span>
+    </div>
+
+
+    <!-- Main area -->
+    <div class="bai-p0-body">
+
+      <!-- Left: heading + text -->
+      <div class="bai-p0-left">
+        <div class="bai-accent-rule bai-a0" style="--bd:.03s" aria-hidden="true">
+          <span class="bai-ar-line"></span>
+          <span class="bai-ar-dot"></span>
+        </div>
+        <span class="bai-idx bai-a0" style="--bd:.08s">01</span>
+        <div class="bai-hdg-wrap">
+          <div class="overflow-hidden">
+            <h2 class="bai-hdg bai-a0" style="--bd:.14s">BECONIX</h2>
+          </div>
+          <div class="overflow-hidden">
+            <h2 class="bai-hdg bai-hdg-out bai-a0" style="--bd:.26s">AI</h2>
+          </div>
+        </div>
+        <p class="bai-sub bai-a0" style="--bd:.38s">
+          Make your infrastructure<br>the intelligent choice
+        </p>
+        <p class="bai-body-txt bai-a0" style="--bd:.48s">
+          Our flagship IoT platform, powering intelligent building management
+          and 24×7 command &amp; control operations across the GCC region.
+        </p>
+        <div class="bai-chips bai-a0" style="--bd:.60s">
+          <span class="bai-chip">Predictive AI</span>
+          <span class="bai-chip">IoT Native</span>
+          <span class="bai-chip">Cloud Ready</span>
+        </div>
+      </div>
+
+      <!-- Right: AI head visual with rings + HUD tags -->
+      <div class="bai-ai-wrap bai-burst-fade" style="--bd:.2s" aria-hidden="true">
+        <div class="bai-ai-ring bai-ring-1" aria-hidden="true"></div>
+        <div class="bai-ai-ring bai-ring-2" aria-hidden="true"></div>
+        <div class="bai-ai-ring bai-ring-3" aria-hidden="true"></div>
+        <div class="bai-ai-glow"  aria-hidden="true"></div>
+        <img src="/beconix-ai-head.png" alt="" class="bai-ai-img" draggable="false"/>
+        <div class="bai-htag bai-htag-1"><span class="bai-htag-dot"></span>Real-time Data Processing</div>
+        <div class="bai-htag bai-htag-2"><span class="bai-htag-dot"></span>Predictive Maintenance</div>
+        <div class="bai-htag bai-htag-3"><span class="bai-htag-dot"></span>Automated Controls</div>
+        <div class="bai-htag bai-htag-4"><span class="bai-htag-dot"></span>Energy Optimization</div>
+      </div>
+
+    </div><!-- /bai-p0-body -->
+
+    <!-- Bottom row -->
+    <div class="bai-prog-row bai-a0" style="--bd:.72s">
+      <div class="bai-prog-track"><div class="bai-prog-fill"></div></div>
+      <button class="bai-prog-lbl" on:click={() => baiScrollTo(1)}>
+        Scroll to Capabilities
+        <svg class="w-3 h-3 inline ml-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+        </svg>
+      </button>
+      <span class="bai-brand-lbl">Adeptus Technologies</span>
+    </div>
+
+  </div><!-- /bai-p0 -->
+
+  <!-- ══ PANEL 1: PLATFORM CAPABILITIES — dark background ══ -->
+  <div class="bai-panel bai-p1" bind:this={baiPanel1El}>
+
+    <div class="bai-bg-grid" aria-hidden="true"></div>
+    <div class="bai-watermark" aria-hidden="true">BECONIX</div>
+
+    <!-- Top bar -->
+    <div class="bai-topbar">
+      <div class="bai-p1-topbar-left">
+        <span class="bai-p1-topbar-dot"></span>
+        <span class="bai-p1-topbar-brand">Beconix AI.</span>
+      </div>
+      <div class="bai-topdash bai-topdash-dark" aria-hidden="true">
+        <span class="bai-dash-long"></span>
+        <span class="bai-dash-short"></span>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="bai-p1-grid">
+
+      <!-- Left: heading + description + chips -->
+      <div class="bai-p1-left">
+        <div class="bai-p1-deco bai-a1" aria-hidden="true">
+          <svg viewBox="0 0 120 120" class="w-full h-full" fill="none">
+            {#each Array(5) as _, row}
+              {#each Array(5) as _, col}
+                <circle
+                  cx={12 + col * 24} cy={12 + row * 24} r="1.8"
+                  fill="rgba(244,94,42,{0.08 + (row + col) * 0.022})"
+                />
+              {/each}
+            {/each}
+            <line x1="12"  y1="12"  x2="108" y2="12"  stroke="rgba(244,94,42,.12)" stroke-width=".5"/>
+            <line x1="12"  y1="36"  x2="108" y2="36"  stroke="rgba(244,94,42,.07)" stroke-width=".5"/>
+            <line x1="12"  y1="60"  x2="108" y2="60"  stroke="rgba(244,94,42,.10)" stroke-width=".5"/>
+            <line x1="12"  y1="12"  x2="12"  y2="108" stroke="rgba(244,94,42,.12)" stroke-width=".5"/>
+            <line x1="108" y1="12"  x2="108" y2="108" stroke="rgba(244,94,42,.07)" stroke-width=".5"/>
+            <rect x="0"   y="0"   width="24" height="24" fill="none" stroke="#F45E2A" stroke-width="1" opacity=".25"/>
+            <rect x="96"  y="96"  width="24" height="24" fill="none" stroke="#F45E2A" stroke-width="1" opacity=".12"/>
+          </svg>
+        </div>
+        <div class="overflow-hidden">
+          <h2 class="bai-p1-hdg bai-a1" style="--bd:0s">Intelligent</h2>
+        </div>
+        <div class="overflow-hidden">
+          <h2 class="bai-p1-hdg bai-p1-hdg-out bai-a1" style="--bd:.1s">Control.</h2>
+        </div>
+        <p class="bai-p1-desc bai-a1" style="--bd:.2s">
+          Advanced AI-powered platform that seamlessly integrates with building systems to provide comprehensive monitoring, control, and automation capabilities.
+        </p>
+        <div class="bai-chips bai-a1" style="--bd:.3s">
+          <span class="bai-chip">AI-Driven Analytics</span>
+          <span class="bai-chip">Cloud-Based Infrastructure</span>
+        </div>
+        <div class="bai-p1-vline bai-a1" style="--bd:.38s" aria-hidden="true"></div>
+      </div>
+
+      <!-- Right: feature blocks + UAE badge -->
+      <div class="bai-p1-right">
+
+        <div class="bai-cap bai-a1" style="--bd:.15s">
+          <div class="bai-cap-accent"></div>
+          <h3 class="bai-cap-title">24/7 Command Center</h3>
+          <p class="bai-cap-desc">Round-the-clock monitoring and support for all connected building systems and assets.</p>
+        </div>
+
+        <div class="bai-p1-sep bai-a1" style="--bd:.25s" aria-hidden="true"></div>
+
+        <div class="bai-cap bai-a1" style="--bd:.35s">
+          <div class="bai-cap-accent"></div>
+          <h3 class="bai-cap-title">GCC-Wide Reach</h3>
+          <p class="bai-cap-desc">Regional coverage and scalability across the GCC, serving enterprise clients at scale.</p>
+        </div>
+
+        <div class="bai-uae bai-a1" style="--bd:.48s">
+          <span class="bai-uae-flag">🇦🇪</span>
+          <div class="bai-uae-info">
+            <span class="bai-uae-title">100% Made in UAE</span>
+            <span class="bai-uae-sub">Locally developed and supported</span>
+          </div>
+        </div>
+
+      </div>
+    </div><!-- /bai-p1-grid -->
+
+    <!-- Bottom row -->
+    <div class="bai-prog-row bai-prog-row-dark bai-a1" style="--bd:.6s">
+      <div class="bai-prog-track bai-prog-track-dark"><div class="bai-prog-fill bai-fill-p1"></div></div>
+      <button class="bai-prog-lbl bai-prog-lbl-dark" on:click={() => baiScrollTo(0)}>
+        <svg class="w-3 h-3 inline mr-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/>
+        </svg>
+        Back to Platform
+      </button>
+      <span class="bai-brand-lbl bai-brand-dark">Adeptus Technologies</span>
+    </div>
+
+  </div><!-- /bai-p1 -->
+
+</section>
+</div><!-- /bai-outer -->
 
 <style>
   /* ── Section ───────────────────────────────────────────────────────────── */
@@ -1721,5 +2027,397 @@
     .im-panels { flex-direction: column; }
     .im-panel { border-right: none; border-bottom: 1px solid rgba(255,255,255,.06); padding: .8rem 0; }
     .im-loc, .im-cta { width: 100%; }
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     BECONIX AI — sticky 2-panel section  (prefix: bai-)
+  ═══════════════════════════════════════════════════════════════ */
+
+  .bai-outer { position: relative; height: 200vh; }
+
+  .bai-wrap {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .bai-exit-overlay {
+    position: absolute; inset: 0;
+    background: #1d2323;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 100;
+    will-change: opacity;
+  }
+
+  /* ── Panels ── */
+  .bai-panel {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column;
+    overflow: hidden;
+    will-change: opacity, transform;
+  }
+  .bai-p0 { z-index: 2; background: #1d2323; }
+  .bai-p1 { z-index: 1; opacity: 0; transform: translateY(60px); background: #1d2323; }
+
+  /* ── Floating nav (above both panels) ── */
+  .bai-nav {
+    position: absolute;
+    right: 2rem; top: 50%;
+    transform: translateY(-50%);
+    z-index: 60;
+    display: flex; flex-direction: column; align-items: flex-end;
+    background: rgba(255,255,255,.14);
+    backdrop-filter: blur(14px);
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 10px;
+    padding: .45rem .55rem;
+    transition: background .5s ease, border-color .5s ease;
+  }
+  .bai-nav-item { display: flex; align-items: center; gap: .55rem; background: none; border: none; padding: .18rem 0; cursor: pointer; }
+
+  .bai-nav-lbl {
+    font-size: .52rem; letter-spacing: .22em; text-transform: uppercase;
+    color: rgba(255,255,255,.3); white-space: nowrap; user-select: none;
+    font-weight: 600; transition: color .5s ease;
+  }
+  .bai-nav-item.active .bai-nav-lbl { color: rgba(255,255,255,.78); }
+
+  .bai-nav-idx { font-size: .44rem; letter-spacing: .1em; color: rgba(255,255,255,.18); font-weight: 700; transition: color .5s ease; }
+  .bai-nav-item.active .bai-nav-idx { color: #F45E2A; }
+
+  .bai-nav-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    border: 1.5px solid rgba(255,255,255,.22); background: transparent;
+    flex-shrink: 0;
+    transition: background .5s ease, border-color .5s ease, box-shadow .5s ease, transform .5s cubic-bezier(.34,1.56,.64,1);
+  }
+  .bai-nav-dot.active {
+    background: #F45E2A; border-color: #F45E2A;
+    box-shadow: 0 0 10px rgba(244,94,42,.55), 0 0 20px rgba(244,94,42,.2);
+    transform: scale(1.35);
+  }
+
+  .bai-track-wrap { display: flex; justify-content: flex-end; padding: 5px 3px; }
+  .bai-track { position: relative; width: 1.5px; height: 64px; background: rgba(255,255,255,.08); border-radius: 2px; }
+
+  .bai-fill {
+    position: absolute; inset: 0;
+    background: linear-gradient(to bottom, #F45E2A, rgba(244,94,42,.35));
+    border-radius: 2px; transform-origin: top center;
+    transform: scaleY(0); will-change: transform;
+  }
+  .bai-ind {
+    position: absolute; left: 50%; top: 0;
+    width: 5px; height: 5px; border-radius: 50%;
+    background: #F45E2A; transform: translateX(-50%);
+    box-shadow: 0 0 8px rgba(244,94,42,.7), 0 0 16px rgba(244,94,42,.35);
+    will-change: top;
+  }
+
+  /* ── Shared top bar ── */
+  .bai-topbar {
+    position: relative; z-index: 10;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.75rem 2.5rem;
+    flex-shrink: 0;
+  }
+  .bai-topdash { display: flex; align-items: center; gap: .45rem; }
+  .bai-dash-long  { display: block; width: 28px; height: 1px; background: rgba(255,255,255,.18); }
+  .bai-dash-short { display: block; width: 14px; height: 1px; background: rgba(255,255,255,.1); }
+
+  .bai-p1-topbar-left { display: flex; align-items: center; gap: .5rem; }
+  .bai-p1-topbar-dot  {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: #F45E2A;
+    animation: baiDotPulse 2.5s ease-in-out infinite;
+  }
+  .bai-p1-topbar-brand { font-size: .78rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.62); }
+
+  /* ── Panel 0 body ── */
+  .bai-p0-body {
+    flex: 1; position: relative;
+    display: flex; align-items: center;
+    padding: 0 2.5rem;
+    min-height: 0; overflow: hidden;
+  }
+  .bai-p0-left { position: relative; z-index: 2; max-width: 56%; flex-shrink: 0; }
+
+  .bai-idx {
+    display: block;
+    font-size: clamp(.58rem, .88vw, .78rem);
+    font-weight: 800; color: rgba(255,255,255,.22); letter-spacing: .18em;
+    margin-bottom: .55rem;
+  }
+
+  .bai-hdg {
+    font-size: clamp(3.2rem, 9.5vw, 11rem);
+    font-weight: 900; color: #fff;
+    line-height: .93; letter-spacing: -.035em; text-transform: uppercase;
+  }
+  .bai-hdg-out {
+    -webkit-text-stroke: 2px rgba(255,255,255,.45);
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  .bai-sub { font-size: clamp(.8rem, 1.3vw, 1.1rem); color: rgba(255,255,255,.75); font-weight: 400; line-height: 1.5; margin-top: 1.5rem; }
+  .bai-body-txt { font-size: clamp(.58rem, .88vw, .78rem); color: rgba(255,255,255,.32); line-height: 1.85; font-weight: 300; max-width: 340px; margin-top: .7rem; }
+
+  /* ── Panel 0 background layers ── */
+  .bai-p0-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(244,94,42,.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(244,94,42,.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none; z-index: 0;
+  }
+  .bai-p0-scanlines {
+    position: absolute; inset: 0;
+    background-image: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,.042) 3px, rgba(0,0,0,.042) 4px);
+    pointer-events: none; z-index: 8;
+  }
+  .bai-p0-ghost {
+    position: absolute;
+    bottom: 10%;
+    left: -2%;
+    font-size: clamp(6rem, 22vw, 22rem);
+    font-weight: 900;
+    text-transform: uppercase;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(255,255,255,.04);
+    letter-spacing: -.04em;
+    line-height: 1;
+    pointer-events: none; user-select: none;
+    z-index: 1; white-space: nowrap;
+  }
+  .bai-p0-hud { position: absolute; inset: 0; pointer-events: none; z-index: 9; }
+  .bai-p0-hud-tl,.bai-p0-hud-tr,.bai-p0-hud-bl,.bai-p0-hud-br { position: absolute; width: 24px; height: 24px; }
+  .bai-p0-hud-tl { top: 18px; left: 18px; border-top: 1.5px solid rgba(244,94,42,.5); border-left: 1.5px solid rgba(244,94,42,.5); }
+  .bai-p0-hud-tr { top: 18px; right: 18px; border-top: 1.5px solid rgba(244,94,42,.5); border-right: 1.5px solid rgba(244,94,42,.5); }
+  .bai-p0-hud-bl { bottom: 18px; left: 18px; border-bottom: 1.5px solid rgba(244,94,42,.5); border-left: 1.5px solid rgba(244,94,42,.5); }
+  .bai-p0-hud-br { bottom: 18px; right: 18px; border-bottom: 1.5px solid rgba(244,94,42,.5); border-right: 1.5px solid rgba(244,94,42,.5); }
+
+  /* ── Accent rule above heading ── */
+  .bai-accent-rule { display: flex; align-items: center; gap: 6px; margin-bottom: .8rem; }
+  .bai-ar-line     { display: block; width: 40px; height: 1.5px; background: linear-gradient(to right, #F45E2A, rgba(244,94,42,.2)); border-radius: 2px; }
+  .bai-ar-dot      { display: block; width: 5px; height: 5px; border-radius: 50%; background: #F45E2A; flex-shrink: 0; }
+
+  /* ── Tech chips ── */
+  .bai-chips { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1.4rem; }
+  .bai-chip  {
+    font-size: clamp(.42rem, .6vw, .55rem);
+    font-weight: 600;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: rgba(244,94,42,.85);
+    border: 1px solid rgba(244,94,42,.28);
+    background: rgba(244,94,42,.06);
+    padding: .28rem .7rem;
+    border-radius: 2px;
+  }
+
+  /* ── AI head visual ── */
+  .bai-ai-wrap {
+    position: absolute;
+    right: -4%; top: 50%;
+    transform: translateY(-50%);
+    width: 58%; height: 92%;
+    z-index: 1; pointer-events: none;
+    display: flex; align-items: center; justify-content: center;
+  }
+  /* Pulse rings */
+  .bai-ai-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(244,94,42,.18);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .bai-ring-1 { width: 55%;  height: 55%;  animation: baiRingPulse 3.5s ease-in-out infinite; }
+  .bai-ring-2 { width: 72%;  height: 72%;  animation: baiRingPulse 3.5s ease-in-out .8s infinite; border-color: rgba(244,94,42,.10); }
+  .bai-ring-3 { width: 90%;  height: 90%;  animation: baiRingPulse 3.5s ease-in-out 1.6s infinite; border-color: rgba(244,94,42,.06); }
+  .bai-ai-glow {
+    position: absolute;
+    inset: 8%;
+    background: radial-gradient(ellipse at center, rgba(200,100,255,.09) 0%, rgba(244,94,42,.07) 45%, transparent 70%);
+    border-radius: 50%;
+    animation: imGlowPulse 6s ease-in-out infinite;
+  }
+  .bai-ai-img {
+    position: relative; z-index: 2;
+    width: 100%; height: 100%;
+    object-fit: contain;
+    mix-blend-mode: screen;
+    filter: drop-shadow(0 0 50px rgba(200,100,255,.3)) drop-shadow(0 0 25px rgba(244,94,42,.2));
+    user-select: none;
+  }
+  /* Floating HUD data tags */
+  .bai-htag {
+    position: absolute;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+    font-size: clamp(.38rem, .55vw, .5rem);
+    font-weight: 600;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.55);
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(244,94,42,.22);
+    padding: .25rem .65rem;
+    border-radius: 2px;
+    white-space: nowrap;
+    backdrop-filter: blur(4px);
+    animation: baiTagFloat 4s ease-in-out infinite;
+  }
+  .bai-htag-dot { width: 5px; height: 5px; border-radius: 50%; background: #F45E2A; flex-shrink: 0; animation: baiDotPulse 2s ease-in-out infinite; }
+  .bai-htag-1 { top: 10%;    left: 3%; animation-delay: 0s; }
+  .bai-htag-2 { top: 35%;   left: 0%; animation-delay: 1s; }
+  .bai-htag-3 { top: 60%;   left: 2%; animation-delay: 2s; }
+  .bai-htag-4 { bottom: 10%; left: 4%; animation-delay: 3s; }
+
+  @keyframes baiRingPulse { 0%,100% { opacity: .6; transform: translate(-50%,-50%) scale(1); } 50% { opacity: 1; transform: translate(-50%,-50%) scale(1.04); } }
+  @keyframes baiTagFloat  { 0%,100% { transform: translateY(0);   } 50% { transform: translateY(-4px); } }
+
+  /* ── Panel 0 entrance animations ── */
+  .bai-a0 {
+    opacity: 0;
+    transform: translateY(22px);
+    transition:
+      opacity  .8s cubic-bezier(.4,0,.2,1) var(--bd, 0s),
+      transform .8s cubic-bezier(.4,0,.2,1) var(--bd, 0s);
+  }
+  .bai-a0:global(.bai-vis) { opacity: 1; transform: translateY(0); }
+  .bai-hdg.bai-a0               { transform: translateY(65px); }
+  .bai-hdg.bai-a0:global(.bai-vis)        { transform: translateY(0); }
+  /* burst & idx: preserve their own transforms */
+  /* burst: opacity only — position handled by its own transform */
+  .bai-burst-fade { opacity: 0; transition: opacity .9s cubic-bezier(.4,0,.2,1) var(--bd, 0s); }
+  .bai-burst-fade:global(.bai-vis) { opacity: 1; }
+  .bai-idx.bai-a0                { transform: none; }
+  .bai-idx.bai-a0:global(.bai-vis)        { transform: none; }
+
+  /* ── Shared progress row ── */
+  .bai-prog-row {
+    position: relative; z-index: 10;
+    display: flex; align-items: center; gap: 1.25rem;
+    padding: 1rem 2.5rem 1.5rem;
+    border-top: 1px solid rgba(255,255,255,.05);
+    flex-shrink: 0;
+  }
+  .bai-prog-track     { width: 80px; height: 2px; background: rgba(255,255,255,.08); border-radius: 2px; overflow: hidden; }
+  .bai-prog-track-dark { background: rgba(255,255,255,.08); }
+  .bai-prog-fill      { height: 100%; width: 30%; background: linear-gradient(90deg, #F45E2A, #ff8c5a); border-radius: 2px; animation: baiProgPulse 2.5s ease-in-out .4s infinite alternate; }
+  .bai-fill-p1        { width: 75%; }
+  .bai-prog-lbl       { background: none; border: none; padding: 0; color: rgba(255,255,255,.3); font-size: .625rem; letter-spacing: .35em; text-transform: uppercase; cursor: pointer; transition: color .3s ease, letter-spacing .3s ease; }
+  .bai-prog-lbl:hover { color: #F45E2A; letter-spacing: .45em; }
+  .bai-prog-lbl-dark  { color: rgba(255,255,255,.3); }
+  .bai-prog-lbl-dark:hover { color: #F45E2A; }
+  .bai-brand-lbl      { margin-left: auto; font-size: .58rem; letter-spacing: .28em; text-transform: uppercase; color: rgba(255,255,255,.12); font-weight: 500; }
+  .bai-brand-dark     { color: rgba(255,255,255,.12); }
+
+  /* ── Panel 1: bg grid + watermark ── */
+  .bai-bg-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(244,94,42,.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(244,94,42,.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none; z-index: 0;
+  }
+  .bai-watermark {
+    position: absolute; right: -3%; top: 50%;
+    transform: translateY(-50%);
+    font-size: clamp(6rem, 18vw, 22rem);
+    font-weight: 900; text-transform: uppercase;
+    color: rgba(255,255,255,.025);
+    letter-spacing: -.02em; line-height: 1;
+    pointer-events: none; user-select: none;
+    white-space: nowrap; z-index: 3;
+  }
+
+  /* ── Panel 1 content ── */
+  .bai-p1-grid {
+    position: relative; z-index: 10;
+    flex: 1;
+    display: grid; grid-template-columns: 1fr 1.15fr;
+    align-items: center;
+    padding: 0 2.5rem; gap: 3.5rem;
+  }
+
+  .bai-p1-left  { display: flex; flex-direction: column; justify-content: center; position: relative; }
+  .bai-p1-deco  { width: clamp(80px, 10vw, 120px); height: clamp(80px, 10vw, 120px); margin-bottom: 1.5rem; }
+
+  .bai-p1-hdg {
+    font-size: clamp(3rem, 7vw, 7.5rem);
+    font-weight: 900; color: #fff;
+    line-height: 1; letter-spacing: -.02em; text-transform: uppercase;
+    opacity: 0; transform: translateY(30px) scale(.97);
+  }
+  .bai-p1-hdg-out {
+    -webkit-text-stroke: 2px rgba(255,255,255,.45);
+    -webkit-text-fill-color: transparent; color: transparent;
+  }
+
+  .bai-p1-desc { font-size: clamp(.62rem, .88vw, .78rem); color: rgba(255,255,255,.6); line-height: 1.82; font-weight: 300; max-width: 360px; margin-top: 1.1rem; opacity: 0; transform: translateY(30px) scale(.97); }
+
+  .bai-p1-vline {
+    position: absolute; right: -1.75rem; top: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, rgba(244,94,42,.25) 25%, rgba(244,94,42,.25) 75%, transparent);
+    opacity: 0; transform: translateY(30px) scale(.97);
+  }
+
+  .bai-p1-right  { display: flex; flex-direction: column; }
+
+  .bai-cap {
+    position: relative;
+    padding: 1.15rem 0 1.15rem 1.2rem;
+    opacity: 0; transform: translateY(30px) scale(.97);
+  }
+  .bai-cap-accent {
+    position: absolute; left: 0; top: 1.15rem; bottom: 1.15rem;
+    width: 2px;
+    background: linear-gradient(to bottom, #F45E2A, rgba(244,94,42,.08));
+    border-radius: 2px;
+  }
+  .bai-cap-title { color: #fff; font-size: clamp(.82rem, 1.3vw, 1rem); font-weight: 700; margin-bottom: .5rem; letter-spacing: .01em; }
+  .bai-cap-desc  { color: rgba(255,255,255,.33); font-size: clamp(.66rem, .92vw, .78rem); line-height: 1.75; font-weight: 300; max-width: 400px; }
+
+  .bai-p1-sep { width: 100%; height: 1px; background: linear-gradient(90deg, rgba(244,94,42,.18), rgba(255,255,255,.04) 60%, transparent); margin: .2rem 0; opacity: 0; transform: translateY(30px) scale(.97); }
+
+  .bai-uae { display: flex; align-items: center; gap: 1rem; margin-top: 1.6rem; padding-top: 1.3rem; border-top: 1px solid rgba(255,255,255,.055); opacity: 0; transform: translateY(30px) scale(.97); }
+  .bai-uae-flag  { font-size: 1.8rem; line-height: 1; flex-shrink: 0; }
+  .bai-uae-title { display: block; font-size: clamp(.72rem, 1.1vw, .9rem); font-weight: 700; color: #fff; margin-bottom: .2rem; }
+  .bai-uae-sub   { display: block; font-size: clamp(.5rem, .7vw, .62rem); color: rgba(255,255,255,.52); font-weight: 300; }
+
+  /* Panel 1 items: hidden; JS stagger reveals */
+  .bai-a1 { opacity: 0; transform: translateY(30px) scale(.97); }
+
+  /* ── Keyframes ── */
+  @keyframes baiDotPulse  { 0%,100% { opacity: .6; transform: scale(1); } 50% { opacity: 1; transform: scale(1.3); } }
+  @keyframes baiProgPulse { from { width: 20%; } to { width: 75%; } }
+
+  /* ── Responsive ── */
+  @media (max-width: 1100px) {
+    .bai-p0-left   { max-width: 64%; }
+    .bai-ai-wrap { width: 56%; right: -4%; }
+  }
+  @media (max-width: 900px) {
+    .bai-p0-body { flex-direction: column; align-items: flex-start; justify-content: center; padding: 3% 2.5rem 0; gap: 2vh; }
+    .bai-p0-left { max-width: 100%; }
+    .bai-ai-wrap { position: relative; top: auto; right: auto; transform: none; width: 100%; height: 32vh; }
+    .bai-ai-wrap { transform: none; top: auto; right: auto; position: relative; width: 100%; height: 35vh; }
+    .bai-p1-grid { grid-template-columns: 1fr; }
+    .bai-p1-left { display: none; }
+  }
+  @media (max-width: 600px) {
+    .bai-hdg    { font-size: clamp(2.4rem, 14vw, 5rem); }
+    .bai-p1-hdg { font-size: clamp(2.2rem, 10vw, 4rem); }
   }
 </style>
