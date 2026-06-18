@@ -5,10 +5,18 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    background-color: #1d2323;
   }
 
   body {
-    @apply font-sans text-gray-900 dark:text-gray-100 leading-relaxed transition-colors duration-300;
+    @apply font-sans leading-relaxed;
+    color: rgba(255,255,255,.85);
+    background-color: #1d2323;
+    background-image:
+      linear-gradient(rgba(244,94,42,.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(244,94,42,.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    background-attachment: fixed;
   }
 }
 
