@@ -1,970 +1,568 @@
 <script>
-  import { onMount } from "svelte";
+  import { onMount } from 'svelte';
 
-  // ── DOM refs ──────────────────────────────────────────────────────────────
-  let containerEl, sectionEl, panel0El, panel1El;
-  let navFillEl, navIndicatorEl, navItem0El, navItem1El, dot0El, dot1El;
-  let exitOverlayEl;
+  let sectionEl;
+  let visible = false;
 
-  // ── State ─────────────────────────────────────────────────────────────────
-  let count           = 0;
-  let counted         = false;
-  let panel1Triggered = false;
-  let rafId           = null;
-  let targetProgress  = 0;
-  let lerpProgress    = 0;
-
-  // ── Scroll-lock state ─────────────────────────────────────────────────────
-  let locked         = false;
-  let accumulated    = 0;           // wheel-delta accumulator [0, SCROLL_TOTAL]
-  const SCROLL_TOTAL = 900;         // total delta units for full 0→1 traversal
-  let touchStartY    = 0;
-  let lastScrollY    = 0;
-
-  const features = [
-    { num: "01", icon: "🚀", title: "Business Efficiency",  desc: "Streamlining operations and maximizing productivity across your entire enterprise." },
-    { num: "02", icon: "⚡", title: "Energy Optimization",  desc: "Smart energy management and cost reduction through intelligent monitoring." },
-    { num: "03", icon: "📈", title: "Profitability",        desc: "Increasing revenue and driving sustainable growth with data-driven insights." },
-  ];
-
-  // ── Utilities ─────────────────────────────────────────────────────────────
-  const clamp     = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
-  const mapRange  = (v, a, b)   => clamp((v - a) / (b - a), 0, 1);
-  const easeInOut = (t)         => t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
-  const ease      = (v, a, b)   => easeInOut(mapRange(v, a, b));
-
-  // ── Counter ───────────────────────────────────────────────────────────────
-  function animateCount(target, duration = 1800) {
-    if (counted) return;
-    counted = true;
-    const start = performance.now();
-    const tick = (now) => {
-      const p = Math.min((now - start) / duration, 1);
-      count = Math.round(p * target);
-      if (p < 1) requestAnimationFrame(tick);
-    };
-    requestAnimationFrame(tick);
-  }
-
-  // ── Scroll to panel (works when locked or unlocked) ───────────────────────
-  function scrollToPanel(index) {
-    accumulated    = index === 0 ? 0 : SCROLL_TOTAL;
-    targetProgress = accumulated / SCROLL_TOTAL;
-  }
-
-  // ── Body-scroll lock helpers ──────────────────────────────────────────────
-  function lockBodyScroll() {
-    if (locked) return;
-    locked = true;
-    document.body.style.overflow             = "hidden";
-    document.documentElement.style.overflow  = "hidden";
-  }
-
-  function unlockBodyScroll() {
-    if (!locked) return;
-    locked = false;
-    document.body.style.overflow            = "";
-    document.documentElement.style.overflow = "";
-  }
-
-  function exitForward() {
-    const top = containerEl
-      ? containerEl.offsetTop + containerEl.offsetHeight
-      : 0;
-    unlockBodyScroll();
-    requestAnimationFrame(() => window.scrollTo({ top, behavior: "instant" }));
-  }
-
-  function exitBackward() {
-    unlockBodyScroll();
-    // Body scroll is now free; user continues scrolling up naturally
-  }
-
-  // ── Wheel handler ─────────────────────────────────────────────────────────
-  function handleWheel(e) {
-    if (!locked) return;
-    e.preventDefault();
-
-    const next = accumulated + e.deltaY;
-
-    if (next < 0 && e.deltaY < 0) {
-      accumulated    = 0;
-      targetProgress = 0;
-      exitBackward();
-      return;
-    }
-    if (next > SCROLL_TOTAL && e.deltaY > 0) {
-      accumulated    = SCROLL_TOTAL;
-      targetProgress = 1;
-      exitForward();
-      return;
-    }
-
-    accumulated    = clamp(next, 0, SCROLL_TOTAL);
-    targetProgress = accumulated / SCROLL_TOTAL;
-  }
-
-  // ── Keyboard handler ──────────────────────────────────────────────────────
-  function handleKeydown(e) {
-    if (!locked) return;
-    const deltas = { ArrowDown: 80, " ": 80, PageDown: 400, ArrowUp: -80, PageUp: -400 };
-    const delta  = deltas[e.key];
-    if (delta === undefined) return;
-    e.preventDefault();
-
-    const next = accumulated + delta;
-    if (next > SCROLL_TOTAL) { exitForward();  return; }
-    if (next < 0)            { exitBackward(); return; }
-    accumulated    = clamp(next, 0, SCROLL_TOTAL);
-    targetProgress = accumulated / SCROLL_TOTAL;
-  }
-
-  // ── Touch handlers ────────────────────────────────────────────────────────
-  function handleTouchStart(e) {
-    touchStartY = e.touches[0].clientY;
-  }
-
-  function handleTouchMove(e) {
-    if (!locked) return;
-    e.preventDefault();
-    const dy   = (touchStartY - e.touches[0].clientY) * 1.5;
-    touchStartY = e.touches[0].clientY;
-    const next = accumulated + dy;
-    if (next > SCROLL_TOTAL && dy > 0) { exitForward();  return; }
-    if (next < 0            && dy < 0) { exitBackward(); return; }
-    accumulated    = clamp(next, 0, SCROLL_TOTAL);
-    targetProgress = accumulated / SCROLL_TOTAL;
-  }
-
-  // ── Panel-1 stagger in / out ──────────────────────────────────────────────
-  function triggerPanel1In() {
-    if (panel1Triggered || !panel1El) return;
-    panel1Triggered = true;
-    panel1El.querySelectorAll(".innov-anim").forEach((el, i) => {
-      setTimeout(() => {
-        el.style.transition = "opacity .85s cubic-bezier(.22,1,.36,1), transform .85s cubic-bezier(.22,1,.36,1)";
-        el.style.opacity    = "1";
-        el.style.transform  = "translateY(0) scale(1)";
-      }, i * 95);
-    });
-  }
-  function resetPanel1() {
-    if (!panel1Triggered || !panel1El) return;
-    panel1Triggered = false;
-    panel1El.querySelectorAll(".innov-anim").forEach((el) => {
-      el.style.transition = "none";
-      el.style.opacity    = "0";
-      el.style.transform  = "translateY(30px) scale(.97)";
-    });
-  }
-
-  // ── rAF loop — lerp scrub + drive all animations ──────────────────────────
-  function frame() {
-    lerpProgress += (targetProgress - lerpProgress) * 0.072;
-    const p = lerpProgress;
-
-    if (navFillEl)      navFillEl.style.transform = `scaleY(${p})`;
-    if (navIndicatorEl) navIndicatorEl.style.top  = `${p * 100}%`;
-
-    const isSecond = p >= 0.5;
-    dot0El?.classList.toggle("active", !isSecond);
-    dot1El?.classList.toggle("active",  isSecond);
-    navItem0El?.classList.toggle("active", !isSecond);
-    navItem1El?.classList.toggle("active",  isSecond);
-
-    // Panel 0 — exit (progress 0.32 → 0.52)
-    if (panel0El) {
-      const t0 = ease(p, 0.32, 0.52);
-      panel0El.style.opacity       = String(1 - t0);
-      panel0El.style.transform     = `translateY(${-t0 * 56}px)`;
-      panel0El.style.pointerEvents = t0 > 0.5 ? "none" : "";
-    }
-
-    // Panel 1 — enter (progress 0.45 → 0.65)
-    if (panel1El) {
-      const t1 = ease(p, 0.45, 0.65);
-      panel1El.style.opacity   = String(t1);
-      panel1El.style.transform = `translateY(${(1 - t1) * 60}px)`;
-    }
-
-    if (p >= 0.5)  triggerPanel1In();
-    if (p <  0.42) resetPanel1();
-
-    rafId = requestAnimationFrame(frame);
-  }
-
-  // ── onMount ───────────────────────────────────────────────────────────────
   onMount(() => {
-    // Lock body scroll when section arrives at viewport top
-    function onNativeScroll() {
-      if (locked || !containerEl) return;
-      const rect        = containerEl.getBoundingClientRect();
-      const currentY    = window.scrollY;
-      const scrollingDown = currentY >= lastScrollY;
-      lastScrollY = currentY;
-
-      // Section top is at viewport top (±50 px tolerance)
-      if (rect.top <= 1 && rect.top > -50) {
-        accumulated    = scrollingDown ? 0 : SCROLL_TOTAL;
-        targetProgress = accumulated / SCROLL_TOTAL;
-        lockBodyScroll();
-      }
-    }
-
-    // Panel-0 entrance — IntersectionObserver
     const io = new IntersectionObserver(
-      (entries) => entries.forEach((e) => {
-        if (e.isIntersecting) {
-          e.target.classList.add("is-visible");
-          if (e.target.classList.contains("center-col"))
-            setTimeout(() => animateCount(500), 700);
-          io.unobserve(e.target);
-        }
-      }),
-      { threshold: 0.15 }
+      ([e]) => { if (e.isIntersecting) visible = true; },
+      { threshold: 0.05 }
     );
-    panel0El?.querySelectorAll(".anim").forEach((el) => io.observe(el));
-
-    window.addEventListener("scroll",     onNativeScroll,   { passive: true  });
-    window.addEventListener("wheel",      handleWheel,      { passive: false });
-    window.addEventListener("keydown",    handleKeydown,    { passive: false });
-    window.addEventListener("touchstart", handleTouchStart, { passive: true  });
-    window.addEventListener("touchmove",  handleTouchMove,  { passive: false });
-
-    rafId = requestAnimationFrame(frame);
-
-    return () => {
-      unlockBodyScroll();
-      window.removeEventListener("scroll",     onNativeScroll);
-      window.removeEventListener("wheel",      handleWheel);
-      window.removeEventListener("keydown",    handleKeydown);
-      window.removeEventListener("touchstart", handleTouchStart);
-      window.removeEventListener("touchmove",  handleTouchMove);
-      io.disconnect();
-      if (rafId) cancelAnimationFrame(rafId);
-    };
+    if (sectionEl) io.observe(sectionEl);
+    return () => io.disconnect();
   });
 </script>
 
-<!--
-  ┌────────────────────────────────────────────────────────────────┐
-  │  about-outer — 200 vh  →  gives native scroll room            │
-  │  about-wrap  — sticky 100 vh  →  the "locked" viewport        │
-  │  panel-mission / panel-innovation — absolute, both inset-0    │
-  └────────────────────────────────────────────────────────────────┘
--->
-<div class="about-outer" bind:this={containerEl}>
-<section id="about" bind:this={sectionEl} class="about-wrap">
+<section id="about" bind:this={sectionEl} class="ab-wrap" class:ab-vis={visible}>
 
-  <!-- Shared background grid -->
-  <div class="bg-grid" aria-hidden="true"></div>
+  <!-- ── Background layers ──────────────────────────────────────────── -->
+  <div class="ab-grid"      aria-hidden="true"></div>
+  <div class="ab-glow"      aria-hidden="true"></div>
+  <div class="ab-scanlines" aria-hidden="true"></div>
 
-  <!-- Exit fade-to-dark overlay -->
-  <div class="about-exit-overlay" bind:this={exitOverlayEl} aria-hidden="true"></div>
+  <!-- ── HUD corner brackets ───────────────────────────────────────── -->
+  <div class="ab-hud" aria-hidden="true">
+    <span class="ab-hud-tl"></span>
+    <span class="ab-hud-tr"></span>
+    <span class="ab-hud-bl"></span>
+    <span class="ab-hud-br"></span>
+  </div>
 
-  <!-- Shared static watermark — lives outside both panels so it never moves -->
-  <div class="watermark-shared" aria-hidden="true">ADEPTUS</div>
+  <!-- ── Split body ────────────────────────────────────────────────── -->
+  <div class="ab-body">
 
-  <!-- ══════════════════════════════════════════════════════════
-       RIGHT-SIDE NAVIGATION
-  ══════════════════════════════════════════════════════════════ -->
-  <nav class="scroll-nav" aria-label="Section navigation">
+    <!-- LEFT — text content -->
+    <div class="ab-left">
 
-    <button class="nav-item active" bind:this={navItem0El} on:click={() => scrollToPanel(0)}>
-      <span class="nav-label">Our Mission</span>
-      <span class="nav-index">01</span>
-      <div class="nav-dot active" bind:this={dot0El} aria-hidden="true"></div>
-    </button>
-
-    <div class="nav-track-wrap" aria-hidden="true">
-      <div class="nav-track">
-        <div class="nav-fill" bind:this={navFillEl}></div>
-        <div class="nav-indicator" bind:this={navIndicatorEl}></div>
-      </div>
-    </div>
-
-    <button class="nav-item" bind:this={navItem1El} on:click={() => scrollToPanel(1)}>
-      <span class="nav-label">Our Innovation</span>
-      <span class="nav-index">02</span>
-      <div class="nav-dot" bind:this={dot1El} aria-hidden="true"></div>
-    </button>
-
-  </nav>
-
-  <!-- ══════════════════════════════════════════════════════════
-       PANEL 0 — OUR MISSION
-  ══════════════════════════════════════════════════════════════ -->
-  <div class="panel panel-mission" bind:this={panel0El}>
-
-    <div class="top-bar anim">
-      <div class="flex items-center gap-2">
-        <span class="w-1.5 h-1.5 rounded-full bg-[#F45E2A] animate-pulse"></span>
-        <span class="text-white/70 text-sm font-bold tracking-[0.2em] uppercase">Adeptus.</span>
-      </div>
-      <div class="flex items-center gap-1.5">
-        <span class="w-4 h-px bg-white/30"></span>
-        <span class="w-2 h-px bg-white/30"></span>
-      </div>
-    </div>
-
-    <div class="content-grid">
-
-      <!-- Left: heading + tagline -->
-      <div class="left-col">
-        <div class="overflow-hidden">
-          <h2 class="main-heading anim" style="--delay:0s">Our</h2>
-        </div>
-        <div class="overflow-hidden">
-          <h2 class="main-heading text-outlined anim" style="--delay:.12s">Mission.</h2>
-        </div>
-        <div class="tagline-wrap anim" style="--delay:.28s">
-          <span class="tagline-line"></span>
-          <p class="tagline">
-            Enabling Our Clients To
-            <em class="text-[#F45E2A] not-italic font-semibold"> Monitor, Control, And Automate</em>
-            Building Systems For Improved Energy Efficiency And Reduced Operational Costs.
-          </p>
-        </div>
+      <!-- Main heading: solid line + outlined line -->
+      <div class="ab-heading-wrap">
+        <h2 class="ab-hdg ab-hdg-solid ab-anim" style="--d:0.12s">Why</h2>
+        <h2 class="ab-hdg ab-hdg-out   ab-anim" style="--d:0.22s">Beconix AI</h2>
       </div>
 
-      <!-- Center: IoT visual -->
-      <div class="center-col anim">
-        <div class="deco-ring ring-outer" aria-hidden="true"></div>
-        <div class="deco-ring ring-inner" aria-hidden="true"></div>
-        <div class="orange-ring"          aria-hidden="true"></div>
-        <div class="center-visual">
-          <svg viewBox="0 0 300 300" class="w-full h-full" fill="none">
-            <circle cx="150" cy="150" r="118" stroke="rgba(244,94,42,.06)"  stroke-width="1" stroke-dasharray="4 6"/>
-            <circle cx="150" cy="150" r="88"  stroke="rgba(255,255,255,.04)" stroke-width="1"/>
-            <circle cx="150" cy="150" r="58"  stroke="rgba(244,94,42,.1)"   stroke-width="1" stroke-dasharray="3 5"/>
+      <p class="ab-desc ab-anim" style="--d:0.34s">
+        Beconix AI helps organizations move beyond traditional building management
+        by combining Artificial Intelligence, Digital Twin technology, and real-time
+        analytics into a single intelligent platform.
+      </p>
 
-            <line class="net-line" style="--d:.2s"  x1="150" y1="150" x2="60"  y2="80"  stroke="rgba(244,94,42,.3)"  stroke-width=".8"/>
-            <line class="net-line" style="--d:.35s" x1="150" y1="150" x2="240" y2="80"  stroke="rgba(244,94,42,.3)"  stroke-width=".8"/>
-            <line class="net-line" style="--d:.5s"  x1="150" y1="150" x2="265" y2="175" stroke="rgba(244,94,42,.25)" stroke-width=".8"/>
-            <line class="net-line" style="--d:.65s" x1="150" y1="150" x2="60"  y2="225" stroke="rgba(244,94,42,.25)" stroke-width=".8"/>
-            <line class="net-line" style="--d:.8s"  x1="150" y1="150" x2="150" y2="35"  stroke="rgba(244,94,42,.3)"  stroke-width=".8"/>
-            <line class="net-line" style="--d:.95s" x1="150" y1="150" x2="150" y2="265" stroke="rgba(244,94,42,.2)"  stroke-width=".8"/>
-            <line class="net-line" style="--d:1.1s" x1="150" y1="150" x2="35"  y2="150" stroke="rgba(244,94,42,.2)"  stroke-width=".8"/>
+      <!-- Key Benefits grid -->
+      <div class="ab-benefits ab-anim" style="--d:0.48s">
 
-            <circle class="sat-node" style="--d:.3s"  cx="60"  cy="80"  r="4" fill="#F45E2A"/>
-            <circle class="sat-node" style="--d:.5s"  cx="240" cy="80"  r="4" fill="rgba(255,255,255,.6)"/>
-            <circle class="sat-node" style="--d:.7s"  cx="265" cy="175" r="4" fill="#F45E2A"/>
-            <circle class="sat-node" style="--d:.9s"  cx="60"  cy="225" r="4" fill="rgba(255,255,255,.5)"/>
-            <circle class="sat-node" style="--d:1.1s" cx="150" cy="35"  r="3" fill="rgba(255,255,255,.6)"/>
-            <circle class="sat-node" style="--d:1.3s" cx="150" cy="265" r="3" fill="#F45E2A"/>
-            <circle class="sat-node" style="--d:1.5s" cx="35"  cy="150" r="3" fill="rgba(255,255,255,.5)"/>
-
-            <circle cx="150" cy="150" r="22" fill="rgba(244,94,42,.12)" class="core-pulse"/>
-            <circle cx="150" cy="150" r="14" fill="rgba(244,94,42,.25)"/>
-            <circle cx="150" cy="150" r="8"  fill="#F45E2A"/>
-            <circle cx="150" cy="150" r="4"  fill="#fff"/>
-
-            <text x="150" y="128" text-anchor="middle" fill="white"
-              font-size="20" font-weight="800" font-family="Montserrat,sans-serif">
-              {Math.round(count)}K+
-            </text>
-            <text x="150" y="143" text-anchor="middle" fill="rgba(255,255,255,.4)"
-              font-size="7" font-family="Montserrat,sans-serif" letter-spacing="2.5">
-              ASSETS CONNECTED
-            </text>
-          </svg>
-        </div>
-      </div>
-
-      <!-- Right arrow -->
-      <div class="right-col anim" style="--delay:.5s">
-        <a href="/contact" class="arrow-btn" aria-label="Contact us">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-          </svg>
-        </a>
-      </div>
-    </div>
-
-    <!-- Feature cards -->
-    <div class="features-row">
-      {#each features as f, i}
-        <div class="feat-card anim" style="--delay:{i * .15}s">
-          <div class="feat-top-bar"></div>
-          <div class="flex items-start justify-between mb-4">
-            <span class="feat-num">{f.num}</span>
-            <span class="feat-icon">{f.icon}</span>
-          </div>
-          <div class="feat-divider"></div>
-          <h3 class="feat-title">{f.title}</h3>
-          <p class="feat-desc">{f.desc}</p>
-          <div class="feat-arrow-wrap">
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+        <div class="ab-benefit">
+          <div class="ab-benefit-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 10h.01M6 14h.01M10 10h4M10 14h4M18 10h.01M18 14h.01"/>
             </svg>
           </div>
-        </div>
-      {/each}
-    </div>
-
-    <!-- Bottom bar -->
-    <div class="progress-row anim" style="--delay:.3s">
-      <div class="progress-track"><div class="progress-fill"></div></div>
-      <button class="explore-link" on:click={() => scrollToPanel(1)}>
-        Scroll to Innovation
-        <svg class="w-3 h-3 inline ml-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
-        </svg>
-      </button>
-      <span class="text-white/15 text-[10px] tracking-widest ml-auto uppercase">Adeptus Technologies</span>
-    </div>
-  </div><!-- /panel-mission -->
-
-  <!-- ══════════════════════════════════════════════════════════
-       PANEL 1 — OUR INNOVATION
-       Hidden via CSS; rAF loop + stagger JS reveals it.
-  ══════════════════════════════════════════════════════════════ -->
-  <div class="panel panel-innovation" bind:this={panel1El}>
-
-    <!-- Top bar -->
-    <div class="top-bar">
-      <div class="flex items-center gap-2">
-        <span class="w-1.5 h-1.5 rounded-full bg-[#F45E2A] animate-pulse"></span>
-        <span class="text-white/70 text-sm font-bold tracking-[0.2em] uppercase">Adeptus.</span>
-      </div>
-      <div class="flex items-center gap-1.5">
-        <span class="w-4 h-px bg-white/30"></span>
-        <span class="w-2 h-px bg-white/30"></span>
-      </div>
-    </div>
-
-    <!-- Content grid -->
-    <div class="innov-grid">
-
-      <!-- Left: heading + deco -->
-      <div class="innov-left">
-
-        <!-- Dot-grid decoration -->
-        <div class="innov-deco innov-anim" aria-hidden="true">
-          <svg viewBox="0 0 120 120" class="w-full h-full" fill="none">
-            {#each Array(6) as _, row}
-              {#each Array(6) as _, col}
-                <circle
-                  cx={10 + col * 20} cy={10 + row * 20} r="1.5"
-                  fill="rgba(244,94,42,{0.1 + (row + col) * 0.025})"
-                  style="animation: dotPulse 3s ease-in-out {(row + col) * .15}s infinite"
-                />
-              {/each}
-            {/each}
-            <line x1="10" y1="10" x2="110" y2="10"  stroke="rgba(244,94,42,.15)" stroke-width=".5"/>
-            <line x1="10" y1="30" x2="110" y2="30"  stroke="rgba(244,94,42,.08)" stroke-width=".5"/>
-            <line x1="10" y1="50" x2="110" y2="50"  stroke="rgba(244,94,42,.12)" stroke-width=".5"/>
-            <line x1="10" y1="10" x2="10"  y2="110" stroke="rgba(244,94,42,.15)" stroke-width=".5"/>
-            <line x1="110" y1="10" x2="110" y2="110" stroke="rgba(244,94,42,.08)" stroke-width=".5"/>
-            <rect x="0"   y="0"   width="20" height="20" fill="none" stroke="#F45E2A" stroke-width="1" opacity=".3"/>
-            <rect x="100" y="100" width="20" height="20" fill="none" stroke="#F45E2A" stroke-width="1" opacity=".15"/>
-          </svg>
-        </div>
-
-        <div class="overflow-hidden">
-          <h2 class="innov-heading innov-anim" style="--delay:0s">Our</h2>
-        </div>
-        <div class="overflow-hidden">
-          <h2 class="innov-heading text-outlined innov-anim" style="--delay:.1s">Innovation.</h2>
-        </div>
-        <div class="innov-badge innov-anim" style="--delay:.2s">
-          <span class="badge-dot"></span>
-          <span class="badge-text">Enterprise · Trusted · Global</span>
-        </div>
-        <div class="innov-vert-accent innov-anim" style="--delay:.3s" aria-hidden="true"></div>
-      </div>
-
-      <!-- Right: blocks + stats -->
-      <div class="innov-right">
-
-        <div class="innov-block innov-anim" style="--delay:.15s">
-          <div class="innov-accent"></div>
-          <h3 class="innov-block-title">Delivering Enterprise Solutions</h3>
-          <p class="innov-block-desc">
-            We deliver a full range of Enterprise solutions and have the
-            expertise in managing highly complex projects.
-          </p>
-        </div>
-
-        <div class="innov-sep innov-anim" style="--delay:.25s" aria-hidden="true"></div>
-
-        <div class="innov-block innov-anim" style="--delay:.35s">
-          <div class="innov-accent"></div>
-          <h3 class="innov-block-title">More Options for you</h3>
-          <p class="innov-block-desc">
-            We do it because we love it and are personally connected to
-            everything we create.
-          </p>
-        </div>
-
-        <!-- Stats -->
-        <div class="innov-stats innov-anim" style="--delay:.48s">
-          <div class="stat-item">
-            <span class="stat-num">500+</span>
-            <span class="stat-label">Projects Delivered</span>
-          </div>
-          <div class="stat-vline" aria-hidden="true"></div>
-          <div class="stat-item">
-            <span class="stat-num">99%</span>
-            <span class="stat-label">Client Satisfaction</span>
+          <div class="ab-benefit-body">
+            <h3 class="ab-benefit-title">AI-Powered Intelligence</h3>
+            <p class="ab-benefit-desc">Gain actionable insights, automate decision-making, and optimize building performance.</p>
           </div>
         </div>
 
+        <div class="ab-benefit">
+          <div class="ab-benefit-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M3 21h18M3 7l9-4 9 4M4 7v14M20 7v14M9 21V12h6v9"/>
+            </svg>
+          </div>
+          <div class="ab-benefit-body">
+            <h3 class="ab-benefit-title">Digital Twin Visualization</h3>
+            <p class="ab-benefit-desc">Real-time digital representation of your building for complete operational visibility.</p>
+          </div>
+        </div>
+
+        <div class="ab-benefit">
+          <div class="ab-benefit-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+            </svg>
+          </div>
+          <div class="ab-benefit-body">
+            <h3 class="ab-benefit-title">Energy Optimization</h3>
+            <p class="ab-benefit-desc">Reduce energy consumption and costs through intelligent recommendations.</p>
+          </div>
+        </div>
+
+        <div class="ab-benefit">
+          <div class="ab-benefit-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+            </svg>
+          </div>
+          <div class="ab-benefit-body">
+            <h3 class="ab-benefit-title">Predictive Maintenance</h3>
+            <p class="ab-benefit-desc">Detect potential equipment failures before they impact operations.</p>
+          </div>
+        </div>
+
+        <div class="ab-benefit">
+          <div class="ab-benefit-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M3 3v18h18"/><path d="M18 17V9M13 17V5M8 17v-3"/>
+            </svg>
+          </div>
+          <div class="ab-benefit-body">
+            <h3 class="ab-benefit-title">Real-Time Monitoring</h3>
+            <p class="ab-benefit-desc">Monitor HVAC, lighting, power, water, and critical systems from a unified dashboard.</p>
+          </div>
+        </div>
+
+        <div class="ab-benefit">
+          <div class="ab-benefit-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+            </svg>
+          </div>
+          <div class="ab-benefit-body">
+            <h3 class="ab-benefit-title">Multi-Site Management</h3>
+            <p class="ab-benefit-desc">Manage multiple facilities and portfolios from a single platform.</p>
+          </div>
+        </div>
+
+      </div><!-- /ab-benefits -->
+
+      <!-- CTA buttons -->
+      <div class="ab-ctas ab-anim" style="--d:0.78s">
+        <a href="#contact" class="ab-btn-primary">Get in Touch</a>
+        <a href="#services" class="ab-btn-secondary">Our Services</a>
       </div>
-    </div>
 
-    <!-- Bottom bar -->
-    <div class="progress-row innov-anim" style="--delay:.6s">
-      <div class="progress-track"><div class="progress-fill inn-fill"></div></div>
-      <button class="explore-link" on:click={() => scrollToPanel(0)}>
-        <svg class="w-3 h-3 inline mr-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/>
-        </svg>
-        Back to Mission
-      </button>
-      <span class="text-white/15 text-[10px] tracking-widest ml-auto uppercase">Adeptus Technologies</span>
-    </div>
+    </div><!-- /ab-left -->
 
-  </div><!-- /panel-innovation -->
+    <!-- RIGHT — visual panel -->
+    <div class="ab-right" aria-hidden="true">
+
+      <!-- Giant stacked letters in background -->
+      <div class="ab-letters">
+        <span>B</span>
+        <span>E</span>
+        <span>C</span>
+        <span>O</span>
+        <span>N</span>
+        <span>I</span>
+        <span>X</span>
+      </div>
+
+      <!-- Circle accent — like yellow circle in screenshot -->
+      <div class="ab-circle"></div>
+
+      <!-- Pulse rings -->
+      <div class="ab-ring ab-ring-1"></div>
+      <div class="ab-ring ab-ring-2"></div>
+      <div class="ab-ring ab-ring-3"></div>
+
+      <!-- Detail block — top right, mirroring "SHIPPING" from screenshot -->
+      <div class="ab-detail">
+        <span class="ab-detail-lbl">REGION:</span>
+        <p class="ab-detail-txt">
+          Operating across UAE, KSA, and the broader GCC — enterprise-grade
+          building intelligence at scale.
+        </p>
+      </div>
+
+    </div><!-- /ab-right -->
+
+  </div><!-- /ab-body -->
+
+  <!-- ── Bottom bar ────────────────────────────────────────────────── -->
+  <div class="ab-bottom">
+    <div class="ab-prog-track"><div class="ab-prog-fill"></div></div>
+    <span class="ab-brand">Adeptus Technologies</span>
+  </div>
 
 </section>
-</div><!-- /about-outer -->
 
 <style>
-  /* ── Outer container: 100 vh ─────────────────────────────────────────── */
-  .about-outer {
+  /* ── Section ────────────────────────────────────────────────────────────── */
+  .ab-wrap {
     position: relative;
-    height: 100vh;
-  }
-
-  /* ── Sticky section: locks at top of viewport while scrolling 200vh ──── */
-  .about-wrap {
-    position: sticky;
-    top: 0;
     width: 100%;
     height: 100vh;
-    background: #1d2323;
+    min-height: 620px;
+    background: #120825;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
   }
 
-  /* ── Exit fade-to-dark overlay ────────────────────────────────────────── */
-  .about-exit-overlay {
+  /* ── Background — identical to Hero: radial green/yellow + linear gradient */
+  .ab-grid {
     position: absolute;
     inset: 0;
-    background: #1d2323;
-    opacity: 0;
-    pointer-events: none;
-    z-index: 100;
-    will-change: opacity;
-  }
-
-  /* ── Background grid ──────────────────────────────────────────────────── */
-  .bg-grid {
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(244,94,42,.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(244,94,42,.03) 1px, transparent 1px);
-    background-size: 60px 60px;
-    pointer-events: none;
     z-index: 0;
+    background: radial-gradient(
+        ellipse at 70% 40%,
+        rgba(154, 217, 147, 0.09) 0%,
+        transparent 45%
+      ),
+      radial-gradient(
+        ellipse at 15% 70%,
+        rgba(225, 231, 92, 0.07) 0%,
+        transparent 40%
+      ),
+      linear-gradient(
+        140deg,
+        #0a1f12 0%,
+        #0b1a10 25%,
+        #0e1e20 55%,
+        #081624 80%,
+        #06121e 100%
+      );
+    pointer-events: none;
   }
 
-  /* ── Panels (both fill the sticky section absolutely) ─────────────────── */
-  .panel {
+  /* ── Green tech grid with radial fade mask — identical to Hero ─────────── */
+  .ab-glow {
     position: absolute;
     inset: 0;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    will-change: opacity, transform;
-  }
-  .panel-mission    { z-index: 2; }
-  .panel-innovation { z-index: 1; opacity: 0; transform: translateY(60px); }
-
-  /* ══════════════════════════════════════════════════════════════════════
-     RIGHT NAVIGATION
-  ══════════════════════════════════════════════════════════════════════ */
-  .scroll-nav {
-    position: absolute;
-    right: 2rem;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 60;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
+    z-index: 1;
+    pointer-events: none;
+    background-image:
+      linear-gradient(rgba(154, 217, 147, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(154, 217, 147, 0.04) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(ellipse at 50% 50%, black 20%, transparent 75%);
+    -webkit-mask-image: radial-gradient(ellipse at 50% 50%, black 20%, transparent 75%);
   }
 
-  .nav-item {
-    display: flex;
-    align-items: center;
-    gap: .55rem;
-    background: none;
-    border: none;
-    padding: .18rem 0;
-    cursor: pointer;
-  }
-
-  .nav-label {
-    font-size: .52rem;
-    letter-spacing: .22em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,.18);
-    white-space: nowrap;
-    user-select: none;
-    font-weight: 600;
-    transition: color .5s ease;
-  }
-  .nav-item.active .nav-label { color: rgba(255,255,255,.72); }
-
-  .nav-index {
-    font-size: .44rem;
-    letter-spacing: .1em;
-    color: rgba(255,255,255,.15);
-    font-weight: 700;
-    transition: color .5s ease;
-  }
-  .nav-item.active .nav-index { color: rgba(244,94,42,.7); }
-
-  .nav-dot {
-    width: 7px; height: 7px;
-    border-radius: 50%;
-    border: 1.5px solid rgba(255,255,255,.18);
-    background: transparent;
-    flex-shrink: 0;
-    transition:
-      background .5s ease,
-      border-color .5s ease,
-      box-shadow .5s ease,
-      transform .5s cubic-bezier(.34,1.56,.64,1);
-  }
-  .nav-dot.active {
-    background: #F45E2A;
-    border-color: #F45E2A;
-    box-shadow: 0 0 10px rgba(244,94,42,.55), 0 0 20px rgba(244,94,42,.2);
-    transform: scale(1.35);
-  }
-
-  /* Vertical track between nav items */
-  .nav-track-wrap {
-    display: flex;
-    justify-content: flex-end;
-    padding: 5px 3px;
-  }
-  .nav-track {
-    position: relative;
-    width: 1.5px;
-    height: 64px;
-    background: rgba(255,255,255,.07);
-    border-radius: 2px;
-  }
-  /* Orange fill — grows down as progress increases; driven by rAF */
-  .nav-fill {
+  /* ── Noise blobs + scanlines — identical to Hero ────────────────────────── */
+  .ab-scanlines {
     position: absolute;
     inset: 0;
-    background: linear-gradient(to bottom, #F45E2A, rgba(244,94,42,.35));
-    border-radius: 2px;
-    transform-origin: top center;
-    transform: scaleY(0);
-    will-change: transform;
-  }
-  /* Sliding dot — top driven by rAF */
-  .nav-indicator {
-    position: absolute;
-    left: 50%;
-    top: 0;
-    width: 5px; height: 5px;
-    border-radius: 50%;
-    background: #F45E2A;
-    transform: translateX(-50%);
-    box-shadow: 0 0 8px rgba(244,94,42,.7), 0 0 16px rgba(244,94,42,.35);
-    will-change: top;
+    z-index: 2;
+    pointer-events: none;
+    background-image:
+      radial-gradient(circle at 30% 20%, rgba(154, 217, 147, 0.07) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(225, 231, 92, 0.05) 0%, transparent 40%),
+      repeating-linear-gradient(
+        to bottom,
+        transparent 0,
+        transparent 3px,
+        rgba(0, 0, 0, 0.06) 3px,
+        rgba(0, 0, 0, 0.06) 4px
+      );
+    opacity: 0.75;
   }
 
-  /* ══════════════════════════════════════════════════════════════════════
-     SCROLL-TRIGGERED ENTRANCE ANIMATIONS  (Panel 0, IntersectionObserver)
-  ══════════════════════════════════════════════════════════════════════ */
-  .anim {
-    opacity: 0;
-    transform: translateY(20px);
-    transition:
-      opacity  .75s cubic-bezier(.4,0,.2,1) var(--delay, 0s),
-      transform .75s cubic-bezier(.4,0,.2,1) var(--delay, 0s);
-  }
-  .anim:global(.is-visible) { opacity: 1; transform: translateY(0); }
+  /* ── HUD corners ────────────────────────────────────────────────────────── */
+  .ab-hud { position: absolute; inset: 0; pointer-events: none; z-index: 9; }
+  .ab-hud-tl,.ab-hud-tr,.ab-hud-bl,.ab-hud-br { position: absolute; width: 24px; height: 24px; }
+  .ab-hud-tl { top: 18px; left: 18px; border-top:    1.5px solid rgba(154,217,147,.5); border-left:  1.5px solid rgba(154,217,147,.5); }
+  .ab-hud-tr { top: 18px; right: 18px; border-top:   1.5px solid rgba(154,217,147,.5); border-right: 1.5px solid rgba(154,217,147,.5); }
+  .ab-hud-bl { bottom: 18px; left: 18px; border-bottom: 1.5px solid rgba(154,217,147,.5); border-left:  1.5px solid rgba(154,217,147,.5); }
+  .ab-hud-br { bottom: 18px; right: 18px; border-bottom: 1.5px solid rgba(154,217,147,.5); border-right: 1.5px solid rgba(154,217,147,.5); }
 
-  /* ── Top bar (shared) ─────────────────────────────────────────────────── */
-  .top-bar {
-    position: relative; z-index: 10;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 1.75rem 2.5rem;
-    flex-shrink: 0;
-  }
-
-  /* ── Mission: content grid ─────────────────────────────────────────────── */
-  .content-grid {
-    position: relative; z-index: 10;
+  /* ── Split body ─────────────────────────────────────────────────────────── */
+  .ab-body {
     flex: 1;
-    display: grid;
-    grid-template-columns: 1fr auto 60px;
+    position: relative;
+    display: flex;
     align-items: center;
-    padding: 0 2.5rem;
-    gap: 1rem;
+    z-index: 5;
+    min-height: 0;
+    overflow: hidden;
   }
 
-  .left-col { display: flex; flex-direction: column; justify-content: center; }
+  /* ── LEFT content ───────────────────────────────────────────────────────── */
+  .ab-left {
+    position: relative;
+    z-index: 2;
+    width: 44%;
+    flex-shrink: 0;
+    padding: 0 0 0 clamp(1.8rem, 4.5vw, 5.5rem);
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
 
-  .main-heading {
-    font-size: clamp(3rem, 7vw, 7.5rem);
-    font-weight: 900;
-    color: #fff;
-    line-height: 1;
-    letter-spacing: -.02em;
-    text-transform: uppercase;
+  /* Entrance animation */
+  .ab-anim {
     opacity: 0;
-    transform: translateY(60px);
+    transform: translateX(-50px);
     transition:
-      opacity  .8s cubic-bezier(.4,0,.2,1) var(--delay, 0s),
-      transform .8s cubic-bezier(.4,0,.2,1) var(--delay, 0s);
+      opacity  0.75s cubic-bezier(0.22, 1, 0.36, 1) var(--d, 0s),
+      transform 0.75s cubic-bezier(0.22, 1, 0.36, 1) var(--d, 0s);
   }
-  .main-heading:global(.is-visible) { opacity: 1; transform: translateY(0); }
+  .ab-vis .ab-anim {
+    opacity: 1;
+    transform: translateX(0);
+  }
 
-  .text-outlined {
-    -webkit-text-stroke: 2px rgba(255,255,255,.45);
+  /* Heading */
+  .ab-heading-wrap { display: flex; flex-direction: column; margin-bottom: 1.6rem; }
+  .ab-hdg {
+    font-size: clamp(2.2rem, 6.5vw, 8rem);
+    font-weight: 900;
+    line-height: 0.92;
+    letter-spacing: -0.03em;
+    text-transform: uppercase;
+    margin: 0;
+  }
+  .ab-hdg-solid { color: #ffffff; }
+  .ab-hdg-out {
+    -webkit-text-stroke: 2px rgba(255,255,255,.4);
     -webkit-text-fill-color: transparent;
     color: transparent;
   }
 
-  .tagline-wrap { display: flex; gap: .75rem; margin-top: 1.25rem; align-items: flex-start; }
-  .tagline-line {
-    width: 2px; min-height: 100%;
-    background: linear-gradient(to bottom, #F45E2A, transparent);
-    border-radius: 2px; flex-shrink: 0; align-self: stretch;
-  }
-  .tagline {
-    font-size: clamp(.68rem, 1.05vw, .85rem);
-    color: rgba(255,255,255,.35);
-    line-height: 1.75; max-width: 320px; font-weight: 300;
+  /* Description */
+  .ab-desc {
+    font-size: clamp(0.62rem, 0.9vw, 0.78rem);
+    color: rgba(255,255,255,.55);
+    line-height: 1.85;
+    font-weight: 300;
+    max-width: 370px;
+    margin: 0 0 1.6rem 0;
   }
 
-  /* ── Center IoT visual ─────────────────────────────────────────────────── */
-  .center-col {
-    position: relative;
-    width: clamp(240px, 32vw, 460px); height: clamp(240px, 32vw, 460px);
-    display: flex; align-items: center; justify-content: center;
-    opacity: 0; transform: translateY(20px) scale(.92);
-    transition: opacity 1s cubic-bezier(.4,0,.2,1) .1s,
-                transform 1s cubic-bezier(.4,0,.2,1) .1s;
+  /* Key Benefits grid */
+  .ab-benefits {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.9rem 1.2rem;
+    margin-bottom: 1.6rem;
+    padding-top: 0.2rem;
   }
-  .center-col:global(.is-visible) { opacity: 1; transform: translateY(0) scale(1); }
-
-  .deco-ring { position: absolute; border-radius: 50%; border: 1px solid rgba(255,255,255,.05); animation: rotateSlow 20s linear infinite; }
-  .ring-outer { inset: 0; animation-duration: 25s; }
-  .ring-inner { inset: 15%; animation-direction: reverse; animation-duration: 18s; }
-
-  .orange-ring {
-    position: absolute; top: 6%; right: 3%; width: 42%; height: 42%;
-    border-radius: 50%; border: 2.5px solid #F45E2A; opacity: 0;
+  .ab-benefit {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.55rem;
   }
-  .center-col:global(.is-visible) .orange-ring {
-    animation: ringPop .6s cubic-bezier(.34,1.56,.64,1) .8s forwards;
-  }
-
-  .center-visual { position: relative; z-index: 2; width: 76%; height: 76%; }
-
-  .net-line { stroke-dasharray: 200; stroke-dashoffset: 200; }
-  .center-col:global(.is-visible) .net-line {
-    animation: drawLine .7s ease forwards;
-    animation-delay: calc(.5s + var(--d));
-  }
-  .sat-node { opacity: 0; }
-  .center-col:global(.is-visible) .sat-node {
-    animation: nodePop .4s cubic-bezier(.34,1.56,.64,1) forwards;
-    animation-delay: calc(.8s + var(--d));
-  }
-  .core-pulse { animation: corePulse 2.5s ease-in-out infinite; }
-
-  .right-col { display: flex; align-items: center; justify-content: flex-end; }
-  .arrow-btn  {
-    display: flex; align-items: center; justify-content: center;
-    color: rgba(255,255,255,.35);
-    transition: color .3s ease, transform .3s ease;
-  }
-  .arrow-btn:hover { color: #F45E2A; transform: translateX(4px); }
-
-  /* ── Feature cards ────────────────────────────────────────────────────── */
-  .features-row {
-    position: relative; z-index: 10;
-    display: grid; grid-template-columns: repeat(3, 1fr);
-    gap: 1px; background: rgba(255,255,255,.05);
-    margin: 0 2.5rem;
-    border: 1px solid rgba(255,255,255,.05);
+  .ab-benefit-icon {
     flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(154,217,147,.25);
+    border-radius: 4px;
+    background: rgba(154,217,147,.06);
+    color: #9ad993;
+    padding: 5px;
+    margin-top: 1px;
   }
-  .feat-card {
-    position: relative; background: #1d2323; padding: 1.5rem;
-    overflow: hidden; cursor: default;
-    transition: opacity .7s cubic-bezier(.4,0,.2,1) var(--delay,0s),
-                transform .7s cubic-bezier(.4,0,.2,1) var(--delay,0s),
-                background .35s ease;
+  .ab-benefit-icon svg { width: 100%; height: 100%; display: block; }
+  .ab-benefit-body { display: flex; flex-direction: column; gap: 0.18rem; }
+  .ab-benefit-title {
+    font-size: clamp(0.52rem, 0.72vw, 0.65rem);
+    font-weight: 700;
+    color: rgba(255,255,255,.88);
+    letter-spacing: 0.02em;
+    margin: 0;
   }
-  .feat-top-bar {
-    position: absolute; top: 0; left: 0; right: 0; height: 2px;
-    background: linear-gradient(90deg, #F45E2A, #ff8c5a);
-    transform: scaleX(0); transform-origin: left;
-    transition: transform .45s cubic-bezier(.4,0,.2,1);
+  .ab-benefit-desc {
+    font-size: clamp(0.44rem, 0.58vw, 0.54rem);
+    color: rgba(255,255,255,.38);
+    line-height: 1.65;
+    font-weight: 300;
+    margin: 0;
   }
-  .feat-card:hover .feat-top-bar { transform: scaleX(1); }
-  .feat-card:hover { background: rgba(244,94,42,.05); }
-  .feat-card::after {
-    content: ''; position: absolute; inset: 0;
-    background: radial-gradient(ellipse at 50% 0%, rgba(244,94,42,.08) 0%, transparent 70%);
-    opacity: 0; transition: opacity .4s ease;
-  }
-  .feat-card:hover::after { opacity: 1; }
-  .feat-num  { font-size: .6rem; font-weight: 700; color: #F45E2A; letter-spacing: .2em; opacity: .8; }
-  .feat-icon { font-size: 1.35rem; transition: transform .3s cubic-bezier(.34,1.56,.64,1); filter: drop-shadow(0 0 6px rgba(244,94,42,.3)); }
-  .feat-card:hover .feat-icon { transform: scale(1.2) rotate(-5deg); }
-  .feat-divider { width: 100%; height: 1px; background: rgba(255,255,255,.06); margin: .75rem 0 .9rem; }
-  .feat-title { color: #fff; font-size: .88rem; font-weight: 700; margin-bottom: .45rem; letter-spacing: .01em; transition: color .3s ease; }
-  .feat-card:hover .feat-title { color: #F45E2A; }
-  .feat-desc  { color: rgba(255,255,255,.32); font-size: .7rem; line-height: 1.65; font-weight: 300; }
-  .feat-arrow-wrap { margin-top: 1.1rem; color: rgba(244,94,42,.4); transition: color .3s ease, transform .35s cubic-bezier(.4,0,.2,1); }
-  .feat-card:hover .feat-arrow-wrap { color: #F45E2A; transform: translateX(6px); }
 
-  /* ── Progress row ────────────────────────────────────────────────────── */
-  .progress-row {
-    position: relative; z-index: 10;
-    display: flex; align-items: center; gap: 1.25rem;
+  /* CTA buttons */
+  .ab-ctas {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+  .ab-btn-primary {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.65rem 1.5rem;
+    background: linear-gradient(135deg, #9ad993 0%, #e1e75c 100%);
+    color: #081a0c;
+    font-size: clamp(0.56rem, 0.76vw, 0.68rem);
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: opacity 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 0 24px rgba(154,217,147,.28);
+  }
+  .ab-btn-primary:hover {
+    opacity: 0.88;
+    transform: translateY(-2px);
+    box-shadow: 0 0 40px rgba(154,217,147,.45);
+  }
+  .ab-btn-primary:focus-visible { outline: 2px solid #9ad993; outline-offset: 3px; }
+
+  .ab-btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.65rem 1.3rem;
+    background: transparent;
+    color: rgba(255,255,255,.65);
+    font-size: clamp(0.56rem, 0.76vw, 0.68rem);
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid rgba(255,255,255,.18);
+    border-radius: 2px;
+    cursor: pointer;
+    transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+  }
+  .ab-btn-secondary:hover {
+    border-color: rgba(154,217,147,.45);
+    color: #9ad993;
+    background: rgba(154,217,147,.06);
+  }
+  .ab-btn-secondary:focus-visible { outline: 2px solid rgba(154,217,147,.6); outline-offset: 3px; }
+
+  /* ── RIGHT visual panel ─────────────────────────────────────────────────── */
+  .ab-right {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 62%;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  /* Giant stacked letters — grid layout filling right panel */
+  .ab-letters {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    align-content: center;
+    justify-items: center;
+    pointer-events: none;
+    user-select: none;
+    z-index: 1;
+    padding: 0 2%;
+    row-gap: 0;
+  }
+  .ab-letters span {
+    font-size: clamp(5rem, 16vw, 22rem);
+    font-weight: 900;
+    color: transparent;
+    -webkit-text-stroke: 1.5px rgba(255,255,255,.1);
+    text-transform: uppercase;
+    line-height: 0.88;
+    letter-spacing: -0.04em;
+  }
+  /* Last letter (S) spans both columns — centred */
+  .ab-letters span:last-child {
+    grid-column: 1 / -1;
+  }
+
+  /* Circle accent — green/yellow glow matching Hero palette */
+  .ab-circle {
+    position: absolute;
+    top: 28%;
+    left: 52%;
+    transform: translate(-50%, -28%);
+    width: clamp(200px, 32vw, 460px);
+    height: clamp(200px, 32vw, 460px);
+    background: radial-gradient(
+      ellipse at 38% 38%,
+      rgba(154, 217, 147, 0.55) 0%,
+      rgba(225, 231, 92, 0.28) 45%,
+      transparent 75%
+    );
+    border-radius: 50%;
+    z-index: 2;
+  }
+
+  /* Rings */
+  .ab-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(154,217,147,.18);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+  }
+  .ab-ring-1 { width: 38%; height: 64%; animation: abRingPulse 3.8s ease-in-out infinite; }
+  .ab-ring-2 { width: 55%; height: 90%; animation: abRingPulse 3.8s ease-in-out .9s infinite; border-color: rgba(154,217,147,.09); }
+  .ab-ring-3 { width: 70%; height: 112%; animation: abRingPulse 3.8s ease-in-out 1.8s infinite; border-color: rgba(225,231,92,.05); }
+
+  /* Detail block — top-right, like "SHIPPING" text in screenshot */
+  .ab-detail {
+    position: absolute;
+    top: clamp(1.5rem, 4vh, 3rem);
+    right: clamp(1rem, 2.5vw, 2.5rem);
+    z-index: 10;
+    max-width: 180px;
+    pointer-events: auto;
+  }
+  .ab-detail-lbl {
+    display: block;
+    font-size: clamp(0.44rem, 0.6vw, 0.56rem);
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #9ad993;
+    margin-bottom: 0.4rem;
+  }
+  .ab-detail-txt {
+    font-size: clamp(0.5rem, 0.68vw, 0.62rem);
+    color: rgba(255,255,255,.38);
+    line-height: 1.75;
+    font-weight: 300;
+    margin: 0;
+  }
+
+  /* ── Bottom bar ─────────────────────────────────────────────────────────── */
+  .ab-bottom {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
     padding: 1rem 2.5rem 1.5rem;
     border-top: 1px solid rgba(255,255,255,.05);
     flex-shrink: 0;
   }
-  .progress-track { width: 80px; height: 2px; background: rgba(255,255,255,.08); border-radius: 2px; overflow: hidden; }
-  .progress-fill  { height: 100%; width: 30%; background: linear-gradient(90deg, #F45E2A, #ff8c5a); border-radius: 2px; }
-  .progress-row:global(.is-visible) .progress-fill,
-  .inn-fill { animation: progressPulse 2.5s ease-in-out .4s infinite alternate; }
-  .explore-link {
-    background: none; border: none; padding: 0;
-    color: rgba(255,255,255,.3);
-    font-size: .625rem; letter-spacing: .35em; text-transform: uppercase;
-    cursor: pointer;
-    transition: color .3s ease, letter-spacing .3s ease;
+  .ab-prog-track { width: 80px; height: 2px; background: rgba(255,255,255,.08); border-radius: 2px; overflow: hidden; }
+  .ab-prog-fill  { height: 100%; width: 40%; background: linear-gradient(90deg, #9ad993, #e1e75c); border-radius: 2px; animation: abProgPulse 2.5s ease-in-out 0.4s infinite alternate; }
+  .ab-brand { margin-left: auto; font-size: 0.58rem; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(255,255,255,.12); font-weight: 500; }
+
+  /* ── Keyframes ───────────────────────────────────────────────────────────── */
+  @keyframes abRingPulse {
+    0%,100% { opacity: .6; transform: translate(-50%,-50%) scale(1); }
+    50%      { opacity: 1;  transform: translate(-50%,-50%) scale(1.03); }
   }
-  .explore-link:hover { color: #F45E2A; letter-spacing: .45em; }
+  @keyframes abProgPulse { from { width: 25%; } to { width: 65%; } }
 
-  /* ══════════════════════════════════════════════════════════════════════
-     INNOVATION PANEL
-  ══════════════════════════════════════════════════════════════════════ */
-
-  /* Shared static watermark — outside both panels, never moves during transitions */
-  .watermark-shared {
-    position: absolute;
-    right: -3%;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: clamp(6rem, 18vw, 22rem);
-    font-weight: 900;
-    text-transform: uppercase;
-    color: rgba(255,255,255,.025);
-    letter-spacing: -.02em;
-    line-height: 1;
-    pointer-events: none;
-    user-select: none;
-    white-space: nowrap;
-    z-index: 3; /* above both panels so it shows through their opacity transitions */
+  /* ── Responsive ──────────────────────────────────────────────────────────── */
+  @media (max-width: 1100px) {
+    .ab-left  { width: 50%; }
+    .ab-right { width: 56%; }
   }
-
-  /* .innov-anim elements: hidden by default; JS stagger reveals them */
-  .innov-anim {
-    opacity: 0;
-    transform: translateY(30px) scale(.97);
+  @media (max-width: 860px) {
+    .ab-body  { flex-direction: column; align-items: flex-start; justify-content: center; }
+    .ab-left  { width: 90%; padding: 0 1.5rem; }
+    .ab-right {
+      position: relative;
+      width: 100%;
+      height: 40vh;
+      top: auto; right: auto; bottom: auto;
+      flex-shrink: 0;
+    }
+    .ab-letters span { font-size: clamp(3rem, 12vw, 8rem); }
+    .ab-detail { display: none; }
+  }
+  @media (max-width: 560px) {
+    .ab-hdg { font-size: clamp(2rem, 12vw, 4rem); }
+    .ab-ctas { flex-direction: column; align-items: flex-start; }
+    .ab-btn-primary, .ab-btn-secondary { width: 100%; justify-content: center; }
   }
 
-  .innov-grid {
-    position: relative; z-index: 10;
-    flex: 1;
-    display: grid;
-    grid-template-columns: 1fr 1.15fr;
-    align-items: center;
-    padding: 0 2.5rem;
-    gap: 3.5rem;
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .ab-anim { transition: none; opacity: 1; transform: none; }
+    .ab-ring-1,.ab-ring-2,.ab-ring-3,.ab-prog-fill { animation: none; }
   }
-
-  .innov-left { display: flex; flex-direction: column; justify-content: center; position: relative; }
-
-  .innov-deco { width: clamp(80px, 10vw, 120px); height: clamp(80px, 10vw, 120px); margin-bottom: 1.5rem; }
-
-  .innov-heading {
-    font-size: clamp(3rem, 7vw, 7.5rem);
-    font-weight: 900;
-    color: #fff;
-    line-height: 1;
-    letter-spacing: -.02em;
-    text-transform: uppercase;
-    opacity: 0;
-    transform: translateY(30px) scale(.97);
-  }
-
-  .innov-badge { display: flex; align-items: center; gap: .6rem; margin-top: 1.4rem; opacity: 0; transform: translateY(30px) scale(.97); }
-  .badge-dot  { width: 5px; height: 5px; border-radius: 50%; background: #F45E2A; animation: corePulse 2.5s ease-in-out infinite; flex-shrink: 0; }
-  .badge-text { font-size: .55rem; letter-spacing: .25em; text-transform: uppercase; color: rgba(255,255,255,.22); font-weight: 600; }
-
-  .innov-vert-accent {
-    position: absolute;
-    right: -1.75rem; top: 0; bottom: 0;
-    width: 1px;
-    background: linear-gradient(to bottom, transparent, rgba(244,94,42,.25) 25%, rgba(244,94,42,.25) 75%, transparent);
-    opacity: 0;
-    transform: translateY(30px) scale(.97);
-  }
-
-  .innov-right { display: flex; flex-direction: column; }
-
-  .innov-block {
-    position: relative;
-    padding: 1.15rem 0 1.15rem 1.2rem;
-    opacity: 0;
-    transform: translateY(30px) scale(.97);
-  }
-  .innov-accent {
-    position: absolute;
-    left: 0; top: 1.15rem; bottom: 1.15rem;
-    width: 2px;
-    background: linear-gradient(to bottom, #F45E2A, rgba(244,94,42,.08));
-    border-radius: 2px;
-  }
-  .innov-block-title { color: #fff; font-size: clamp(.82rem, 1.3vw, 1rem); font-weight: 700; margin-bottom: .5rem; letter-spacing: .01em; }
-  .innov-block-desc  { color: rgba(255,255,255,.33); font-size: clamp(.66rem, .92vw, .78rem); line-height: 1.75; font-weight: 300; max-width: 400px; }
-
-  .innov-sep {
-    width: 100%; height: 1px;
-    background: linear-gradient(90deg, rgba(244,94,42,.18), rgba(255,255,255,.04) 60%, transparent);
-    margin: .2rem 0;
-    opacity: 0;
-    transform: translateY(30px) scale(.97);
-  }
-
-  .innov-stats {
-    display: flex; align-items: center;
-    margin-top: 1.6rem; padding-top: 1.3rem;
-    border-top: 1px solid rgba(255,255,255,.055);
-    opacity: 0;
-    transform: translateY(30px) scale(.97);
-  }
-  .stat-item  { flex: 1; display: flex; flex-direction: column; gap: .28rem; padding: 0 1.1rem; }
-  .stat-item:first-child { padding-left: 0; }
-  .stat-num   { font-size: clamp(1.7rem, 3.2vw, 2.6rem); font-weight: 900; color: #fff; letter-spacing: -.03em; line-height: 1; }
-  .stat-label { font-size: .6rem; color: rgba(255,255,255,.28); letter-spacing: .14em; text-transform: uppercase; font-weight: 500; }
-  .stat-vline { width: 1px; height: 44px; background: linear-gradient(to bottom, transparent, rgba(244,94,42,.28), transparent); }
-
-  /* ── Keyframes ─────────────────────────────────────────────────────────── */
-  @keyframes drawLine      { to { stroke-dashoffset: 0; } }
-  @keyframes nodePop       { from { opacity: 0; transform: scale(0); } to { opacity: 1; transform: scale(1); } }
-  @keyframes corePulse     { 0%,100% { r: 22; opacity: .12; } 50% { r: 28; opacity: .22; } }
-  @keyframes ringPop       { from { opacity: 0; transform: scale(.6); } to { opacity: .85; transform: scale(1); } }
-  @keyframes rotateSlow    { to { transform: rotate(360deg); } }
-  @keyframes progressPulse { from { width: 20%; } to { width: 75%; } }
-  @keyframes dotPulse      { 0%,100% { opacity: .15; } 50% { opacity: .6; } }
 </style>

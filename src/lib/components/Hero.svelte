@@ -1,17 +1,17 @@
 <script>
-  import { onMount } from 'svelte';
+  import { onMount } from "svelte";
 
-  const typeText = 'Beconix AI';
-  let typed = '';
+  const typeText = "Beconix AI";
+  let typed = "";
   let ready = false;
 
   onMount(() => {
-    // Trigger entrance animations after a short paint delay
     requestAnimationFrame(() => {
-      setTimeout(() => { ready = true; }, 60);
+      setTimeout(() => {
+        ready = true;
+      }, 60);
     });
 
-    // Typing effect for vertical label — starts after 0.6s
     let i = 0;
     const type = () => {
       if (i <= typeText.length) {
@@ -27,6 +27,7 @@
 <section class="hero" class:ready>
   <!-- ── Background ──────────────────────────────────────────────────── -->
   <div class="hero-bg" aria-hidden="true"></div>
+  <div class="hero-grid" aria-hidden="true"></div>
   <div class="hero-noise" aria-hidden="true"></div>
   <div class="hero-scanlines" aria-hidden="true"></div>
 
@@ -61,6 +62,12 @@
       <span class="hw slide-line" style="--d:0.60s">SMART BUILDINGS</span>
     </h1>
     <div class="hero-ai slide-line" style="--d:0.80s">AI</div>
+
+    <!-- CTA buttons -->
+    <div class="hero-ctas slide-line" style="--d:0.95s">
+      <a href="#demo" class="btn-primary">Request Demo</a>
+      <a href="#platform" class="btn-secondary">Explore Platform</a>
+    </div>
   </div>
 
   <!-- ── Right glass card ────────────────────────────────────────────── -->
@@ -87,6 +94,7 @@
         <span class="cstat-lbl">Data Points</span>
       </div>
     </div>
+
   </div>
 
   <!-- ── Bottom tag bar ──────────────────────────────────────────────── -->
@@ -145,10 +153,31 @@
         #06121e 100%
       );
   }
-  .hero-noise {
+
+  /* Subtle tech grid overlay */
+  .hero-grid {
     position: absolute;
     inset: 0;
     z-index: 1;
+    pointer-events: none;
+    background-image: linear-gradient(
+        rgba(154, 217, 147, 0.04) 1px,
+        transparent 1px
+      ),
+      linear-gradient(90deg, rgba(154, 217, 147, 0.04) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(ellipse at 50% 50%, black 20%, transparent 75%);
+    -webkit-mask-image: radial-gradient(
+      ellipse at 50% 50%,
+      black 20%,
+      transparent 75%
+    );
+  }
+
+  .hero-noise {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
     opacity: 0.55;
     background-image: radial-gradient(
         circle at 30% 20%,
@@ -201,7 +230,6 @@
     font-family: "Montserrat", sans-serif;
     letter-spacing: 0;
     flex-shrink: 0;
-    /* Letter entrance — fade + drop in from top */
     opacity: 0;
     transform: translateY(-40px);
     transition:
@@ -213,7 +241,6 @@
     opacity: 1;
     transform: translateY(0);
   }
-  /* Highlighted letter uses primary gradient */
   .hero-letters .letter-dim {
     -webkit-text-stroke: 0px;
     background: linear-gradient(90deg, #9ad993 0%, #e1e75c 100%);
@@ -232,7 +259,7 @@
     font-size: clamp(0.42rem, 0.6vw, 0.52rem);
     letter-spacing: 0.28em;
     text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.18);
+    color: rgba(255, 255, 255, 0.32);
     font-weight: 500;
     white-space: nowrap;
     z-index: 5;
@@ -248,8 +275,13 @@
     animation: blink 0.85s step-end infinite;
   }
   @keyframes blink {
-    0%, 100% { opacity: 1; }
-    50%       { opacity: 0; }
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
   }
 
   /* ── 3D Robot — slides up from below ───────────────────────────────────── */
@@ -264,7 +296,6 @@
     display: flex;
     align-items: flex-end;
     justify-content: center;
-    /* Entrance */
     opacity: 0;
     translate: 0 80px;
     transition:
@@ -276,7 +307,6 @@
     translate: 0 0;
   }
 
-  /* Ambient glow beneath the robot feet */
   .robot-glow {
     position: absolute;
     bottom: -6%;
@@ -307,8 +337,13 @@
   }
 
   @keyframes robotFloat {
-    0%,  100% { transform: translateY(0); }
-    50%        { transform: translateY(-14px); }
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-14px);
+    }
   }
 
   /* ── Slide-in lines (left → right) ────────────────────────────────────── */
@@ -328,7 +363,7 @@
   .hero-left {
     position: relative;
     z-index: 10;
-    padding: 0 0 clamp(5rem, 9vh, 7rem) clamp(1.8rem, 4.5vw, 5.5rem);
+    padding: 0 0 clamp(4rem, 8vh, 6rem) clamp(1.8rem, 4.5vw, 5.5rem);
     display: flex;
     flex-direction: column;
     gap: 0.3rem;
@@ -343,12 +378,14 @@
   }
   .hero-heading span {
     display: block;
-    font-size: clamp(1.6rem, 3.5vw, 4.2rem);
+    font-size: clamp(1.6rem, 3.3vw, 4.2rem);
     font-weight: 900;
     letter-spacing: 0.06em;
     text-transform: uppercase;
   }
-  .hw { color: #ffffff; }
+  .hw {
+    color: #ffffff;
+  }
   .ha {
     background: linear-gradient(90deg, #9ad993 0%, #e1e75c 100%);
     -webkit-background-clip: text;
@@ -362,9 +399,77 @@
     letter-spacing: 0.06em;
     line-height: 1;
     margin-top: 0.15em;
-    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.35);
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.45);
     -webkit-text-fill-color: transparent;
     color: transparent;
+  }
+
+  /* ── CTA Buttons ───────────────────────────────────────────────────────── */
+  .hero-ctas {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 1.4rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.65rem 1.5rem;
+    background: linear-gradient(135deg, #9ad993 0%, #e1e75c 100%);
+    color: #081a0c;
+    font-size: clamp(0.58rem, 0.78vw, 0.7rem);
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 3px;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 0 28px rgba(154, 217, 147, 0.28);
+    transition:
+      opacity 0.2s ease,
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+  .btn-primary:hover {
+    opacity: 0.88;
+    transform: translateY(-2px);
+    box-shadow: 0 0 42px rgba(154, 217, 147, 0.45);
+  }
+  .btn-primary:focus-visible {
+    outline: 2px solid #9ad993;
+    outline-offset: 3px;
+  }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.65rem 1.3rem;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.72);
+    font-size: clamp(0.58rem, 0.78vw, 0.7rem);
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+    cursor: pointer;
+    transition:
+      border-color 0.2s ease,
+      color 0.2s ease,
+      background 0.2s ease;
+  }
+  .btn-secondary:hover {
+    border-color: rgba(154, 217, 147, 0.45);
+    color: rgba(154, 217, 147, 0.92);
+    background: rgba(154, 217, 147, 0.06);
+  }
+  .btn-secondary:focus-visible {
+    outline: 2px solid rgba(154, 217, 147, 0.6);
+    outline-offset: 3px;
   }
 
   /* ── Right glass card — fades + slides from right ─────────────────────── */
@@ -374,21 +479,33 @@
     bottom: clamp(4rem, 10vh, 7rem);
     z-index: 10;
     width: clamp(200px, 24vw, 310px);
-    background: rgba(22, 12, 42, 0.72);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 4px;
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     padding: 1.4rem 1.3rem 1.1rem;
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    /* Entrance */
     opacity: 0;
     transform: translateX(40px);
     transition:
       opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.7s,
       transform 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.7s;
+  }
+  /* Top accent line */
+  .hero-card::before {
+    content: "";
+    position: absolute;
+    top: -1px;
+    left: 15%;
+    right: 15%;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(154, 217, 147, 0.55),
+      transparent
+    );
+    border-radius: 1px;
   }
   .ready .hero-card {
     opacity: 1;
@@ -397,7 +514,7 @@
 
   .card-body {
     font-size: clamp(0.6rem, 0.9vw, 0.76rem);
-    color: rgba(255, 255, 255, 0.42);
+    color: rgba(255, 255, 255, 0.62);
     line-height: 1.85;
     font-weight: 300;
     margin: 0;
@@ -409,8 +526,8 @@
     align-items: center;
     gap: 0;
     padding: 0.7rem 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   }
   .cstat {
     flex: 1;
@@ -433,7 +550,7 @@
     font-size: clamp(0.38rem, 0.52vw, 0.46rem);
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.28);
+    color: rgba(255, 255, 255, 0.52);
     font-weight: 500;
     white-space: nowrap;
   }
@@ -475,28 +592,53 @@
     display: block;
     width: clamp(40px, 6vw, 90px);
     height: 1px;
-    background: rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.14);
   }
   .btag-txt {
     font-size: clamp(0.38rem, 0.55vw, 0.48rem);
     letter-spacing: 0.22em;
     text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.22);
+    color: rgba(255, 255, 255, 0.42);
     font-weight: 500;
     white-space: nowrap;
   }
 
   /* ── Responsive ────────────────────────────────────────────────────────── */
   @media (max-width: 960px) {
-    .hero-letters span { font-size: clamp(4rem, 13vw, 10rem); }
-    .hero-left { max-width: 55%; }
-    .hero-card { width: clamp(180px, 28vw, 240px); }
+    .hero-letters span {
+      font-size: clamp(4rem, 13vw, 10rem);
+    }
+    .hero-left {
+      max-width: 55%;
+    }
+    .hero-card {
+      width: clamp(180px, 28vw, 240px);
+    }
   }
   @media (max-width: 680px) {
-    .hero-letters { display: none; }
-    .hero-vert-label { display: none; }
-    .hero-left { max-width: 88%; padding-left: 1.5rem; }
-    .hero-card { right: 1rem; bottom: 3.5rem; width: clamp(160px, 80vw, 260px); }
+    .hero-letters {
+      display: none;
+    }
+    .hero-vert-label {
+      display: none;
+    }
+    .hero-left {
+      max-width: 90%;
+      padding-left: 1.5rem;
+      padding-bottom: 3.5rem;
+    }
+    .hero-card {
+      right: 1rem;
+      bottom: 3.5rem;
+      width: clamp(160px, 80vw, 260px);
+    }
+    .hero-ctas {
+      gap: 0.6rem;
+    }
+    .btn-primary,
+    .btn-secondary {
+      padding: 0.6rem 1.1rem;
+    }
   }
 
   /* Respect reduced motion */
@@ -511,6 +653,11 @@
       transform: none;
       translate: none;
     }
-    .robot-img { animation: none; }
+    .robot-img {
+      animation: none;
+    }
+    .type-cursor {
+      animation: none;
+    }
   }
 </style>
