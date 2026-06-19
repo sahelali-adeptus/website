@@ -1,8 +1,30 @@
 <script>
-  // Static hero — no slider
+  import { onMount } from 'svelte';
+
+  const typeText = 'Beconix AI';
+  let typed = '';
+  let ready = false;
+
+  onMount(() => {
+    // Trigger entrance animations after a short paint delay
+    requestAnimationFrame(() => {
+      setTimeout(() => { ready = true; }, 60);
+    });
+
+    // Typing effect for vertical label — starts after 0.6s
+    let i = 0;
+    const type = () => {
+      if (i <= typeText.length) {
+        typed = typeText.slice(0, i);
+        i++;
+        setTimeout(type, i === 1 ? 700 : 80);
+      }
+    };
+    setTimeout(type, 600);
+  });
 </script>
 
-<section class="hero">
+<section class="hero" class:ready>
   <!-- ── Background ──────────────────────────────────────────────────── -->
   <div class="hero-bg" aria-hidden="true"></div>
   <div class="hero-noise" aria-hidden="true"></div>
@@ -10,17 +32,19 @@
 
   <!-- ── Giant letter row ────────────────────────────────────────────── -->
   <div class="hero-letters" aria-hidden="true">
-    <span>B</span>
-    <span>E</span>
-    <span>C</span>
-    <span class="letter-dim">O</span>
-    <span>N</span>
-    <span>I</span>
-    <span>X</span>
+    <span style="--i:0">B</span>
+    <span style="--i:1">E</span>
+    <span style="--i:2">C</span>
+    <span class="letter-dim" style="--i:3">O</span>
+    <span style="--i:4">N</span>
+    <span style="--i:5">I</span>
+    <span style="--i:6">X</span>
   </div>
 
-  <!-- ── Vertical label ─────────────────────────────────────────────── -->
-  <div class="hero-vert-label" aria-hidden="true">Beconix AI</div>
+  <!-- ── Vertical label — typing effect ─────────────────────────────── -->
+  <div class="hero-vert-label" aria-hidden="true">
+    {typed}<span class="type-cursor"></span>
+  </div>
 
   <!-- ── 3D AI Robot — centre, slightly below midpoint ──────────────── -->
   <div class="hero-robot" aria-hidden="true">
@@ -31,12 +55,12 @@
   <!-- ── Left content ────────────────────────────────────────────────── -->
   <div class="hero-left">
     <h1 class="hero-heading">
-      <span class="hw">INTELLIGENT</span>
-      <span class="ha">DIGITAL TWIN</span>
-      <span class="hw">PLATFORM FOR</span>
-      <span class="hw">SMART BUILDINGS</span>
+      <span class="hw slide-line" style="--d:0.15s">INTELLIGENT</span>
+      <span class="ha slide-line" style="--d:0.30s">DIGITAL TWIN</span>
+      <span class="hw slide-line" style="--d:0.45s">PLATFORM FOR</span>
+      <span class="hw slide-line" style="--d:0.60s">SMART BUILDINGS</span>
     </h1>
-    <div class="hero-ai">AI</div>
+    <div class="hero-ai slide-line" style="--d:0.80s">AI</div>
   </div>
 
   <!-- ── Right glass card ────────────────────────────────────────────── -->
@@ -121,7 +145,6 @@
         #06121e 100%
       );
   }
-  /* Subtle green noise texture via gradient pattern */
   .hero-noise {
     position: absolute;
     inset: 0;
@@ -178,6 +201,17 @@
     font-family: "Montserrat", sans-serif;
     letter-spacing: 0;
     flex-shrink: 0;
+    /* Letter entrance — fade + drop in from top */
+    opacity: 0;
+    transform: translateY(-40px);
+    transition:
+      opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: calc(var(--i) * 0.07s + 0.1s);
+  }
+  .ready .hero-letters span {
+    opacity: 1;
+    transform: translateY(0);
   }
   /* Highlighted letter uses primary gradient */
   .hero-letters .letter-dim {
@@ -188,7 +222,7 @@
     background-clip: text;
   }
 
-  /* ── Vertical label ────────────────────────────────────────────────────── */
+  /* ── Vertical label — typing effect ────────────────────────────────────── */
   .hero-vert-label {
     position: absolute;
     left: clamp(0.8rem, 1.5vw, 1.6rem);
@@ -204,8 +238,21 @@
     z-index: 5;
     pointer-events: none;
   }
+  .type-cursor {
+    display: inline-block;
+    width: 1px;
+    height: 0.9em;
+    background: rgba(154, 217, 147, 0.7);
+    margin-left: 1px;
+    vertical-align: middle;
+    animation: blink 0.85s step-end infinite;
+  }
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0; }
+  }
 
-  /* ── 3D Robot ──────────────────────────────────────────────────────────── */
+  /* ── 3D Robot — slides up from below ───────────────────────────────────── */
   .hero-robot {
     position: absolute;
     left: 50%;
@@ -217,6 +264,16 @@
     display: flex;
     align-items: flex-end;
     justify-content: center;
+    /* Entrance */
+    opacity: 0;
+    translate: 0 80px;
+    transition:
+      opacity 1.1s cubic-bezier(0.22, 1, 0.36, 1) 0.4s,
+      translate 1.1s cubic-bezier(0.22, 1, 0.36, 1) 0.4s;
+  }
+  .ready .hero-robot {
+    opacity: 1;
+    translate: 0 0;
   }
 
   /* Ambient glow beneath the robot feet */
@@ -244,21 +301,27 @@
     width: 100%;
     height: auto;
     display: block;
-    /* Drop shadow matching the green-yellow glow */
     filter: drop-shadow(0 0 28px rgba(154, 217, 147, 0.35))
       drop-shadow(0 0 60px rgba(225, 231, 92, 0.2));
-    /* Float animation */
     animation: robotFloat 5s ease-in-out infinite;
   }
 
   @keyframes robotFloat {
-    0%,
-    100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-14px);
-    }
+    0%,  100% { transform: translateY(0); }
+    50%        { transform: translateY(-14px); }
+  }
+
+  /* ── Slide-in lines (left → right) ────────────────────────────────────── */
+  .slide-line {
+    opacity: 0;
+    transform: translateX(-60px);
+    transition:
+      opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1) var(--d, 0s),
+      transform 0.75s cubic-bezier(0.22, 1, 0.36, 1) var(--d, 0s);
+  }
+  .ready .slide-line {
+    opacity: 1;
+    transform: translateX(0);
   }
 
   /* ── Left content block ────────────────────────────────────────────────── */
@@ -285,9 +348,7 @@
     letter-spacing: 0.06em;
     text-transform: uppercase;
   }
-  .hw {
-    color: #ffffff;
-  }
+  .hw { color: #ffffff; }
   .ha {
     background: linear-gradient(90deg, #9ad993 0%, #e1e75c 100%);
     -webkit-background-clip: text;
@@ -298,7 +359,6 @@
   .hero-ai {
     font-size: clamp(2.5rem, 5.5vw, 6.5rem);
     font-weight: 100;
-    color: rgba(255, 255, 255, 0.55);
     letter-spacing: 0.06em;
     line-height: 1;
     margin-top: 0.15em;
@@ -307,13 +367,15 @@
     color: transparent;
   }
 
-  /* ── Right glass card ──────────────────────────────────────────────────── */
+  /* ── Right glass card — fades + slides from right ─────────────────────── */
   .hero-card {
     position: absolute;
     right: clamp(1.5rem, 3.5vw, 4rem);
     bottom: clamp(4rem, 10vh, 7rem);
     z-index: 10;
     width: clamp(200px, 24vw, 310px);
+    background: rgba(22, 12, 42, 0.72);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 4px;
     backdrop-filter: blur(18px);
     -webkit-backdrop-filter: blur(18px);
@@ -321,6 +383,16 @@
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    /* Entrance */
+    opacity: 0;
+    transform: translateX(40px);
+    transition:
+      opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.7s,
+      transform 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.7s;
+  }
+  .ready .hero-card {
+    opacity: 1;
+    transform: translateX(0);
   }
 
   .card-body {
@@ -372,7 +444,7 @@
     flex-shrink: 0;
   }
 
-  /* ── Bottom tag bar ────────────────────────────────────────────────────── */
+  /* ── Bottom tag bar — fades up ─────────────────────────────────────────── */
   .hero-bottom {
     position: absolute;
     bottom: 1.2rem;
@@ -384,6 +456,15 @@
     justify-content: center;
     gap: 0;
     pointer-events: none;
+    opacity: 0;
+    transform: translateY(16px);
+    transition:
+      opacity 0.8s ease 1.1s,
+      transform 0.8s ease 1.1s;
+  }
+  .ready .hero-bottom {
+    opacity: 1;
+    transform: translateY(0);
   }
   .btag {
     display: flex;
@@ -407,31 +488,29 @@
 
   /* ── Responsive ────────────────────────────────────────────────────────── */
   @media (max-width: 960px) {
-    .hero-letters span {
-      font-size: clamp(4rem, 13vw, 10rem);
-    }
-    .hero-left {
-      max-width: 55%;
-    }
-    .hero-card {
-      width: clamp(180px, 28vw, 240px);
-    }
+    .hero-letters span { font-size: clamp(4rem, 13vw, 10rem); }
+    .hero-left { max-width: 55%; }
+    .hero-card { width: clamp(180px, 28vw, 240px); }
   }
   @media (max-width: 680px) {
-    .hero-letters {
-      display: none;
+    .hero-letters { display: none; }
+    .hero-vert-label { display: none; }
+    .hero-left { max-width: 88%; padding-left: 1.5rem; }
+    .hero-card { right: 1rem; bottom: 3.5rem; width: clamp(160px, 80vw, 260px); }
+  }
+
+  /* Respect reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .hero-letters span,
+    .hero-robot,
+    .slide-line,
+    .hero-card,
+    .hero-bottom {
+      transition: none;
+      opacity: 1;
+      transform: none;
+      translate: none;
     }
-    .hero-vert-label {
-      display: none;
-    }
-    .hero-left {
-      max-width: 88%;
-      padding-left: 1.5rem;
-    }
-    .hero-card {
-      right: 1rem;
-      bottom: 3.5rem;
-      width: clamp(160px, 80vw, 260px);
-    }
+    .robot-img { animation: none; }
   }
 </style>
