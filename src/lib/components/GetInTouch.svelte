@@ -1,8 +1,5 @@
 <script>
-  import { onMount } from "svelte";
-
-  let sectionEl;
-  let vis = false;
+  import { reveal } from '$lib/actions/reveal.js';
 
   let formData = { name: "", email: "", phone: "", message: "" };
   let isSubmitting = false;
@@ -22,20 +19,9 @@
       isSubmitting = false;
     }
   }
-
-  onMount(() => {
-    const io = new IntersectionObserver(
-      ([e]) => {
-        if (e.isIntersecting) vis = true;
-      },
-      { threshold: 0.08 },
-    );
-    if (sectionEl) io.observe(sectionEl);
-    return () => io.disconnect();
-  });
 </script>
 
-<section id="get-in-touch" class="git-wrap" bind:this={sectionEl}>
+<section id="get-in-touch" class="git-wrap">
   <!-- bg — About.svelte style -->
   <div class="git-grid" aria-hidden="true"></div>
   <div class="git-glow" aria-hidden="true"></div>
@@ -51,7 +37,7 @@
 
   <div class="git-inner">
     <!-- ══ LEFT ══ -->
-    <div class="git-left" class:git-vis={vis}>
+    <div class="git-left" use:reveal={{ delay: 0, x: -30, y: 0, scale: 1, duration: 1000 }}>
       <!-- header with left accent bar -->
       <div class="git-head">
         <span class="git-head-bar"></span>
@@ -229,7 +215,7 @@
     </div>
 
     <!-- ══ RIGHT: stylised map panel ══ -->
-    <div class="git-right" class:git-vis={vis}>
+    <div class="git-right" use:reveal={{ delay: 180, x: 30, y: 0, scale: 1, duration: 1000 }}>
       <!-- world map image -->
       <img
         src="/world-map.png"
@@ -557,27 +543,6 @@
     grid-template-columns: 1fr 1fr;
     gap: clamp(2.5rem, 5vw, 6rem);
     align-items: stretch;
-  }
-
-  /* ── Entrance ───────────────────────────────────────────────────────────── */
-  .git-left {
-    opacity: 0;
-    transform: translateY(28px);
-    transition:
-      opacity 1s cubic-bezier(0.22, 1, 0.36, 1),
-      transform 1s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-  .git-right {
-    opacity: 0;
-    transform: translateY(28px);
-    transition:
-      opacity 1s cubic-bezier(0.22, 1, 0.36, 1) 0.22s,
-      transform 1s cubic-bezier(0.22, 1, 0.36, 1) 0.22s;
-  }
-  .git-vis.git-left,
-  .git-vis.git-right {
-    opacity: 1;
-    transform: translateY(0);
   }
 
   /* ══════ LEFT COLUMN ══════ */

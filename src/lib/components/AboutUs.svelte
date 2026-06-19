@@ -903,7 +903,7 @@
     opacity: 1;
     pointer-events: none;
     z-index: 50;
-    transition: opacity 1.1s cubic-bezier(0.4, 0, 0.2, 1) 0.05s;
+    transition: opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1) 0s;
   }
   .au-vis .au-entry-overlay {
     opacity: 0;
@@ -970,30 +970,49 @@
     position: absolute;
     width: 22px;
     height: 22px;
+    opacity: 0;
+    transition:
+      opacity  0.6s ease 0.6s,
+      transform 0.6s cubic-bezier(.34, 1.56, .64, 1) 0.6s;
+  }
+  .au-vis .au-hud-tl,
+  .au-vis .au-hud-tr,
+  .au-vis .au-hud-bl,
+  .au-vis .au-hud-br {
+    opacity: 1;
+    transform: scale(1) !important;
   }
   .au-hud-tl {
     top: 18px;
     left: 18px;
     border-top: 1px solid rgba(244, 94, 42, 0.5);
     border-left: 1px solid rgba(244, 94, 42, 0.5);
+    transform-origin: top left;
+    transform: scale(0.2);
   }
   .au-hud-tr {
     top: 18px;
     right: 18px;
     border-top: 1px solid rgba(244, 94, 42, 0.5);
     border-right: 1px solid rgba(244, 94, 42, 0.5);
+    transform-origin: top right;
+    transform: scale(0.2);
   }
   .au-hud-bl {
     bottom: 18px;
     left: 18px;
     border-bottom: 1px solid rgba(244, 94, 42, 0.5);
     border-left: 1px solid rgba(244, 94, 42, 0.5);
+    transform-origin: bottom left;
+    transform: scale(0.2);
   }
   .au-hud-br {
     bottom: 18px;
     right: 18px;
     border-bottom: 1px solid rgba(244, 94, 42, 0.5);
     border-right: 1px solid rgba(244, 94, 42, 0.5);
+    transform-origin: bottom right;
+    transform: scale(0.2);
   }
 
   /* ── Giant background word — matches About.svelte heading style ─────────── */
@@ -1001,17 +1020,20 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -56%);
+    transform: translate(-50%, -56%) scale(1.08);
     white-space: nowrap;
     line-height: 1;
     pointer-events: none;
     user-select: none;
     z-index: 1;
     opacity: 0;
-    transition: opacity 1.4s cubic-bezier(0.4, 0, 0.2, 1) 0.06s;
+    transition:
+      opacity  1.8s cubic-bezier(0.4, 0, 0.2, 1) 0.2s,
+      transform 1.8s cubic-bezier(0.4, 0, 0.2, 1) 0.2s;
   }
   .au-vis .au-word {
     opacity: 1;
+    transform: translate(-50%, -56%) scale(1);
   }
   .au-word-solid,
   .au-word-outline {
@@ -1038,11 +1060,19 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%) scale(0.68);
     width: clamp(260px, 40vw, 560px);
     height: clamp(260px, 40vw, 560px);
     z-index: 2;
+    opacity: 0;
     animation: auOrbGlow 4.5s ease-in-out infinite;
+    transition:
+      opacity  1.3s cubic-bezier(.22, 1, .36, 1) 0.3s,
+      transform 1.3s cubic-bezier(.22, 1, .36, 1) 0.3s;
+  }
+  .au-vis .au-orb-wrap {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
   }
   .au-orb-svg {
     width: 100%;
@@ -1071,6 +1101,11 @@
     height: 100%;
     pointer-events: none;
     z-index: 3;
+    opacity: 0;
+    transition: opacity 1.4s ease 0.7s;
+  }
+  .au-vis .au-lines {
+    opacity: 1;
   }
 
   /* ── Corner blocks — left accent border + glass tint ───────────────────── */
@@ -1134,14 +1169,28 @@
   /* ── Entrance animations ────────────────────────────────────────────────── */
   .au-anim {
     opacity: 0;
-    transform: translateY(18px);
+    transform: translateY(28px) scale(0.95);
     transition:
-      opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1) var(--d, 0s),
-      transform 0.9s cubic-bezier(0.4, 0, 0.2, 1) var(--d, 0s);
+      opacity  1.1s cubic-bezier(.22, 1, .36, 1) var(--d, 0s),
+      transform 1.1s cubic-bezier(.22, 1, .36, 1) var(--d, 0s);
   }
   .au-vis .au-anim {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
+  }
+  /* TL block — slides in from top-left */
+  .au-tl.au-anim {
+    transform: translate(-22px, -22px) scale(0.95);
+  }
+  .au-vis .au-tl.au-anim {
+    transform: translate(0, 0) scale(1);
+  }
+  /* BR block — slides in from bottom-right */
+  .au-br.au-anim {
+    transform: translate(22px, 22px) scale(0.95);
+  }
+  .au-vis .au-br.au-anim {
+    transform: translate(0, 0) scale(1);
   }
 
   /* ── Keyframes ──────────────────────────────────────────────────────────── */

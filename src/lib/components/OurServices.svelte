@@ -1,8 +1,5 @@
 <script>
-  import { onMount } from "svelte";
-
-  let sectionEl;
-  let vis = false;
+  import { reveal } from '$lib/actions/reveal.js';
 
   const services = [
     {
@@ -21,20 +18,9 @@
         "AI-powered digital replicas with ML algorithms for real-time monitoring, predictive analytics, and autonomous decision-making.",
     },
   ];
-
-  onMount(() => {
-    const io = new IntersectionObserver(
-      ([e]) => {
-        if (e.isIntersecting) vis = true;
-      },
-      { threshold: 0.12 },
-    );
-    if (sectionEl) io.observe(sectionEl);
-    return () => io.disconnect();
-  });
 </script>
 
-<section id="our-services" class="os-wrap" bind:this={sectionEl}>
+<section id="our-services" class="os-wrap">
   <!-- bg layers — identical to Our Mission -->
   <div class="os-bg-grid" aria-hidden="true"></div>
   <div class="os-bg-atm" aria-hidden="true"></div>
@@ -42,25 +28,25 @@
 
   <div class="os-inner">
     <!-- ── Big title ── -->
-    <div class="os-title-block" class:os-vis={vis}>
-      <p class="os-eyebrow">Our Services</p>
-      <h2 class="os-title">Technology</h2>
-      <p class="os-subtitle">
+    <div class="os-title-block" use:reveal={{ delay: 0, y: 26, scale: 0.97, duration: 1100 }}>
+      <p class="os-eyebrow" use:reveal={{ delay: 0, y: 20, duration: 700 }}>Our Services</p>
+      <h2 class="os-title" use:reveal={{ delay: 80, y: 40, scale: 0.95, duration: 1100 }}>Technology</h2>
+      <p class="os-subtitle" use:reveal={{ delay: 200, y: 16, duration: 700 }}>
         A D E P T U S &nbsp;&nbsp;&nbsp; S O L U T I O N S
       </p>
     </div>
 
     <!-- ── Centre divider ── -->
-    <div class="os-div" class:os-vis={vis} aria-hidden="true">
+    <div class="os-div" use:reveal={{ delay: 350, y: 0, scale: 0.6, duration: 800 }} aria-hidden="true">
       <span class="os-div-dot"></span>
       <span class="os-div-vline"></span>
       <span class="os-div-dot"></span>
     </div>
 
     <!-- ── Three columns ── -->
-    <div class="os-cols" class:os-vis={vis}>
+    <div class="os-cols">
       {#each services as svc, i}
-        <div class="os-col" style="--i:{i}">
+        <div class="os-col" style="--i:{i}" use:reveal={{ delay: 200 + i * 120, y: 28, duration: 900 }}>
           <h3 class="os-col-title">{svc.title}</h3>
           <p class="os-col-desc">{svc.description}</p>
         </div>
@@ -68,7 +54,7 @@
     </div>
 
     <!-- ── Bottom chevron ── -->
-    <div class="os-chevron" class:os-vis={vis} aria-hidden="true">
+    <div class="os-chevron" use:reveal={{ delay: 600, y: 12, duration: 700 }} aria-hidden="true">
       <svg width="20" height="14" viewBox="0 0 20 14" fill="none">
         <path
           d="M1 1.5L10 11.5L19 1.5"
@@ -156,49 +142,6 @@
     flex-direction: column;
     align-items: center;
     gap: clamp(2.8rem, 5.5vh, 5rem);
-  }
-
-  /* ── Entrance states ─────────────────────────────────────────────────────── */
-  .os-title-block {
-    opacity: 0;
-    transform: translateY(26px);
-    transition:
-      opacity 1.1s cubic-bezier(0.22, 1, 0.36, 1),
-      transform 1.1s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-  .os-div {
-    opacity: 0;
-    transform: scaleX(0.3);
-    transition:
-      opacity 0.75s ease 0.5s,
-      transform 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0.5s;
-  }
-  .os-cols {
-    opacity: 0;
-    transform: translateY(22px);
-    transition:
-      opacity 0.95s ease 0.65s,
-      transform 0.95s cubic-bezier(0.22, 1, 0.36, 1) 0.65s;
-  }
-  .os-chevron {
-    opacity: 0;
-    transition: opacity 0.7s ease 1.05s;
-  }
-
-  .os-vis.os-title-block {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  .os-vis.os-div {
-    opacity: 1;
-    transform: scaleX(1);
-  }
-  .os-vis.os-cols {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  .os-vis.os-chevron {
-    opacity: 1;
   }
 
   /* ── Title block ─────────────────────────────────────────────────────────── */

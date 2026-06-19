@@ -7,12 +7,19 @@
   let exitOverlayEl;
 
   // ── State ─────────────────────────────────────────────────────────────────
-  let count          = 0;
-  let counted        = false;
+  let count           = 0;
+  let counted         = false;
   let panel1Triggered = false;
-  let rafId          = null;
-  let targetProgress = 0;   // raw   [0, 1]
-  let lerpProgress   = 0;   // smooth (lerped)
+  let rafId           = null;
+  let targetProgress  = 0;
+  let lerpProgress    = 0;
+
+  // ── Scroll-lock state ─────────────────────────────────────────────────────
+  let locked         = false;
+  let accumulated    = 0;           // wheel-delta accumulator [0, SCROLL_TOTAL]
+  const SCROLL_TOTAL = 900;         // total delta units for full 0→1 traversal
+  let touchStartY    = 0;
+  let lastScrollY    = 0;
 
   const features = [
     { num: "01", icon: "🚀", title: "Business Efficiency",  desc: "Streamlining operations and maximizing productivity across your entire enterprise." },
@@ -39,11 +46,94 @@
     requestAnimationFrame(tick);
   }
 
-  // ── Scroll to panel ───────────────────────────────────────────────────────
+  // ── Scroll to panel (works when locked or unlocked) ───────────────────────
   function scrollToPanel(index) {
-    if (!containerEl) return;
-    const top = containerEl.getBoundingClientRect().top + window.scrollY;
-    window.scrollTo({ top: top + index * window.innerHeight, behavior: "smooth" });
+    accumulated    = index === 0 ? 0 : SCROLL_TOTAL;
+    targetProgress = accumulated / SCROLL_TOTAL;
+  }
+
+  // ── Body-scroll lock helpers ──────────────────────────────────────────────
+  function lockBodyScroll() {
+    if (locked) return;
+    locked = true;
+    document.body.style.overflow             = "hidden";
+    document.documentElement.style.overflow  = "hidden";
+  }
+
+  function unlockBodyScroll() {
+    if (!locked) return;
+    locked = false;
+    document.body.style.overflow            = "";
+    document.documentElement.style.overflow = "";
+  }
+
+  function exitForward() {
+    const top = containerEl
+      ? containerEl.offsetTop + containerEl.offsetHeight
+      : 0;
+    unlockBodyScroll();
+    requestAnimationFrame(() => window.scrollTo({ top, behavior: "instant" }));
+  }
+
+  function exitBackward() {
+    unlockBodyScroll();
+    // Body scroll is now free; user continues scrolling up naturally
+  }
+
+  // ── Wheel handler ─────────────────────────────────────────────────────────
+  function handleWheel(e) {
+    if (!locked) return;
+    e.preventDefault();
+
+    const next = accumulated + e.deltaY;
+
+    if (next < 0 && e.deltaY < 0) {
+      accumulated    = 0;
+      targetProgress = 0;
+      exitBackward();
+      return;
+    }
+    if (next > SCROLL_TOTAL && e.deltaY > 0) {
+      accumulated    = SCROLL_TOTAL;
+      targetProgress = 1;
+      exitForward();
+      return;
+    }
+
+    accumulated    = clamp(next, 0, SCROLL_TOTAL);
+    targetProgress = accumulated / SCROLL_TOTAL;
+  }
+
+  // ── Keyboard handler ──────────────────────────────────────────────────────
+  function handleKeydown(e) {
+    if (!locked) return;
+    const deltas = { ArrowDown: 80, " ": 80, PageDown: 400, ArrowUp: -80, PageUp: -400 };
+    const delta  = deltas[e.key];
+    if (delta === undefined) return;
+    e.preventDefault();
+
+    const next = accumulated + delta;
+    if (next > SCROLL_TOTAL) { exitForward();  return; }
+    if (next < 0)            { exitBackward(); return; }
+    accumulated    = clamp(next, 0, SCROLL_TOTAL);
+    targetProgress = accumulated / SCROLL_TOTAL;
+  }
+
+  // ── Touch handlers ────────────────────────────────────────────────────────
+  function handleTouchStart(e) {
+    touchStartY = e.touches[0].clientY;
+  }
+
+  function handleTouchMove(e) {
+    if (!locked) return;
+    e.preventDefault();
+    const dy   = (touchStartY - e.touches[0].clientY) * 1.5;
+    touchStartY = e.touches[0].clientY;
+    const next = accumulated + dy;
+    if (next > SCROLL_TOTAL && dy > 0) { exitForward();  return; }
+    if (next < 0            && dy < 0) { exitBackward(); return; }
+    accumulated    = clamp(next, 0, SCROLL_TOTAL);
+    targetProgress = accumulated / SCROLL_TOTAL;
   }
 
   // ── Panel-1 stagger in / out ──────────────────────────────────────────────
@@ -73,9 +163,8 @@
     lerpProgress += (targetProgress - lerpProgress) * 0.072;
     const p = lerpProgress;
 
-    // Right-nav fill & indicator
-    if (navFillEl)      navFillEl.style.transform     = `scaleY(${p})`;
-    if (navIndicatorEl) navIndicatorEl.style.top      = `${p * 100}%`;
+    if (navFillEl)      navFillEl.style.transform = `scaleY(${p})`;
+    if (navIndicatorEl) navIndicatorEl.style.top  = `${p * 100}%`;
 
     const isSecond = p >= 0.5;
     dot0El?.classList.toggle("active", !isSecond);
@@ -98,27 +187,29 @@
       panel1El.style.transform = `translateY(${(1 - t1) * 60}px)`;
     }
 
-    // Panel-1 content stagger
-    if (p >= 0.5) triggerPanel1In();
+    if (p >= 0.5)  triggerPanel1In();
     if (p <  0.42) resetPanel1();
-
-    // Exit overlay — fades in as section ends (progress 0.8 → 1)
-    if (exitOverlayEl) {
-      const exitT = Math.max(0, Math.min(1, (p - 0.8) / 0.2));
-      exitOverlayEl.style.opacity = String(exitT);
-    }
 
     rafId = requestAnimationFrame(frame);
   }
 
   // ── onMount ───────────────────────────────────────────────────────────────
   onMount(() => {
-    function onScroll() {
-      if (!containerEl) return;
-      const rect = containerEl.getBoundingClientRect();
-      targetProgress = clamp(-rect.top / window.innerHeight, 0, 1);
+    // Lock body scroll when section arrives at viewport top
+    function onNativeScroll() {
+      if (locked || !containerEl) return;
+      const rect        = containerEl.getBoundingClientRect();
+      const currentY    = window.scrollY;
+      const scrollingDown = currentY >= lastScrollY;
+      lastScrollY = currentY;
+
+      // Section top is at viewport top (±50 px tolerance)
+      if (rect.top <= 1 && rect.top > -50) {
+        accumulated    = scrollingDown ? 0 : SCROLL_TOTAL;
+        targetProgress = accumulated / SCROLL_TOTAL;
+        lockBodyScroll();
+      }
     }
-    window.addEventListener("scroll", onScroll, { passive: true });
 
     // Panel-0 entrance — IntersectionObserver
     const io = new IntersectionObserver(
@@ -134,10 +225,21 @@
     );
     panel0El?.querySelectorAll(".anim").forEach((el) => io.observe(el));
 
+    window.addEventListener("scroll",     onNativeScroll,   { passive: true  });
+    window.addEventListener("wheel",      handleWheel,      { passive: false });
+    window.addEventListener("keydown",    handleKeydown,    { passive: false });
+    window.addEventListener("touchstart", handleTouchStart, { passive: true  });
+    window.addEventListener("touchmove",  handleTouchMove,  { passive: false });
+
     rafId = requestAnimationFrame(frame);
 
     return () => {
-      window.removeEventListener("scroll", onScroll);
+      unlockBodyScroll();
+      window.removeEventListener("scroll",     onNativeScroll);
+      window.removeEventListener("wheel",      handleWheel);
+      window.removeEventListener("keydown",    handleKeydown);
+      window.removeEventListener("touchstart", handleTouchStart);
+      window.removeEventListener("touchmove",  handleTouchMove);
       io.disconnect();
       if (rafId) cancelAnimationFrame(rafId);
     };
@@ -429,10 +531,10 @@
 </div><!-- /about-outer -->
 
 <style>
-  /* ── Outer container: 200 vh ─────────────────────────────────────────── */
+  /* ── Outer container: 100 vh ─────────────────────────────────────────── */
   .about-outer {
     position: relative;
-    height: 200vh;
+    height: 100vh;
   }
 
   /* ── Sticky section: locks at top of viewport while scrolling 200vh ──── */

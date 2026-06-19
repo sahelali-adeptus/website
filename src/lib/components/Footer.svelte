@@ -1,4 +1,5 @@
 <script>
+  import { reveal } from '$lib/actions/reveal.js';
   import logoUrl from "../../images/logo.png";
 
   const year = new Date().getFullYear();
@@ -62,13 +63,13 @@
   <div class="ft-scanlines" aria-hidden="true"></div>
 
   <!-- ── Hero word — bleeds into bar ── -->
-  <div class="ft-hero" aria-hidden="true">
+  <div class="ft-hero" aria-hidden="true" use:reveal={{ delay: 0, y: 50, scale: 0.96, duration: 1200, threshold: 0.05 }}>
     <span class="ft-word">ADEPTUS</span>
   </div>
 
   <!-- ── Bottom bar ── -->
   <div class="ft-bar">
-    <div class="ft-bar-inner">
+    <div class="ft-bar-inner" use:reveal={{ delay: 200, y: 30, duration: 900, threshold: 0.05 }}>
       <!-- logo + status -->
       <div class="ft-brand">
         <img src={logoUrl} alt="Adeptus" class="ft-logo" draggable="false" />
@@ -148,7 +149,7 @@
     </div>
 
     <!-- copyright strip -->
-    <div class="ft-copy">
+    <div class="ft-copy" use:reveal={{ delay: 350, y: 16, duration: 700, threshold: 0.05 }}>
       <span>© {year} Adeptus Technologies L.L.C. All rights reserved.</span>
       <span class="ft-copy-sep">·</span>
       <span>207, Al Makhawi Building, Umm Hurair Road, Dubai, U.A.E.</span>
