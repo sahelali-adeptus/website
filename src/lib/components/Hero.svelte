@@ -1,285 +1,437 @@
 <script>
-  import { onMount } from "svelte";
-
-  let current = 0;
-  let timer;
-
-  const slides = [
-    {
-      label: "01 — Welcome",
-      title: "Adeptus",
-      full: true,
-      description:
-        "Empowering businesses through intelligent technology solutions. We connect people, assets, and infrastructure to build the smart world of tomorrow.",
-    },
-    {
-      label: "02 — Smart Solutions",
-      title: "ADEPT in a\nSmart World.",
-      full: false,
-      description:
-        "We help reduce energy, maintenance and operational costs by monitoring and managing all geographically dispersed assets including communities, buildings, utilities and more.",
-    },
-    {
-      label: "03 — Expertise",
-      title: "We Make\nThings Happen.",
-      full: false,
-      description:
-        "With years of honed expertise in cross-platform skills and quality-integrated methodologies, we adopt a competent delivery model providing value-based solutions to clients.",
-    },
-    {
-      label: "04 — Scale",
-      title: "500K Assets\nConnected.",
-      full: false,
-      description:
-        "Adeptus Technologies is at the forefront of the IoT industry, offering end-to-end IoT services and successfully connecting assets for various enterprises across the region.",
-    },
-    {
-      label: "05 — Partnership",
-      title: "Tell Us\nYour Story.",
-      full: false,
-      description:
-        "We have a strong understanding of local needs, coupled with access to international expertise and technologies, ready to craft the right solution for you.",
-    },
-  ];
-
-  function goTo(index) {
-    if (index === current) return;
-    current = index;
-  }
-
-  function next() {
-    current = (current + 1) % slides.length;
-  }
-
-  function startTimer() {
-    clearInterval(timer);
-    timer = setInterval(next, 5000);
-  }
-
-  function stopTimer() {
-    clearInterval(timer);
-  }
-
-  onMount(() => {
-    startTimer();
-    return () => stopTimer();
-  });
+  // Static hero — no slider
 </script>
 
-<section
-  aria-label="Hero"
-  class="relative min-h-screen overflow-hidden bg-black"
-  on:mouseenter={stopTimer}
-  on:mouseleave={startTimer}
->
-  <!-- ── Background image ── -->
-  <div class="absolute inset-0">
-    <img
-      src="/hero-bg.png"
-      alt=""
-      class="absolute inset-0 w-full h-full object-cover object-center"
-      aria-hidden="true"
-    />
-    <div class="absolute inset-0 bg-black/55"></div>
-    <div class="absolute inset-0 bg-gradient-to-r from-black/85 via-black/40 to-transparent"></div>
-    <div class="absolute inset-0 bg-gradient-to-l from-[#F45E2A]/30 via-[#F45E2A]/08 to-transparent"></div>
-    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30"></div>
+<section class="hero">
+  <!-- ── Background ──────────────────────────────────────────────────── -->
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="hero-noise" aria-hidden="true"></div>
+  <div class="hero-scanlines" aria-hidden="true"></div>
+
+  <!-- ── Giant letter row ────────────────────────────────────────────── -->
+  <div class="hero-letters" aria-hidden="true">
+    <span>B</span>
+    <span>E</span>
+    <span>C</span>
+    <span class="letter-dim">O</span>
+    <span>N</span>
+    <span>I</span>
+    <span>X</span>
   </div>
 
-  <!-- ── Concentric decorative rings ── -->
-  <div class="absolute top-1/2 right-[25%] -translate-y-[45%] -translate-x-1/2 pointer-events-none z-[2]">
-    <svg width="600" height="600" viewBox="0 0 600 600" fill="none" class="opacity-[0.07]">
-      <circle cx="300" cy="300" r="80"  stroke="white" stroke-width="1"/>
-      <circle cx="300" cy="300" r="140" stroke="white" stroke-width="1"/>
-      <circle cx="300" cy="300" r="200" stroke="white" stroke-width="0.8"/>
-      <circle cx="300" cy="300" r="260" stroke="white" stroke-width="0.6"/>
-      <circle cx="300" cy="300" r="290" stroke="white" stroke-width="0.4"/>
-    </svg>
+  <!-- ── Vertical label ─────────────────────────────────────────────── -->
+  <div class="hero-vert-label" aria-hidden="true">Beconix AI</div>
+
+  <!-- ── 3D AI Robot — centre, slightly below midpoint ──────────────── -->
+  <div class="hero-robot" aria-hidden="true">
+    <div class="robot-glow"></div>
+    <img src="/ai-robot.png" alt="" class="robot-img" />
   </div>
 
-  <!-- ── Right slide indicators ── -->
-  <div class="absolute right-8 md:right-10 top-1/2 -translate-y-1/2 z-20 flex flex-col items-center gap-4">
-    {#each slides as _, i}
-      <button
-        on:click={() => goTo(i)}
-        aria-label="Go to slide {i + 1}"
-        class="group flex flex-col items-center gap-1"
-      >
-        <span class="text-[9px] font-light transition-all duration-500
-          {i === current ? 'text-[#F45E2A]' : 'text-white/25 group-hover:text-white/50'}">
-          {String(i + 1).padStart(2, "0")}
-        </span>
-        <div class="w-px transition-all duration-500 rounded-full
-          {i === current ? 'h-10 bg-[#F45E2A]' : 'h-4 bg-white/20 group-hover:bg-white/40'}">
-        </div>
-      </button>
-    {/each}
+  <!-- ── Left content ────────────────────────────────────────────────── -->
+  <div class="hero-left">
+    <h1 class="hero-heading">
+      <span class="hw">INTELLIGENT</span>
+      <span class="ha">DIGITAL TWIN</span>
+      <span class="hw">PLATFORM FOR</span>
+      <span class="hw">SMART BUILDINGS</span>
+    </h1>
+    <div class="hero-ai">AI</div>
   </div>
 
-  <!-- ── Main layout ── -->
-  <div class="relative z-10 flex flex-col min-h-screen px-8 sm:px-12 md:px-16 lg:px-20">
+  <!-- ── Right glass card ────────────────────────────────────────────── -->
+  <div class="hero-card">
+    <p class="card-body">
+      AI can monitor and manage your entire building infrastructure — from
+      energy systems to connected assets, all in real-time.
+    </p>
 
-    <!-- Slide panels -->
-    <div class="flex-1 relative">
-      {#each slides as slide, i}
-        <div class="slide-panel {i === current ? 'slide-active' : ''}">
-
-          <!-- Label with accent line -->
-          <div class="flex items-center gap-3 mb-6">
-            <span class="w-6 h-px bg-[#F45E2A]"></span>
-            <p class="text-white/50 text-[10px] tracking-[0.4em] uppercase font-medium">
-              {slide.label}
-            </p>
-          </div>
-
-          <!-- Title -->
-          <div class="relative mb-8">
-            {#if slide.full}
-              <!-- Adeptus: "ADEP" filled + "TUS" outlined -->
-              <h1 class="hero-title-full font-black uppercase leading-none">
-                <span class="text-[#F45E2A]">ADEP</span><span class="text-outlined-primary">TUS</span>
-              </h1>
-              <span class="absolute bottom-0 right-0 text-white/55 text-sm md:text-base font-semibold tracking-[0.3em] uppercase">
-                Technologies LLC
-              </span>
-            {:else}
-              <!-- Other slides: line 1 gradient fill, line 2 outlined -->
-              <h1 class="hero-title font-black uppercase leading-[1.1]">
-                {#each slide.title.split('\n') as line, li}
-                  {#if li === 0}
-                    <span class="block text-gradient-fill">{line}</span>
-                  {:else}
-                    <span class="block text-outlined-white">{line}</span>
-                  {/if}
-                {/each}
-              </h1>
-            {/if}
-          </div>
-
-          <!-- Description with left accent -->
-          <div class="flex gap-4 max-w-md">
-            <span class="w-px shrink-0 bg-[#F45E2A]/50 self-stretch mt-1"></span>
-            <p class="text-white/50 text-sm md:text-base leading-relaxed font-light">
-              {slide.description}
-            </p>
-          </div>
-
-        </div>
-      {/each}
+    <!-- Stats row -->
+    <div class="card-stats">
+      <div class="cstat">
+        <span class="cstat-val">97</span>
+        <span class="cstat-lbl">Buildings</span>
+      </div>
+      <div class="cstat-divider"></div>
+      <div class="cstat">
+        <span class="cstat-val">10.8K</span>
+        <span class="cstat-lbl">Assets</span>
+      </div>
+      <div class="cstat-divider"></div>
+      <div class="cstat">
+        <span class="cstat-val">65.5K</span>
+        <span class="cstat-lbl">Data Points</span>
+      </div>
     </div>
+  </div>
 
-    <!-- ── Bottom bar ── -->
-    <div class="pb-10 md:pb-14 flex items-end justify-between">
-
-      <!-- Progress bar -->
-      <div class="flex items-center gap-4">
-        <div class="w-32 h-px bg-white/15 relative overflow-hidden rounded-full">
-          {#key current}
-            <div class="progress-bar h-full bg-[#F45E2A] rounded-full"></div>
-          {/key}
-        </div>
-        <span class="text-white/30 text-[10px] tracking-widest">
-          {String(current + 1).padStart(2,'0')} / {String(slides.length).padStart(2,'0')}
-        </span>
-      </div>
-
-      <!-- Social icons -->
-      <div class="flex items-center gap-5">
-        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer"
-          class="text-white/30 hover:text-[#F45E2A] transition-colors duration-300" aria-label="Facebook">
-          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
-          </svg>
-        </a>
-        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer"
-          class="text-white/30 hover:text-[#F45E2A] transition-colors duration-300" aria-label="Instagram">
-          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-            <rect x="2" y="2" width="20" height="20" rx="5" ry="5" fill="none" stroke="currentColor" stroke-width="2"/>
-            <circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/>
-            <circle cx="17.5" cy="6.5" r="1" fill="currentColor"/>
-          </svg>
-        </a>
-        <a href="https://twitter.com" target="_blank" rel="noopener noreferrer"
-          class="text-white/30 hover:text-[#F45E2A] transition-colors duration-300" aria-label="Twitter / X">
-          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.91-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-          </svg>
-        </a>
-        <a href="https://youtube.com" target="_blank" rel="noopener noreferrer"
-          class="text-white/30 hover:text-[#F45E2A] transition-colors duration-300" aria-label="YouTube">
-          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 001.46 6.42 29 29 0 001 12a29 29 0 00.46 5.58 2.78 2.78 0 001.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.96A29 29 0 0023 12a29 29 0 00-.46-5.58z"/>
-            <polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#000"/>
-          </svg>
-        </a>
-      </div>
+  <!-- ── Bottom tag bar ──────────────────────────────────────────────── -->
+  <div class="hero-bottom" aria-hidden="true">
+    <div class="btag">
+      <span class="btag-line"></span>
+      <span class="btag-txt">intelligent</span>
+      <span class="btag-line"></span>
+    </div>
+    <div class="btag">
+      <span class="btag-line"></span>
+      <span class="btag-txt">automated</span>
+      <span class="btag-line"></span>
+    </div>
+    <div class="btag">
+      <span class="btag-line"></span>
+      <span class="btag-txt">connected</span>
+      <span class="btag-line"></span>
     </div>
   </div>
 </section>
 
 <style>
+  /* ── Root ──────────────────────────────────────────────────────────────── */
+  .hero {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    background: #120825;
+    display: flex;
+    align-items: flex-end;
+  }
 
-  /* ── Slide transition ── */
-  .slide-panel {
+  /* ── Background layers ─────────────────────────────────────────────────── */
+  .hero-bg {
     position: absolute;
     inset: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    opacity: 0;
-    transform: translateY(22px);
-    transition: opacity 1.1s cubic-bezier(0.4, 0, 0.2, 1),
-                transform 1.1s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 0;
+    background: radial-gradient(
+        ellipse at 70% 40%,
+        rgba(154, 217, 147, 0.09) 0%,
+        transparent 45%
+      ),
+      radial-gradient(
+        ellipse at 15% 70%,
+        rgba(225, 231, 92, 0.07) 0%,
+        transparent 40%
+      ),
+      linear-gradient(
+        140deg,
+        #0a1f12 0%,
+        #0b1a10 25%,
+        #0e1e20 55%,
+        #081624 80%,
+        #06121e 100%
+      );
+  }
+  /* Subtle green noise texture via gradient pattern */
+  .hero-noise {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    opacity: 0.55;
+    background-image: radial-gradient(
+        circle at 30% 20%,
+        rgba(154, 217, 147, 0.07) 0%,
+        transparent 50%
+      ),
+      radial-gradient(
+        circle at 80% 80%,
+        rgba(225, 231, 92, 0.05) 0%,
+        transparent 40%
+      );
     pointer-events: none;
   }
-  .slide-active {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
+  .hero-scanlines {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    background-image: repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent 3px,
+      rgba(0, 0, 0, 0.06) 3px,
+      rgba(0, 0, 0, 0.06) 4px
+    );
   }
 
-  /* ── Title sizes ── */
-  .hero-title-full {
-    font-size: clamp(3rem, 17.5vw, 22rem);
-    letter-spacing: 0.03em;
+  /* ── Giant letters ─────────────────────────────────────────────────────── */
+  .hero-letters {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 53%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 clamp(0.8rem, 2vw, 2.5rem);
+    z-index: 3;
+    pointer-events: none;
+    user-select: none;
+  }
+  .hero-letters span {
+    font-size: clamp(6rem, 15.5vw, 21rem);
+    font-weight: 100;
     line-height: 1;
-  }
-  .hero-title {
-    font-size: clamp(3rem, 8.5vw, 8rem);
-    letter-spacing: 0.03em;
-  }
-
-  /* ── Text styles ── */
-
-  /* "ADEP" solid, "TUS" outlined */
-  .text-outlined-primary {
-    -webkit-text-stroke: 3px #F45E2A;
-    -webkit-text-fill-color: transparent;
     color: transparent;
+    -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.78);
+    text-transform: uppercase;
+    font-family: "Montserrat", sans-serif;
+    letter-spacing: 0;
+    flex-shrink: 0;
   }
-
-  /* Other slides: line 1 — warm gradient fill */
-  .text-gradient-fill {
-    background: linear-gradient(100deg, #ffffff 0%, #ffe0d4 55%, #F45E2A 100%);
+  /* Highlighted letter uses primary gradient */
+  .hero-letters .letter-dim {
+    -webkit-text-stroke: 0px;
+    background: linear-gradient(90deg, #9ad993 0%, #e1e75c 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
-  /* Other slides: line 2 — white outlined */
-  .text-outlined-white {
-    -webkit-text-stroke: 2px rgba(255, 255, 255, 0.55);
+  /* ── Vertical label ────────────────────────────────────────────────────── */
+  .hero-vert-label {
+    position: absolute;
+    left: clamp(0.8rem, 1.5vw, 1.6rem);
+    top: 50%;
+    transform: translateY(-50%) rotate(-90deg);
+    transform-origin: center center;
+    font-size: clamp(0.42rem, 0.6vw, 0.52rem);
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.18);
+    font-weight: 500;
+    white-space: nowrap;
+    z-index: 5;
+    pointer-events: none;
+  }
+
+  /* ── 3D Robot ──────────────────────────────────────────────────────────── */
+  .hero-robot {
+    position: absolute;
+    left: 50%;
+    top: 56%;
+    transform: translate(-50%, -38%);
+    z-index: 6;
+    width: clamp(280px, 28vw, 580px);
+    pointer-events: none;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+  }
+
+  /* Ambient glow beneath the robot feet */
+  .robot-glow {
+    position: absolute;
+    bottom: -6%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70%;
+    height: 28%;
+    background: radial-gradient(
+      ellipse at center,
+      rgba(154, 217, 147, 0.5) 0%,
+      rgba(225, 231, 92, 0.22) 45%,
+      transparent 72%
+    );
+    filter: blur(18px);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .robot-img {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: auto;
+    display: block;
+    /* Drop shadow matching the green-yellow glow */
+    filter: drop-shadow(0 0 28px rgba(154, 217, 147, 0.35))
+      drop-shadow(0 0 60px rgba(225, 231, 92, 0.2));
+    /* Float animation */
+    animation: robotFloat 5s ease-in-out infinite;
+  }
+
+  @keyframes robotFloat {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-14px);
+    }
+  }
+
+  /* ── Left content block ────────────────────────────────────────────────── */
+  .hero-left {
+    position: relative;
+    z-index: 10;
+    padding: 0 0 clamp(5rem, 9vh, 7rem) clamp(1.8rem, 4.5vw, 5.5rem);
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    max-width: 42%;
+  }
+
+  .hero-heading {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    line-height: 1.06;
+  }
+  .hero-heading span {
+    display: block;
+    font-size: clamp(1.6rem, 3.5vw, 4.2rem);
+    font-weight: 900;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .hw {
+    color: #ffffff;
+  }
+  .ha {
+    background: linear-gradient(90deg, #9ad993 0%, #e1e75c 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-ai {
+    font-size: clamp(2.5rem, 5.5vw, 6.5rem);
+    font-weight: 100;
+    color: rgba(255, 255, 255, 0.55);
+    letter-spacing: 0.06em;
+    line-height: 1;
+    margin-top: 0.15em;
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.35);
     -webkit-text-fill-color: transparent;
     color: transparent;
   }
 
-  /* ── Slide progress bar ── */
-  .progress-bar {
-    width: 0%;
-    animation: progressFill 5s linear forwards;
+  /* ── Right glass card ──────────────────────────────────────────────────── */
+  .hero-card {
+    position: absolute;
+    right: clamp(1.5rem, 3.5vw, 4rem);
+    bottom: clamp(4rem, 10vh, 7rem);
+    z-index: 10;
+    width: clamp(200px, 24vw, 310px);
+    border-radius: 4px;
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    padding: 1.4rem 1.3rem 1.1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
   }
-  @keyframes progressFill {
-    from { width: 0%; }
-    to   { width: 100%; }
+
+  .card-body {
+    font-size: clamp(0.6rem, 0.9vw, 0.76rem);
+    color: rgba(255, 255, 255, 0.42);
+    line-height: 1.85;
+    font-weight: 300;
+    margin: 0;
+  }
+
+  /* Stats */
+  .card-stats {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    padding: 0.7rem 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+  .cstat {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.18rem;
+  }
+  .cstat-val {
+    font-size: clamp(0.85rem, 1.4vw, 1.15rem);
+    font-weight: 700;
+    background: linear-gradient(90deg, #9ad993, #e1e75c);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -0.01em;
+    line-height: 1;
+  }
+  .cstat-lbl {
+    font-size: clamp(0.38rem, 0.52vw, 0.46rem);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.28);
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .cstat-divider {
+    width: 1px;
+    height: 28px;
+    background: rgba(255, 255, 255, 0.08);
+    flex-shrink: 0;
+  }
+
+  /* ── Bottom tag bar ────────────────────────────────────────────────────── */
+  .hero-bottom {
+    position: absolute;
+    bottom: 1.2rem;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    pointer-events: none;
+  }
+  .btag {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .btag-line {
+    display: block;
+    width: clamp(40px, 6vw, 90px);
+    height: 1px;
+    background: rgba(255, 255, 255, 0.12);
+  }
+  .btag-txt {
+    font-size: clamp(0.38rem, 0.55vw, 0.48rem);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.22);
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  /* ── Responsive ────────────────────────────────────────────────────────── */
+  @media (max-width: 960px) {
+    .hero-letters span {
+      font-size: clamp(4rem, 13vw, 10rem);
+    }
+    .hero-left {
+      max-width: 55%;
+    }
+    .hero-card {
+      width: clamp(180px, 28vw, 240px);
+    }
+  }
+  @media (max-width: 680px) {
+    .hero-letters {
+      display: none;
+    }
+    .hero-vert-label {
+      display: none;
+    }
+    .hero-left {
+      max-width: 88%;
+      padding-left: 1.5rem;
+    }
+    .hero-card {
+      right: 1rem;
+      bottom: 3.5rem;
+      width: clamp(160px, 80vw, 260px);
+    }
   }
 </style>
