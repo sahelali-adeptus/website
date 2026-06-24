@@ -1,56 +1,46 @@
 <script>
-  import { reveal } from '$lib/actions/reveal.js';
-  import logoUrl from "../../images/logo.png";
+  import { reveal } from "$lib/actions/reveal.js";
 
   const year = new Date().getFullYear();
 
   const cols = [
     {
-      label: "IoT Solutions",
+      label: "Solutions",
       links: [
-        {
-          text: "Smart Building",
-          href: "/smartcityservices/smart-building-solutions",
-        },
-        {
-          text: "Connected Facilities",
-          href: "/smartcityservices/connectedfacilities",
-        },
-        {
-          text: "Energy Services",
-          href: "/smartcityservices/managedenergyservices",
-        },
-        { text: "Mobile Assets", href: "/smartcityservices/smartmobileassets" },
+        { text: "Smart Building Management",   href: "#" },
+        { text: "Digital Twin Platform",        href: "#" },
+        { text: "AI Building Intelligence",     href: "#" },
+        { text: "Energy Optimization",          href: "#" },
+        { text: "Predictive Maintenance",       href: "#" },
+        { text: "Fault Detection & Diagnostics",href: "#" },
+        { text: "IoT Integration",              href: "#" },
+        { text: "Multi-Site Management",        href: "#" },
       ],
     },
     {
-      label: "Smart Mgmt",
+      label: "Industries",
       links: [
-        { text: "Fixed Assets", href: "/smartcityservices/smartfixedassets" },
-        { text: "Smart Parking", href: "/smartcityservices/smartparking" },
-        { text: "Waste Management", href: "/smartcityservices/smartwaste" },
-        { text: "All Solutions", href: "/smartcityservices" },
+        { text: "Commercial Buildings",         href: "#" },
+        { text: "Hotels & Hospitality",         href: "#" },
+        { text: "Healthcare Facilities",        href: "#" },
+        { text: "Airports & Transportation",    href: "#" },
+        { text: "Data Centers",                 href: "#" },
+        { text: "Industrial Facilities",        href: "#" },
+        { text: "Educational Campuses",         href: "#" },
+        { text: "Retail & Mixed Use",           href: "#" },
       ],
     },
     {
-      label: "Company",
+      label: "Platform",
       links: [
-        { text: "Our Experts", href: "/ourexperts" },
-        { text: "Command Center", href: "/24x7ccc" },
-        { text: "Partners", href: "/partners" },
-        { text: "News & Updates", href: "/news" },
-      ],
-    },
-    {
-      label: "Contact",
-      links: [
-        { text: "Get in Touch", href: "#get-in-touch" },
-        {
-          text: "enquiry@adeptus-tech.com",
-          href: "mailto:enquiry@adeptus-tech.com",
-        },
-        { text: "+971 4 397 2569", href: "tel:+97143972569" },
-        { text: "Dubai, U.A.E.", href: "#" },
+        { text: "AI Copilot",                   href: "#" },
+        { text: "Digital Twin Viewer",           href: "#" },
+        { text: "Command Center",               href: "#" },
+        { text: "Analytics Dashboard",          href: "#" },
+        { text: "Asset Management",             href: "#" },
+        { text: "Alarm Management",             href: "#" },
+        { text: "Reporting & Insights",         href: "#" },
+        { text: "Mobile Application",           href: "#" },
       ],
     },
   ];
@@ -63,21 +53,26 @@
   <div class="ft-scanlines" aria-hidden="true"></div>
 
   <!-- ── Hero word — bleeds into bar ── -->
-  <div class="ft-hero" aria-hidden="true" use:reveal={{ delay: 0, y: 50, scale: 0.96, duration: 1200, threshold: 0.05 }}>
-    <span class="ft-word">ADEPTUS</span>
+  <div
+    class="ft-hero"
+    aria-hidden="true"
+    use:reveal={{
+      delay: 0,
+      y: 50,
+      scale: 0.96,
+      duration: 1200,
+      threshold: 0.05,
+    }}
+  >
+    <span class="ft-word">BECONIX</span>
   </div>
 
   <!-- ── Bottom bar ── -->
   <div class="ft-bar">
-    <div class="ft-bar-inner" use:reveal={{ delay: 200, y: 30, duration: 900, threshold: 0.05 }}>
-      <!-- logo + status -->
-      <div class="ft-brand">
-        <img src={logoUrl} alt="Adeptus" class="ft-logo" draggable="false" />
-        <div class="ft-status">
-          <span class="ft-status-dot"></span>
-          <span class="ft-status-txt">24/7 Command Center Active</span>
-        </div>
-      </div>
+    <div
+      class="ft-bar-inner"
+      use:reveal={{ delay: 200, y: 30, duration: 900, threshold: 0.05 }}
+    >
 
       <!-- link columns -->
       <nav class="ft-cols" aria-label="Footer navigation">
@@ -149,7 +144,10 @@
     </div>
 
     <!-- copyright strip -->
-    <div class="ft-copy" use:reveal={{ delay: 350, y: 16, duration: 700, threshold: 0.05 }}>
+    <div
+      class="ft-copy"
+      use:reveal={{ delay: 350, y: 16, duration: 700, threshold: 0.05 }}
+    >
       <span>© {year} Adeptus Technologies L.L.C. All rights reserved.</span>
       <span class="ft-copy-sep">·</span>
       <span>207, Al Makhawi Building, Umm Hurair Road, Dubai, U.A.E.</span>
@@ -162,50 +160,18 @@
   .ft-wrap {
     position: relative;
     width: 100%;
-    background: #111616;
+    background: transparent;
     overflow: hidden;
     display: flex;
     flex-direction: column;
     align-items: center;
   }
 
-  /* ── BG layers ────────────────────────────────────────────────────────────── */
-  .ft-grid {
-    position: absolute;
-    inset: 0;
-    background-image: linear-gradient(
-        rgba(244, 94, 42, 0.025) 1px,
-        transparent 1px
-      ),
-      linear-gradient(90deg, rgba(244, 94, 42, 0.025) 1px, transparent 1px);
-    background-size: 60px 60px;
-    pointer-events: none;
-  }
-  .ft-glow {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80vw;
-    height: 55vh;
-    background: radial-gradient(
-      ellipse at 50% 0%,
-      rgba(244, 94, 42, 0.13) 0%,
-      transparent 62%
-    );
-    pointer-events: none;
-  }
+  /* ── BG layers — removed ──────────────────────────────────────────────────── */
+  .ft-grid,
+  .ft-glow,
   .ft-scanlines {
-    position: absolute;
-    inset: 0;
-    background-image: repeating-linear-gradient(
-      to bottom,
-      transparent 0,
-      transparent 3px,
-      rgba(0, 0, 0, 0.08) 3px,
-      rgba(0, 0, 0, 0.08) 4px
-    );
-    pointer-events: none;
+    display: none;
   }
 
   /* ── Hero word ────────────────────────────────────────────────────────────── */
@@ -255,58 +221,17 @@
     margin: 0 auto;
     padding: clamp(2rem, 4vh, 3.5rem) clamp(1.5rem, 4vw, 4rem);
     display: grid;
-    grid-template-columns: auto 1fr auto;
+    grid-template-columns: 1fr auto;
     gap: clamp(2rem, 4vw, 5rem);
     align-items: start;
-  }
-
-  /* Brand */
-  .ft-brand {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-  .ft-logo {
-    height: clamp(28px, 3.5vw, 42px);
-    width: auto;
-    opacity: 0.9;
-  }
-  .ft-status {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  .ft-status-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: #4ade80;
-    box-shadow: 0 0 6px rgba(74, 222, 128, 0.7);
-    animation: ftPulse 2.5s ease-in-out infinite;
-    flex-shrink: 0;
-  }
-  @keyframes ftPulse {
-    0%,
-    100% {
-      opacity: 0.7;
-    }
-    50% {
-      opacity: 1;
-    }
-  }
-  .ft-status-txt {
-    font-size: clamp(0.44rem, 0.64vw, 0.54rem);
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.28);
-    font-weight: 400;
   }
 
   /* Link columns */
   .ft-cols {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: clamp(1rem, 2.5vw, 2.5rem);
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(1rem, 2.5vw, 3rem);
+    align-items: start;
   }
   .ft-col {
     display: flex;

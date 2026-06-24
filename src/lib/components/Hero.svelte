@@ -25,12 +25,6 @@
 </script>
 
 <section class="hero" class:ready>
-  <!-- ── Background ──────────────────────────────────────────────────── -->
-  <div class="hero-bg" aria-hidden="true"></div>
-  <div class="hero-grid" aria-hidden="true"></div>
-  <div class="hero-noise" aria-hidden="true"></div>
-  <div class="hero-scanlines" aria-hidden="true"></div>
-
   <!-- ── Giant letter row ────────────────────────────────────────────── -->
   <div class="hero-letters" aria-hidden="true">
     <span style="--i:0">B</span>
@@ -124,85 +118,8 @@
     width: 100%;
     height: 100vh;
     overflow: hidden;
-    background: #120825;
     display: flex;
     align-items: flex-end;
-  }
-
-  /* ── Background layers ─────────────────────────────────────────────────── */
-  .hero-bg {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    background: radial-gradient(
-        ellipse at 70% 40%,
-        rgba(154, 217, 147, 0.09) 0%,
-        transparent 45%
-      ),
-      radial-gradient(
-        ellipse at 15% 70%,
-        rgba(225, 231, 92, 0.07) 0%,
-        transparent 40%
-      ),
-      linear-gradient(
-        140deg,
-        #0a1f12 0%,
-        #0b1a10 25%,
-        #0e1e20 55%,
-        #081624 80%,
-        #06121e 100%
-      );
-  }
-
-  /* Subtle tech grid overlay */
-  .hero-grid {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    pointer-events: none;
-    background-image: linear-gradient(
-        rgba(154, 217, 147, 0.04) 1px,
-        transparent 1px
-      ),
-      linear-gradient(90deg, rgba(154, 217, 147, 0.04) 1px, transparent 1px);
-    background-size: 64px 64px;
-    mask-image: radial-gradient(ellipse at 50% 50%, black 20%, transparent 75%);
-    -webkit-mask-image: radial-gradient(
-      ellipse at 50% 50%,
-      black 20%,
-      transparent 75%
-    );
-  }
-
-  .hero-noise {
-    position: absolute;
-    inset: 0;
-    z-index: 2;
-    opacity: 0.55;
-    background-image: radial-gradient(
-        circle at 30% 20%,
-        rgba(154, 217, 147, 0.07) 0%,
-        transparent 50%
-      ),
-      radial-gradient(
-        circle at 80% 80%,
-        rgba(225, 231, 92, 0.05) 0%,
-        transparent 40%
-      );
-    pointer-events: none;
-  }
-  .hero-scanlines {
-    position: absolute;
-    inset: 0;
-    z-index: 2;
-    pointer-events: none;
-    background-image: repeating-linear-gradient(
-      to bottom,
-      transparent 0,
-      transparent 3px,
-      rgba(0, 0, 0, 0.06) 3px,
-      rgba(0, 0, 0, 0.06) 4px
-    );
   }
 
   /* ── Giant letters ─────────────────────────────────────────────────────── */

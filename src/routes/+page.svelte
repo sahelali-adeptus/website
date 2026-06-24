@@ -4,6 +4,7 @@
   import AboutUs from "$lib/components/AboutUs.svelte";
   import OurServices from "$lib/components/OurServices.svelte";
   import GetInTouch from "$lib/components/GetInTouch.svelte";
+  import InteligantAI from "$lib/components/InteligantAI.svelte";
 </script>
 
 <svelte:head>
@@ -29,6 +30,7 @@
 
 <Hero />
 <About />
+<InteligantAI />
 <AboutUs />
 <OurServices />
-<GetInTouch />
+<!-- <GetInTouch /> -->
