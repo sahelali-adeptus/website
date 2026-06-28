@@ -132,6 +132,17 @@
       <div class="iai-orbit iai-orbit-outer" aria-hidden="true"></div>
       <div class="iai-orbit iai-orbit-inner" aria-hidden="true"></div>
 
+      <!-- orbital particle dots -->
+      <div class="iai-orb-track iai-orb-track-a" aria-hidden="true">
+        <span class="iai-orb-dot iai-orb-dot-g"></span>
+      </div>
+      <div class="iai-orb-track iai-orb-track-b" aria-hidden="true">
+        <span class="iai-orb-dot iai-orb-dot-y"></span>
+      </div>
+      <div class="iai-orb-track iai-orb-track-c" aria-hidden="true">
+        <span class="iai-orb-dot iai-orb-dot-g2"></span>
+      </div>
+
       <!-- glow ring -->
       <div class="iai-ring" aria-hidden="true"></div>
 
@@ -161,7 +172,7 @@
   </div>
 
   <!-- ══ FEATURE CARDS ══ -->
-  <div class="iai-cards-wrap iai-fade" style="--d:.46s">
+  <div class="iai-cards-wrap">
     <div class="iai-cards">
       {#each cards as card, i}
         <div class="iai-card" style="--ci:{i}">
@@ -569,6 +580,57 @@
     animation: dotPulse 2s ease-in-out infinite .6s;
   }
 
+  /* ── Orbital particle dots ──────────────────────────────────────────── */
+  .iai-orb-track {
+    position: absolute;
+    top: 50%; left: 50%;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 4;
+  }
+  .iai-orb-track-a {
+    width: 96%; height: 96%;
+    margin: -48% 0 0 -48%;
+    animation: orbSpin 18s linear infinite;
+  }
+  .iai-orb-track-b {
+    width: 120%; height: 120%;
+    margin: -60% 0 0 -60%;
+    animation: orbSpin 28s linear infinite reverse;
+    animation-delay: -8s;
+  }
+  .iai-orb-track-c {
+    width: 96%; height: 96%;
+    margin: -48% 0 0 -48%;
+    animation: orbSpin 18s linear infinite reverse;
+    animation-delay: -9s;
+  }
+  @keyframes orbSpin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+  .iai-orb-dot {
+    position: absolute;
+    top: -3px; left: 50%;
+    border-radius: 50%;
+    transform: translateX(-50%);
+  }
+  .iai-orb-dot-g {
+    width: 6px; height: 6px;
+    background: rgba(154,217,147,.95);
+    box-shadow: 0 0 10px rgba(154,217,147,.9), 0 0 22px rgba(154,217,147,.45);
+  }
+  .iai-orb-dot-y {
+    width: 5px; height: 5px;
+    background: rgba(225,231,92,.9);
+    box-shadow: 0 0 10px rgba(225,231,92,.8), 0 0 22px rgba(225,231,92,.4);
+  }
+  .iai-orb-dot-g2 {
+    width: 4px; height: 4px;
+    background: rgba(154,217,147,.65);
+    box-shadow: 0 0 8px rgba(154,217,147,.6);
+  }
+
   /* ── Feature cards ──────────────────────────────────── */
   .iai-cards-wrap {
     position: relative;
@@ -596,6 +658,16 @@
     overflow: hidden;
     cursor: default;
     transition: background .25s, border-color .25s, transform .25s, box-shadow .25s;
+    /* entrance */
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  .iai-vis .iai-card {
+    animation: cardReveal .65s cubic-bezier(.22,1,.36,1) calc(var(--ci) * 0.12s + .5s) both;
+  }
+  @keyframes cardReveal {
+    from { opacity: 0; transform: translateY(22px); }
+    to   { opacity: 1; transform: translateY(0); }
   }
   /* top gradient accent bar */
   .iai-card-accent {
@@ -692,7 +764,10 @@
 
   /* ── Reduced motion ─────────────────────────────────── */
   @media (prefers-reduced-motion: reduce) {
-    .iai-video, .iai-halo, .iai-orbit, .iai-badge-dot, .iai-pill { animation: none; }
+    .iai-video, .iai-halo, .iai-orbit, .iai-badge-dot, .iai-pill,
+    .iai-orb-track { animation: none; }
     .iai-fade { transition: none; opacity: 1; transform: none; }
+    .iai-card { animation: none !important; opacity: 1; transform: none; }
+    .iai-orb-dot { display: none; }
   }
 </style>

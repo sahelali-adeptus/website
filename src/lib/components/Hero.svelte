@@ -25,6 +25,17 @@
 </script>
 
 <section class="hero" class:ready>
+
+  <!-- ── Scan beam ──────────────────────────────────────────────────────── -->
+  <div class="hero-scan" aria-hidden="true"></div>
+
+  <!-- ── Floating particles ─────────────────────────────────────────────── -->
+  <div class="hero-particles" aria-hidden="true">
+    {#each Array(16) as _, i}
+      <span class="hero-particle" style="--pi:{i}"></span>
+    {/each}
+  </div>
+
   <!-- ── Giant letter row ────────────────────────────────────────────── -->
   <div class="hero-letters" aria-hidden="true">
     <span style="--i:0">B</span>
@@ -558,6 +569,57 @@
     }
   }
 
+  /* ── Scan beam ─────────────────────────────────────────────────────────── */
+  .hero-scan {
+    position: absolute;
+    left: 0; right: 0;
+    height: 1px;
+    pointer-events: none;
+    z-index: 2;
+    background: linear-gradient(90deg,
+      transparent 0%,
+      rgba(154,217,147,.55) 28%,
+      rgba(225,231,92,.35) 72%,
+      transparent 100%);
+    box-shadow:
+      0 0 18px rgba(154,217,147,.25),
+      0 0 50px rgba(154,217,147,.1);
+    animation: scanBeam 9s cubic-bezier(.4,0,.6,1) infinite;
+  }
+  @keyframes scanBeam {
+    0%,4% { top: -2px; opacity: 0; }
+    7%    { opacity: 1; }
+    88%   { opacity: .45; }
+    96%   { top: 100vh; opacity: 0; }
+    100%  { top: -2px; opacity: 0; }
+  }
+
+  /* ── Floating particles ─────────────────────────────────────────────────── */
+  .hero-particles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+  }
+  .hero-particle {
+    position: absolute;
+    width: 2px; height: 2px;
+    border-radius: 50%;
+    left: calc(var(--pi) * 6.25% + 0.5%);
+    bottom: -4px;
+    animation: particleDrift calc(5.5s + var(--pi) * 0.38s) ease-in infinite calc(var(--pi) * -0.62s);
+  }
+  .hero-particle:nth-child(odd)  { background: rgba(154,217,147,.8); box-shadow: 0 0 5px rgba(154,217,147,.65); }
+  .hero-particle:nth-child(even) { background: rgba(225,231,92,.65);  box-shadow: 0 0 5px rgba(225,231,92,.5); }
+  .hero-particle:nth-child(3n)   { width: 3px; height: 3px; }
+  @keyframes particleDrift {
+    0%   { transform: translateY(0) translateX(0); opacity: 0; }
+    8%   { opacity: 1; }
+    80%  { opacity: .2; }
+    100% { transform: translateY(-102vh) translateX(calc(sin(var(--pi)) * 20px)); opacity: 0; }
+  }
+
   /* Respect reduced motion */
   @media (prefers-reduced-motion: reduce) {
     .hero-letters span,
@@ -570,11 +632,8 @@
       transform: none;
       translate: none;
     }
-    .robot-img {
-      animation: none;
-    }
-    .type-cursor {
-      animation: none;
-    }
+    .robot-img { animation: none; }
+    .type-cursor { animation: none; }
+    .hero-scan, .hero-particles { display: none; }
   }
 </style>

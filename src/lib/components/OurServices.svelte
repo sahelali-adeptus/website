@@ -4,6 +4,18 @@
   let visible = false;
   let section;
   let active = 0;
+  let paused = false;
+  let autoTimer;
+
+  function setActive(i) {
+    active = i;
+    clearInterval(autoTimer);
+    autoTimer = setInterval(advance, 4500);
+  }
+
+  function advance() {
+    if (!paused) active = (active + 1) % steps.length;
+  }
 
   const steps = [
     {
@@ -71,7 +83,8 @@
       { threshold: 0.04 }
     );
     if (section) io.observe(section);
-    return () => io.disconnect();
+    autoTimer = setInterval(advance, 4500);
+    return () => { io.disconnect(); clearInterval(autoTimer); };
   });
 </script>
 
@@ -81,7 +94,7 @@
   class:os-vis={visible}
   bind:this={section}
 >
-  <div class="os-panel-left">
+  <div class="os-panel-left" on:mouseenter={() => paused=true} on:mouseleave={() => paused=false}>
 
     <!-- eyebrow -->
     <div class="os-eyebrow os-fade" style="--d:.0s">
@@ -101,7 +114,7 @@
         <button
           class="os-tab"
           class:os-tab-active={active === i}
-          on:click={() => active = i}
+          on:click={() => setActive(i)}
           role="tab"
           aria-selected={active === i}
           type="button"
@@ -110,6 +123,13 @@
           {step.tab}
         </button>
       {/each}
+    </div>
+
+    <!-- auto-advance progress bar -->
+    <div class="os-prog-bar os-fade" style="--d:.2s" aria-hidden="true">
+      {#key active}
+        <div class="os-prog-fill" class:os-prog-paused={paused}></div>
+      {/key}
     </div>
 
     <!-- step title + desc -->
@@ -146,7 +166,7 @@
           <button
             class="os-dot"
             class:os-dot-active={active === i}
-            on:click={() => active = i}
+            on:click={() => setActive(i)}
             type="button"
             aria-label="Step {i + 1}"
           ></button>
@@ -250,7 +270,7 @@
       <circle cx="220" cy="220" r="42" fill="none" stroke="rgba(154,217,147,.15)" stroke-width="1" class="os-pulse-ring"/>
 
       <!-- ── NODE 0 — Connect (top) (220,75) ── -->
-      <g class="os-node" class:os-node-active={active===0} on:click={() => active=0} on:keydown={(e) => e.key==='Enter' && (active=0)} role="button" tabindex="0" aria-label="Step 01 Connect">
+      <g class="os-node" class:os-node-active={active===0} on:click={() => setActive(0)} on:keydown={(e) => e.key==='Enter' && setActive(0)} role="button" tabindex="0" aria-label="Step 01 Connect">
         <circle cx="220" cy="75" r="28" fill="rgba(10,12,24,.92)" stroke="rgba(154,217,147,.2)" stroke-width="1" class="os-node-bg"/>
         <circle cx="220" cy="75" r="28" fill="none" stroke="rgba(154,217,147,.5)" stroke-width="1.5" class="os-node-ring" opacity="0"/>
         <g transform="translate(208,63)" stroke="rgba(154,217,147,.8)" stroke-width="1.4" stroke-linecap="round" fill="none">
@@ -266,7 +286,7 @@
       </g>
 
       <!-- ── NODE 1 — Collect (right-top) (358,175) ── -->
-      <g class="os-node" class:os-node-active={active===1} on:click={() => active=1} on:keydown={(e) => e.key==='Enter' && (active=1)} role="button" tabindex="0" aria-label="Step 02 Collect">
+      <g class="os-node" class:os-node-active={active===1} on:click={() => setActive(1)} on:keydown={(e) => e.key==='Enter' && setActive(1)} role="button" tabindex="0" aria-label="Step 02 Collect">
         <circle cx="358" cy="175" r="28" fill="rgba(10,12,24,.92)" stroke="rgba(154,217,147,.2)" stroke-width="1" class="os-node-bg"/>
         <circle cx="358" cy="175" r="28" fill="none" stroke="rgba(154,217,147,.5)" stroke-width="1.5" class="os-node-ring" opacity="0"/>
         <g transform="translate(346,163)" stroke="rgba(154,217,147,.8)" stroke-width="1.4" stroke-linecap="round" fill="none">
@@ -277,7 +297,7 @@
       </g>
 
       <!-- ── NODE 2 — Build (right-bot) (305,337) ── -->
-      <g class="os-node" class:os-node-active={active===2} on:click={() => active=2} on:keydown={(e) => e.key==='Enter' && (active=2)} role="button" tabindex="0" aria-label="Step 03 Build">
+      <g class="os-node" class:os-node-active={active===2} on:click={() => setActive(2)} on:keydown={(e) => e.key==='Enter' && setActive(2)} role="button" tabindex="0" aria-label="Step 03 Build">
         <circle cx="305" cy="337" r="28" fill="rgba(10,12,24,.92)" stroke="rgba(154,217,147,.2)" stroke-width="1" class="os-node-bg"/>
         <circle cx="305" cy="337" r="28" fill="none" stroke="rgba(154,217,147,.5)" stroke-width="1.5" class="os-node-ring" opacity="0"/>
         <g transform="translate(293,325)" stroke="rgba(154,217,147,.8)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" fill="none">
@@ -290,7 +310,7 @@
       </g>
 
       <!-- ── NODE 3 — Analyze (left-bot) (135,337) ── -->
-      <g class="os-node" class:os-node-active={active===3} on:click={() => active=3} on:keydown={(e) => e.key==='Enter' && (active=3)} role="button" tabindex="0" aria-label="Step 04 Analyze">
+      <g class="os-node" class:os-node-active={active===3} on:click={() => setActive(3)} on:keydown={(e) => e.key==='Enter' && setActive(3)} role="button" tabindex="0" aria-label="Step 04 Analyze">
         <circle cx="135" cy="337" r="28" fill="rgba(10,12,24,.92)" stroke="rgba(154,217,147,.2)" stroke-width="1" class="os-node-bg"/>
         <circle cx="135" cy="337" r="28" fill="none" stroke="rgba(154,217,147,.5)" stroke-width="1.5" class="os-node-ring" opacity="0"/>
         <g transform="translate(123,325)" stroke="rgba(154,217,147,.8)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" fill="none">
@@ -308,7 +328,7 @@
       </g>
 
       <!-- ── NODE 4 — Optimize (left-top) (82,175) ── -->
-      <g class="os-node" class:os-node-active={active===4} on:click={() => active=4} on:keydown={(e) => e.key==='Enter' && (active=4)} role="button" tabindex="0" aria-label="Step 05 Optimize">
+      <g class="os-node" class:os-node-active={active===4} on:click={() => setActive(4)} on:keydown={(e) => e.key==='Enter' && setActive(4)} role="button" tabindex="0" aria-label="Step 05 Optimize">
         <circle cx="82" cy="175" r="28" fill="rgba(10,12,24,.92)" stroke="rgba(154,217,147,.2)" stroke-width="1" class="os-node-bg"/>
         <circle cx="82" cy="175" r="28" fill="none" stroke="rgba(154,217,147,.5)" stroke-width="1.5" class="os-node-ring" opacity="0"/>
         <g transform="translate(70,163)" stroke="rgba(154,217,147,.8)" stroke-width="1.4" stroke-linecap="round" fill="none">
@@ -447,6 +467,27 @@
     letter-spacing: .06em;
   }
   .os-tab-active .os-tab-num { opacity: 1; }
+
+  /* auto-advance progress bar */
+  .os-prog-bar {
+    height: 2px;
+    background: rgba(255,255,255,.06);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-top: -.6rem;
+  }
+  .os-prog-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #9ad993, #e1e75c);
+    border-radius: 2px;
+    animation: progAdvance 4.5s linear forwards;
+  }
+  .os-prog-paused { animation-play-state: paused; }
+  @keyframes progAdvance {
+    from { width: 0%; }
+    to   { width: 100%; }
+  }
 
   /* step head */
   .os-step-head { display: flex; flex-direction: column; gap: .4rem; }
@@ -697,5 +738,6 @@
     .os-line  { animation: none; }
     .os-pulse-ring { animation: none; }
     .os-badge-fl { animation: none; }
+    .os-prog-fill { animation: none; width: 100%; }
   }
 </style>
