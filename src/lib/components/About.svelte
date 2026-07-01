@@ -22,14 +22,6 @@
   class="ab-wrap"
   class:ab-vis={visible}
 >
-  <!-- ── HUD corner brackets ───────────────────────────────────────── -->
-  <div class="ab-hud" aria-hidden="true">
-    <span class="ab-hud-tl"></span>
-    <span class="ab-hud-tr"></span>
-    <span class="ab-hud-bl"></span>
-    <span class="ab-hud-br"></span>
-  </div>
-
   <!-- ── Split body ────────────────────────────────────────────────── -->
   <div class="ab-body">
     <!-- LEFT — text content -->
@@ -302,11 +294,6 @@
   </div>
   <!-- /ab-body -->
 
-  <!-- ── Bottom bar ────────────────────────────────────────────────── -->
-  <div class="ab-bottom">
-    <div class="ab-prog-track"><div class="ab-prog-fill"></div></div>
-    <span class="ab-brand">Adeptus Technologies</span>
-  </div>
 </section>
 
 <style>
@@ -319,53 +306,7 @@
     overflow: hidden;
     display: flex;
     flex-direction: column;
-  }
-
-  /* ── HUD corners ────────────────────────────────────────────────────────── */
-  .ab-hud {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    z-index: 9;
-  }
-  .ab-hud-tl,
-  .ab-hud-tr,
-  .ab-hud-bl,
-  .ab-hud-br {
-    position: absolute;
-    width: 0;
-    height: 0;
-  }
-  .ab-hud-tl {
-    top: 18px; left: 18px;
-    border-top: 1.5px solid rgba(154, 217, 147, 0.55);
-    border-left: 1.5px solid rgba(154, 217, 147, 0.55);
-    transition: width .45s cubic-bezier(.22,1,.36,1) .1s, height .45s cubic-bezier(.22,1,.36,1) .55s;
-  }
-  .ab-hud-tr {
-    top: 18px; right: 18px;
-    border-top: 1.5px solid rgba(154, 217, 147, 0.55);
-    border-right: 1.5px solid rgba(154, 217, 147, 0.55);
-    transition: width .45s cubic-bezier(.22,1,.36,1) .2s, height .45s cubic-bezier(.22,1,.36,1) .65s;
-  }
-  .ab-hud-bl {
-    bottom: 18px; left: 18px;
-    border-bottom: 1.5px solid rgba(154, 217, 147, 0.55);
-    border-left: 1.5px solid rgba(154, 217, 147, 0.55);
-    transition: width .45s cubic-bezier(.22,1,.36,1) .15s, height .45s cubic-bezier(.22,1,.36,1) .6s;
-  }
-  .ab-hud-br {
-    bottom: 18px; right: 18px;
-    border-bottom: 1.5px solid rgba(154, 217, 147, 0.55);
-    border-right: 1.5px solid rgba(154, 217, 147, 0.55);
-    transition: width .45s cubic-bezier(.22,1,.36,1) .25s, height .45s cubic-bezier(.22,1,.36,1) .7s;
-  }
-  .ab-vis .ab-hud-tl,
-  .ab-vis .ab-hud-tr,
-  .ab-vis .ab-hud-bl,
-  .ab-vis .ab-hud-br {
-    width: 24px;
-    height: 24px;
+    font-family: 'Space Grotesk', 'DM Sans', sans-serif;
   }
 
   /* ── Split body ─────────────────────────────────────────────────────────── */
@@ -422,9 +363,10 @@
     color: #ffffff;
   }
   .ab-hdg-out {
-    -webkit-text-stroke: 2px rgba(255, 255, 255, 0.4);
+    background: linear-gradient(90deg, #9ad993 0%, #e1e75c 100%);
+    -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    color: transparent;
+    background-clip: text;
   }
 
   /* Description */
@@ -696,80 +638,80 @@
     flex-shrink: 0;
   }
 
-  /* ── Bottom bar ─────────────────────────────────────────────────────────── */
-  .ab-bottom {
-    position: relative;
-    z-index: 10;
-    display: flex;
-    align-items: center;
-    gap: 1.25rem;
-    padding: 1rem 2.5rem 1.5rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-    flex-shrink: 0;
-  }
-  .ab-prog-track {
-    width: 80px;
-    height: 2px;
-    background: rgba(255, 255, 255, 0.08);
-    border-radius: 2px;
-    overflow: hidden;
-  }
-  .ab-prog-fill {
-    height: 100%;
-    width: 40%;
-    background: linear-gradient(90deg, #9ad993, #e1e75c);
-    border-radius: 2px;
-    animation: abProgPulse 2.5s ease-in-out 0.4s infinite alternate;
-  }
-  .ab-brand {
-    margin-left: auto;
-    font-size: 0.58rem;
-    letter-spacing: 0.28em;
-    text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.12);
-    font-weight: 500;
-  }
+  /* ── Responsive — Mobile First ──────────────────────────────────────────── */
 
-  /* ── Keyframes ───────────────────────────────────────────────────────────── */
-  @keyframes abProgPulse {
-    from {
-      width: 25%;
-    }
-    to {
-      width: 65%;
-    }
-  }
-
-  /* ── Responsive ──────────────────────────────────────────────────────────── */
+  /* Large tablet */
   @media (max-width: 1100px) {
     .ab-left  { width: 46%; }
     .ab-right { width: 54%; }
-    .ab-clients-grid { grid-template-columns: repeat(3, 1fr); }
   }
+
+  /* Tablet portrait — stack layout */
   @media (max-width: 860px) {
+    .ab-wrap {
+      height: auto;
+      min-height: 100svh;
+    }
     .ab-body {
       flex-direction: column;
       align-items: flex-start;
-      justify-content: center;
+      justify-content: flex-start;
+      padding: clamp(1.5rem, 4vh, 3rem) 0;
+      overflow-y: auto;
     }
     .ab-left {
-      width: 90%;
-      padding: 0 1.5rem;
+      width: 100%;
+      padding: 0 clamp(1.25rem, 4vw, 2.5rem);
     }
-    .ab-right { display: none; }
+    .ab-right {
+      display: none;
+    }
+    .ab-benefits {
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem 1rem;
+    }
+    .ab-desc {
+      max-width: 100%;
+      font-size: clamp(0.82rem, 2.2vw, 0.9rem);
+    }
   }
-  @media (max-width: 560px) {
+
+  /* Mobile */
+  @media (max-width: 600px) {
     .ab-hdg {
-      font-size: clamp(2rem, 12vw, 4rem);
+      font-size: clamp(2.2rem, 11vw, 4rem);
     }
+    .ab-benefits {
+      grid-template-columns: 1fr;
+      gap: 0.7rem;
+    }
+    .ab-benefit {
+      gap: 0.65rem;
+    }
+    .ab-benefit-icon {
+      width: 34px; height: 34px;
+      padding: 7px;
+    }
+    .ab-benefit-title { font-size: 0.88rem; }
+    .ab-benefit-desc  { font-size: 0.78rem; }
+    /* Larger touch targets for benefit cards */
+    .ab-benefit {
+      padding: 0.5rem 0.4rem;
+      border-radius: 8px;
+      cursor: default;
+    }
+  }
+
+  /* Small mobile */
+  @media (max-width: 390px) {
+    .ab-left { padding: 0 1rem; }
+    .ab-hdg  { font-size: clamp(2rem, 10vw, 3rem); }
   }
 
   /* Reduced motion */
   @media (prefers-reduced-motion: reduce) {
     .ab-anim { transition: none; opacity: 1; transform: none; }
-    .ab-prog-fill { animation: none; }
     .ab-cl-card { transition: none; opacity: 1; transform: none; }
     .ab-benefit { transition: none; opacity: 1; transform: none; }
-    .ab-hud-tl, .ab-hud-tr, .ab-hud-bl, .ab-hud-br { transition: none; width: 24px; height: 24px; }
   }
 </style>

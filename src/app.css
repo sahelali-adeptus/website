@@ -5,13 +5,14 @@
 @layer base {
   html {
     scroll-behavior: smooth;
-    background-color: #120825;
+    background-color: #0a1018;
   }
 
   body {
     @apply font-sans leading-relaxed;
+    font-family: 'Space Grotesk', 'DM Sans', 'Montserrat', system-ui, sans-serif;
     color: rgba(255,255,255,.85);
-    background-color: #120825;
+    background-color: #0a1018;
     background-image:
       /* blue accent blobs */
       radial-gradient(ellipse at 50% 60%, rgba(56, 120, 220, 0.08) 0%, transparent 55%),

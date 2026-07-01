@@ -263,7 +263,7 @@
     display: block;
   }
   .ft-link:hover {
-    color: rgba(244, 94, 42, 0.85);
+    color: rgba(154, 217, 147, 0.85);
   }
 
   /* Social */
@@ -288,9 +288,9 @@
       background 0.25s;
   }
   .ft-soc-btn:hover {
-    border-color: rgba(244, 94, 42, 0.5);
-    color: #f45e2a;
-    background: rgba(244, 94, 42, 0.06);
+    border-color: rgba(154, 217, 147, 0.4);
+    color: #9ad993;
+    background: rgba(154, 217, 147, 0.06);
   }
 
   /* Copyright strip */
@@ -310,27 +310,63 @@
     font-weight: 400;
   }
   .ft-copy-sep {
-    color: rgba(244, 94, 42, 0.3);
+    color: rgba(154, 217, 147, 0.3);
   }
 
-  /* ── Responsive ───────────────────────────────────────────────────────────── */
+  /* ── Responsive — Mobile First ───────────────────────────────────────────── */
+
+  /* Tablet */
   @media (max-width: 1024px) {
     .ft-bar-inner {
       grid-template-columns: 1fr;
       gap: 2rem;
     }
-    .ft-social {
-      flex-direction: row;
-    }
+    .ft-social { flex-direction: row; }
   }
+
+  /* Mobile */
   @media (max-width: 640px) {
+    .ft-word { font-size: clamp(3.5rem, 14vw, 7rem); }
+
     .ft-cols {
       grid-template-columns: repeat(2, 1fr);
-      gap: 1.5rem;
+      gap: 1.5rem 1rem;
     }
+
+    /* Touch-friendly footer links — min 44px tap area */
+    .ft-link {
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.38);
+    }
+
+    /* Larger social buttons */
+    .ft-soc-btn {
+      width: 44px; height: 44px;
+      border-radius: 8px;
+    }
+
+    .ft-col-label { font-size: 0.6rem; }
+
+    .ft-bar-inner {
+      padding: 1.5rem 1.25rem;
+    }
+
     .ft-copy {
       justify-content: center;
       text-align: center;
+      font-size: 0.58rem;
+      padding: 0.75rem 1.25rem 1rem;
+      flex-direction: column;
+      gap: 0.35rem;
     }
+    .ft-copy-sep { display: none; }
+  }
+
+  /* Small mobile */
+  @media (max-width: 390px) {
+    .ft-cols { grid-template-columns: 1fr; gap: 1.25rem; }
   }
 </style>

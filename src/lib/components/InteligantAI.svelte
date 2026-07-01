@@ -55,12 +55,6 @@
   <!-- Top accent line -->
   <div class="iai-top-rule" aria-hidden="true"></div>
 
-  <!-- HUD corners -->
-  <div class="iai-hud" aria-hidden="true">
-    <span class="iai-hud-tl"></span>
-    <span class="iai-hud-tr"></span>
-  </div>
-
   <div class="iai-inner">
 
     <!-- ══ LEFT COLUMN ══ -->
@@ -202,6 +196,7 @@
     position: relative;
     padding: clamp(4rem, 8vw, 7rem) clamp(1rem, 5vw, 3.5rem) clamp(2.5rem, 4vw, 3.5rem);
     overflow: hidden;
+    font-family: 'Space Grotesk', 'DM Sans', sans-serif;
   }
 
   /* subtle dot-grid background */
@@ -229,24 +224,6 @@
       transparent 100%
     );
     z-index: 1;
-  }
-
-  /* HUD corners */
-  .iai-hud { position: absolute; inset: 0; pointer-events: none; z-index: 10; }
-  .iai-hud-tl, .iai-hud-tr {
-    position: absolute;
-    width: 20px; height: 20px;
-    top: 18px;
-  }
-  .iai-hud-tl {
-    left: 18px;
-    border-top: 1.5px solid rgba(154,217,147,.45);
-    border-left: 1.5px solid rgba(154,217,147,.45);
-  }
-  .iai-hud-tr {
-    right: 18px;
-    border-top: 1.5px solid rgba(154,217,147,.45);
-    border-right: 1.5px solid rgba(154,217,147,.45);
   }
 
   /* ── Fade animation ─────────────────────────────────── */
@@ -318,9 +295,10 @@
     margin: 0;
   }
   .iai-gradient-text {
-    -webkit-text-stroke: 2px rgba(255, 255, 255, 0.4);
+    background: linear-gradient(90deg, #9ad993 0%, #e1e75c 100%);
+    -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    color: transparent;
+    background-clip: text;
   }
 
   /* divider */
@@ -737,29 +715,66 @@
     transform: translateX(3px);
   }
 
-  /* ── Responsive ─────────────────────────────────────── */
+  /* ── Responsive — Mobile First ─────────────────────────────────── */
+
+  /* Tablet */
   @media (max-width: 960px) {
     .iai-inner {
       grid-template-columns: 1fr;
       text-align: center;
     }
-    .iai-left { align-items: center; }
-    .iai-body { max-width: 500px; }
+    .iai-left   { align-items: center; }
+    .iai-body   { max-width: 520px; font-size: 0.92rem; }
     .iai-divider { justify-content: center; }
-    .iai-right { max-width: 360px; order: -1; }
+    .iai-right  { max-width: 360px; order: -1; }
     .iai-pill-tl { top: 6%; left: 0; }
     .iai-pill-br { bottom: 6%; right: 0; }
-    .iai-cards { grid-template-columns: repeat(2, 1fr); }
+    .iai-cards  { grid-template-columns: repeat(2, 1fr); }
   }
 
-  @media (max-width: 560px) {
-    .iai-stats { gap: .7rem; padding: .9rem 1rem; }
-    .iai-cards { grid-template-columns: 1fr 1fr; gap: .6rem; }
-    .iai-card  { padding: 1rem; }
+  /* Mobile */
+  @media (max-width: 600px) {
+    .iai-wrap { padding: clamp(3rem, 7vh, 5rem) 1.25rem clamp(2rem, 4vh, 3rem); }
+
+    .iai-stats {
+      gap: 0.65rem;
+      padding: 0.9rem 1rem;
+      width: 100%;
+      justify-content: center;
+    }
+    .iai-stat-val { font-size: clamp(1rem, 5vw, 1.35rem); }
+
+    /* Touch-friendly CTA buttons — min 44px */
+    .iai-btn-primary,
+    .iai-btn-ghost {
+      min-height: 44px;
+      padding: 0.75rem 1.4rem;
+      font-size: 0.82rem;
+    }
+    .iai-cta { gap: 0.65rem; justify-content: center; }
+
+    .iai-badge { font-size: 0.65rem; padding: 0.28rem 0.75rem; }
+
+    .iai-cards { grid-template-columns: 1fr 1fr; gap: 0.6rem; }
+    .iai-card  {
+      padding: 1.1rem 1rem;
+      gap: 0.65rem;
+    }
+    .iai-card-title { font-size: 0.78rem; }
+    .iai-card-desc  { font-size: 0.68rem; }
+
+    .iai-pill-tl { top: 4%; left: -4%; font-size: 0.6rem; }
+    .iai-pill-br { bottom: 4%; right: -4%; font-size: 0.6rem; }
   }
 
-  @media (max-width: 380px) {
+  /* Small mobile */
+  @media (max-width: 390px) {
+    .iai-wrap  { padding: 2.5rem 1rem 2rem; }
     .iai-cards { grid-template-columns: 1fr; }
+    .iai-stats { flex-wrap: wrap; row-gap: 0.6rem; }
+    .iai-stat-div { display: none; }
+    .iai-cta  { flex-direction: column; align-items: stretch; }
+    .iai-btn-primary, .iai-btn-ghost { justify-content: center; }
   }
 
   /* ── Reduced motion ─────────────────────────────────── */

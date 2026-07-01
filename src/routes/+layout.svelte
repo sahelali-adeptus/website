@@ -1,5 +1,5 @@
 <script>
-  import { onMount } from 'svelte';
+  import { onMount } from "svelte";
   import "../app.css";
   import Footer from "$lib/components/Footer.svelte";
 
@@ -12,9 +12,9 @@
       const max = document.documentElement.scrollHeight - window.innerHeight;
       progress = max > 0 ? (window.scrollY / max) * 100 : 0;
     };
-    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
-    return () => window.removeEventListener('scroll', onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
   });
 </script>
 
@@ -29,10 +29,11 @@
 <style>
   .sp {
     position: fixed;
-    top: 0; left: 0;
+    top: 0;
+    left: 0;
     height: 2px;
     z-index: 9999;
-    background: linear-gradient(to right, #F45E2A, rgba(244,94,42,.55));
+    background: linear-gradient(to right, #9ad993, rgba(225, 231, 92, 0.7));
     transition: width 80ms linear;
     pointer-events: none;
   }

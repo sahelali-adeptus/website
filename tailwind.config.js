@@ -31,7 +31,10 @@ export default {
         },
       },
       fontFamily: {
-        sans: ["Montserrat", "system-ui", "sans-serif"],
+        sans: ["Space Grotesk", "DM Sans", "Montserrat", "system-ui", "sans-serif"],
+        grotesk: ["Space Grotesk", "system-ui", "sans-serif"],
+        dm: ["DM Sans", "system-ui", "sans-serif"],
+        montserrat: ["Montserrat", "system-ui", "sans-serif"],
       },
       animation: {
         "fade-in": "fadeIn 1.2s ease-in-out",

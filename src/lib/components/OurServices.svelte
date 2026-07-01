@@ -368,6 +368,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     overflow: hidden;
+    font-family: 'Space Grotesk', 'DM Sans', sans-serif;
   }
 
   /* ── Fade ──────────────────────────────────────────────────────── */
@@ -428,9 +429,10 @@
   }
   .os-h-solid   { color: #fff; }
   .os-h-outline {
-    -webkit-text-stroke: 2px rgba(255,255,255,.35);
+    background: linear-gradient(90deg, #9ad993 0%, #e1e75c 100%);
+    -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    color: transparent;
+    background-clip: text;
   }
 
   /* tabs */
@@ -717,18 +719,52 @@
     animation-delay: .6s;
   }
 
-  /* ── Responsive ────────────────────────────────────────────────── */
-  @media (max-width: 960px) {
-    .os-wrap { grid-template-columns: 1fr; min-height: auto; }
-    .os-panel-right { height: 380px; }
-    .os-panel-left { padding: 3rem 2rem 2rem; }
-    .os-step-desc { max-width: 100%; }
+  /* ── Responsive — Mobile First ─────────────────────────────────── */
+
+  /* Large tablet */
+  @media (max-width: 1100px) {
+    .os-panel-left {
+      padding: clamp(2.5rem, 6vh, 5rem) clamp(1.5rem, 4vw, 4rem) clamp(2.5rem, 6vh, 5rem) clamp(1.5rem, 5vw, 5rem);
+    }
   }
-  @media (max-width: 560px) {
-    .os-tabs { gap: .35rem; }
-    .os-tab  { padding: .3rem .65rem; font-size: .65rem; }
-    .os-cards { gap: .4rem; }
-    .os-panel-right { height: 300px; }
+
+  /* Tablet — stack panels */
+  @media (max-width: 960px) {
+    .os-wrap           { grid-template-columns: 1fr; min-height: auto; }
+    .os-panel-right    { height: 360px; order: -1; }
+    .os-panel-left     { padding: 2rem 2rem 3rem; gap: 1.25rem; }
+    .os-step-desc      { max-width: 100%; }
+    .os-heading        { font-size: clamp(2.4rem, 5vw, 4.5rem); }
+  }
+
+  /* Mobile */
+  @media (max-width: 600px) {
+    .os-panel-right { height: 280px; }
+    .os-panel-left  { padding: 1.5rem 1.25rem 2.5rem; gap: 1rem; }
+    .os-heading     { font-size: clamp(2rem, 9vw, 3rem); }
+
+    /* Touch-friendly tabs — min 44px height */
+    .os-tabs { gap: 0.4rem; flex-wrap: wrap; }
+    .os-tab  { min-height: 44px; padding: 0.5rem 0.85rem; font-size: 0.7rem; }
+
+    /* Touch-friendly cards */
+    .os-card       { min-height: 56px; padding: 0.9rem 1rem; gap: 0.75rem; }
+    .os-card-icon  { width: 40px; height: 40px; }
+    .os-card-label { font-size: 0.8rem; }
+    .os-card-hint  { font-size: 0.68rem; }
+
+    .os-step-title { font-size: clamp(1rem, 4vw, 1.2rem); }
+    .os-step-desc  { font-size: 0.82rem; line-height: 1.7; }
+    .os-dot        { width: 8px; height: 8px; }
+    .os-badge-fl   { display: none; }
+    .os-cards      { gap: 0.45rem; }
+  }
+
+  /* Small mobile */
+  @media (max-width: 390px) {
+    .os-panel-left  { padding: 1.25rem 1rem 2rem; }
+    .os-tab         { font-size: 0.65rem; padding: 0.45rem 0.65rem; }
+    .os-panel-right { height: 240px; }
   }
 
   /* Reduced motion */

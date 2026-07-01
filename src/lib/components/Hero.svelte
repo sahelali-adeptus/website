@@ -128,6 +128,7 @@
     position: relative;
     width: 100%;
     height: 100vh;
+    min-height: 600px;
     overflow: hidden;
     display: flex;
     align-items: flex-end;
@@ -310,6 +311,7 @@
     font-weight: 900;
     letter-spacing: 0.06em;
     text-transform: uppercase;
+    font-family: 'Space Grotesk', 'Montserrat', sans-serif;
   }
   .hw {
     color: #ffffff;
@@ -407,14 +409,18 @@
     bottom: clamp(4rem, 10vh, 7rem);
     z-index: 10;
     width: clamp(200px, 24vw, 310px);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    background: rgba(6, 8, 20, 0.52);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
     padding: 1.4rem 1.3rem 1.1rem;
     display: flex;
     flex-direction: column;
     gap: 1rem;
     opacity: 0;
     transform: translateX(40px);
+    box-shadow: 0 16px 48px rgba(0,0,0,0.35), 0 0 0 1px rgba(154,217,147,0.05);
     transition:
       opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.7s,
       transform 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.7s;
@@ -531,42 +537,86 @@
     white-space: nowrap;
   }
 
-  /* ── Responsive ────────────────────────────────────────────────────────── */
-  @media (max-width: 960px) {
-    .hero-letters span {
-      font-size: clamp(4rem, 13vw, 10rem);
-    }
-    .hero-left {
-      max-width: 55%;
-    }
-    .hero-card {
-      width: clamp(180px, 28vw, 240px);
-    }
+  /* ── Responsive — Mobile First ─────────────────────────────────────────── */
+
+  /* Large tablet (1024px) */
+  @media (max-width: 1024px) {
+    .hero-letters span { font-size: clamp(5rem, 12vw, 12rem); }
+    .hero-left { max-width: 52%; }
+    .hero-card { width: clamp(190px, 26vw, 260px); }
   }
-  @media (max-width: 680px) {
-    .hero-letters {
-      display: none;
-    }
-    .hero-vert-label {
-      display: none;
-    }
+
+  /* Tablet portrait (768px) */
+  @media (max-width: 768px) {
+    .hero-letters span { font-size: clamp(4rem, 12vw, 8rem); }
     .hero-left {
-      max-width: 90%;
-      padding-left: 1.5rem;
-      padding-bottom: 3.5rem;
+      max-width: 65%;
+      padding-left: 2rem;
+      padding-bottom: clamp(4rem, 10vh, 6rem);
     }
     .hero-card {
-      right: 1rem;
-      bottom: 3.5rem;
-      width: clamp(160px, 80vw, 260px);
+      width: clamp(175px, 32vw, 230px);
+      right: 1.25rem;
+      bottom: clamp(4rem, 10vh, 6rem);
     }
+    .hero-heading span { font-size: clamp(1.5rem, 3vw, 3rem); }
+  }
+
+  /* Mobile (600px) — stack layout, hide overlapping card */
+  @media (max-width: 600px) {
+    .hero {
+      height: 100svh;
+      min-height: 100svh;
+    }
+    .hero-letters  { display: none; }
+    .hero-vert-label { display: none; }
+
+    .hero-robot {
+      width: clamp(180px, 52vw, 300px);
+      top: 50%;
+      transform: translate(-50%, -38%);
+    }
+
+    .hero-left {
+      max-width: 100%;
+      width: 100%;
+      padding: 0 1.25rem clamp(5.5rem, 14vh, 8rem);
+    }
+    .hero-heading span {
+      font-size: clamp(1.7rem, 7.5vw, 3rem);
+    }
+    .hero-ai {
+      font-size: clamp(2rem, 8vw, 4rem);
+    }
+
+    /* Hide the floating card — no room, avoids overlap */
+    .hero-card { display: none; }
+
     .hero-ctas {
-      gap: 0.6rem;
+      gap: 0.55rem;
+      flex-wrap: wrap;
     }
     .btn-primary,
     .btn-secondary {
-      padding: 0.6rem 1.1rem;
+      min-height: 44px;
+      padding: 0.72rem 1.3rem;
+      font-size: 0.7rem;
     }
+
+    .hero-bottom {
+      bottom: 0.75rem;
+    }
+    .btag-line { width: clamp(24px, 5vw, 60px); }
+  }
+
+  /* Small mobile (375px) */
+  @media (max-width: 390px) {
+    .hero-left {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+    .hero-heading span { font-size: clamp(1.5rem, 7vw, 2.4rem); }
+    .btn-primary, .btn-secondary { font-size: 0.65rem; padding: 0.7rem 1rem; }
   }
 
   /* ── Scan beam ─────────────────────────────────────────────────────────── */
