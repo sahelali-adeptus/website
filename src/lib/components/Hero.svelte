@@ -4,34 +4,55 @@
   const typeText = "Beconix AI";
   let typed = "";
   let ready = false;
+  let videoSrc = "";
 
   onMount(() => {
+    // Mark ready immediately on next frame — no delay
     requestAnimationFrame(() => {
-      setTimeout(() => {
-        ready = true;
-      }, 60);
+      ready = true;
     });
 
+    // Load video after page is interactive so it never blocks render
+    setTimeout(() => {
+      videoSrc = "/hero-bg-new.mp4";
+    }, 200);
+
+    // Typing effect
     let i = 0;
     const type = () => {
       if (i <= typeText.length) {
-        typed = typeText.slice(0, i);
-        i++;
-        setTimeout(type, i === 1 ? 700 : 80);
+        typed = typeText.slice(0, i++);
+        setTimeout(type, i === 1 ? 500 : 75);
       }
     };
-    setTimeout(type, 600);
+    setTimeout(type, 400);
   });
 </script>
 
 <section class="hero" class:ready>
+  <!-- ── Video background ───────────────────────────────────────────────── -->
+  <div class="hero-video-wrap" aria-hidden="true">
+    <video
+      class="hero-video"
+      src={videoSrc}
+      poster="/hero-bg.png"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="none"
+      disablepictureinpicture
+    ></video>
+    <!-- Dark overlay to keep text readable -->
+    <div class="hero-video-overlay"></div>
+  </div>
 
   <!-- ── Scan beam ──────────────────────────────────────────────────────── -->
   <div class="hero-scan" aria-hidden="true"></div>
 
   <!-- ── Floating particles ─────────────────────────────────────────────── -->
   <div class="hero-particles" aria-hidden="true">
-    {#each Array(16) as _, i}
+    {#each Array(8) as _, i}
       <span class="hero-particle" style="--pi:{i}"></span>
     {/each}
   </div>
@@ -50,12 +71,6 @@
   <!-- ── Vertical label — typing effect ─────────────────────────────── -->
   <div class="hero-vert-label" aria-hidden="true">
     {typed}<span class="type-cursor"></span>
-  </div>
-
-  <!-- ── 3D AI Robot — centre, slightly below midpoint ──────────────── -->
-  <div class="hero-robot" aria-hidden="true">
-    <div class="robot-glow"></div>
-    <img src="/ai-robot.png" alt="" class="robot-img" />
   </div>
 
   <!-- ── Left content ────────────────────────────────────────────────── -->
@@ -99,7 +114,6 @@
         <span class="cstat-lbl">Data Points</span>
       </div>
     </div>
-
   </div>
 
   <!-- ── Bottom tag bar ──────────────────────────────────────────────── -->
@@ -132,6 +146,40 @@
     overflow: hidden;
     display: flex;
     align-items: flex-end;
+  }
+
+  /* ── Video background ──────────────────────────────────────────────────── */
+  .hero-video-wrap {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .hero-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    pointer-events: none;
+    image-rendering: high-quality;
+  }
+
+  .hero-video-overlay {
+    position: absolute;
+    inset: 0;
+    /* Multi-layer overlay: dark vignette + brand color tint at edges */
+    background: rgba(4, 20, 8, 0.78);
+    pointer-events: none;
+  }
+
+  /* Respect reduced motion — pause video */
+  @media (prefers-reduced-motion: reduce) {
+    .hero-video {
+      animation: none;
+    }
   }
 
   /* ── Giant letters ─────────────────────────────────────────────────────── */
@@ -213,68 +261,6 @@
     }
   }
 
-  /* ── 3D Robot — slides up from below ───────────────────────────────────── */
-  .hero-robot {
-    position: absolute;
-    left: 50%;
-    top: 56%;
-    transform: translate(-50%, -38%);
-    z-index: 6;
-    width: clamp(280px, 28vw, 580px);
-    pointer-events: none;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    opacity: 0;
-    translate: 0 80px;
-    transition:
-      opacity 1.1s cubic-bezier(0.22, 1, 0.36, 1) 0.4s,
-      translate 1.1s cubic-bezier(0.22, 1, 0.36, 1) 0.4s;
-  }
-  .ready .hero-robot {
-    opacity: 1;
-    translate: 0 0;
-  }
-
-  .robot-glow {
-    position: absolute;
-    bottom: -6%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 70%;
-    height: 28%;
-    background: radial-gradient(
-      ellipse at center,
-      rgba(154, 217, 147, 0.5) 0%,
-      rgba(225, 231, 92, 0.22) 45%,
-      transparent 72%
-    );
-    filter: blur(18px);
-    border-radius: 50%;
-    pointer-events: none;
-  }
-
-  .robot-img {
-    position: relative;
-    z-index: 1;
-    width: 100%;
-    height: auto;
-    display: block;
-    filter: drop-shadow(0 0 28px rgba(154, 217, 147, 0.35))
-      drop-shadow(0 0 60px rgba(225, 231, 92, 0.2));
-    animation: robotFloat 5s ease-in-out infinite;
-  }
-
-  @keyframes robotFloat {
-    0%,
-    100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-14px);
-    }
-  }
-
   /* ── Slide-in lines (left → right) ────────────────────────────────────── */
   .slide-line {
     opacity: 0;
@@ -311,7 +297,7 @@
     font-weight: 900;
     letter-spacing: 0.06em;
     text-transform: uppercase;
-    font-family: 'Space Grotesk', 'Montserrat', sans-serif;
+    font-family: "Space Grotesk", "Montserrat", sans-serif;
   }
   .hw {
     color: #ffffff;
@@ -420,7 +406,9 @@
     gap: 1rem;
     opacity: 0;
     transform: translateX(40px);
-    box-shadow: 0 16px 48px rgba(0,0,0,0.35), 0 0 0 1px rgba(154,217,147,0.05);
+    box-shadow:
+      0 16px 48px rgba(0, 0, 0, 0.35),
+      0 0 0 1px rgba(154, 217, 147, 0.05);
     transition:
       opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.7s,
       transform 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.7s;
@@ -541,14 +529,22 @@
 
   /* Large tablet (1024px) */
   @media (max-width: 1024px) {
-    .hero-letters span { font-size: clamp(5rem, 12vw, 12rem); }
-    .hero-left { max-width: 52%; }
-    .hero-card { width: clamp(190px, 26vw, 260px); }
+    .hero-letters span {
+      font-size: clamp(5rem, 12vw, 12rem);
+    }
+    .hero-left {
+      max-width: 52%;
+    }
+    .hero-card {
+      width: clamp(190px, 26vw, 260px);
+    }
   }
 
   /* Tablet portrait (768px) */
   @media (max-width: 768px) {
-    .hero-letters span { font-size: clamp(4rem, 12vw, 8rem); }
+    .hero-letters span {
+      font-size: clamp(4rem, 12vw, 8rem);
+    }
     .hero-left {
       max-width: 65%;
       padding-left: 2rem;
@@ -559,7 +555,9 @@
       right: 1.25rem;
       bottom: clamp(4rem, 10vh, 6rem);
     }
-    .hero-heading span { font-size: clamp(1.5rem, 3vw, 3rem); }
+    .hero-heading span {
+      font-size: clamp(1.5rem, 3vw, 3rem);
+    }
   }
 
   /* Mobile (600px) — stack layout, hide overlapping card */
@@ -568,8 +566,12 @@
       height: 100svh;
       min-height: 100svh;
     }
-    .hero-letters  { display: none; }
-    .hero-vert-label { display: none; }
+    .hero-letters {
+      display: none;
+    }
+    .hero-vert-label {
+      display: none;
+    }
 
     .hero-robot {
       width: clamp(180px, 52vw, 300px);
@@ -590,7 +592,9 @@
     }
 
     /* Hide the floating card — no room, avoids overlap */
-    .hero-card { display: none; }
+    .hero-card {
+      display: none;
+    }
 
     .hero-ctas {
       gap: 0.55rem;
@@ -606,7 +610,9 @@
     .hero-bottom {
       bottom: 0.75rem;
     }
-    .btag-line { width: clamp(24px, 5vw, 60px); }
+    .btag-line {
+      width: clamp(24px, 5vw, 60px);
+    }
   }
 
   /* Small mobile (375px) */
@@ -615,33 +621,56 @@
       padding-left: 1rem;
       padding-right: 1rem;
     }
-    .hero-heading span { font-size: clamp(1.5rem, 7vw, 2.4rem); }
-    .btn-primary, .btn-secondary { font-size: 0.65rem; padding: 0.7rem 1rem; }
+    .hero-heading span {
+      font-size: clamp(1.5rem, 7vw, 2.4rem);
+    }
+    .btn-primary,
+    .btn-secondary {
+      font-size: 0.65rem;
+      padding: 0.7rem 1rem;
+    }
   }
 
   /* ── Scan beam ─────────────────────────────────────────────────────────── */
   .hero-scan {
     position: absolute;
-    left: 0; right: 0;
+    left: 0;
+    right: 0;
     height: 1px;
     pointer-events: none;
     z-index: 2;
-    background: linear-gradient(90deg,
+    background: linear-gradient(
+      90deg,
       transparent 0%,
-      rgba(154,217,147,.55) 28%,
-      rgba(225,231,92,.35) 72%,
-      transparent 100%);
+      rgba(154, 217, 147, 0.55) 28%,
+      rgba(225, 231, 92, 0.35) 72%,
+      transparent 100%
+    );
     box-shadow:
-      0 0 18px rgba(154,217,147,.25),
-      0 0 50px rgba(154,217,147,.1);
-    animation: scanBeam 9s cubic-bezier(.4,0,.6,1) infinite;
+      0 0 18px rgba(154, 217, 147, 0.25),
+      0 0 50px rgba(154, 217, 147, 0.1);
+    animation: scanBeam 9s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
   @keyframes scanBeam {
-    0%,4% { top: -2px; opacity: 0; }
-    7%    { opacity: 1; }
-    88%   { opacity: .45; }
-    96%   { top: 100vh; opacity: 0; }
-    100%  { top: -2px; opacity: 0; }
+    0%,
+    4% {
+      top: -2px;
+      opacity: 0;
+    }
+    7% {
+      opacity: 1;
+    }
+    88% {
+      opacity: 0.45;
+    }
+    96% {
+      top: 100vh;
+      opacity: 0;
+    }
+    100% {
+      top: -2px;
+      opacity: 0;
+    }
   }
 
   /* ── Floating particles ─────────────────────────────────────────────────── */
@@ -654,26 +683,46 @@
   }
   .hero-particle {
     position: absolute;
-    width: 2px; height: 2px;
+    width: 2px;
+    height: 2px;
     border-radius: 50%;
     left: calc(var(--pi) * 6.25% + 0.5%);
     bottom: -4px;
-    animation: particleDrift calc(5.5s + var(--pi) * 0.38s) ease-in infinite calc(var(--pi) * -0.62s);
+    animation: particleDrift calc(5.5s + var(--pi) * 0.38s) ease-in infinite
+      calc(var(--pi) * -0.62s);
   }
-  .hero-particle:nth-child(odd)  { background: rgba(154,217,147,.8); box-shadow: 0 0 5px rgba(154,217,147,.65); }
-  .hero-particle:nth-child(even) { background: rgba(225,231,92,.65);  box-shadow: 0 0 5px rgba(225,231,92,.5); }
-  .hero-particle:nth-child(3n)   { width: 3px; height: 3px; }
+  .hero-particle:nth-child(odd) {
+    background: rgba(154, 217, 147, 0.8);
+    box-shadow: 0 0 5px rgba(154, 217, 147, 0.65);
+  }
+  .hero-particle:nth-child(even) {
+    background: rgba(225, 231, 92, 0.65);
+    box-shadow: 0 0 5px rgba(225, 231, 92, 0.5);
+  }
+  .hero-particle:nth-child(3n) {
+    width: 3px;
+    height: 3px;
+  }
   @keyframes particleDrift {
-    0%   { transform: translateY(0) translateX(0); opacity: 0; }
-    8%   { opacity: 1; }
-    80%  { opacity: .2; }
-    100% { transform: translateY(-102vh) translateX(calc(sin(var(--pi)) * 20px)); opacity: 0; }
+    0% {
+      transform: translateY(0) translateX(0);
+      opacity: 0;
+    }
+    8% {
+      opacity: 1;
+    }
+    80% {
+      opacity: 0.2;
+    }
+    100% {
+      transform: translateY(-102vh) translateX(calc(sin(var(--pi)) * 20px));
+      opacity: 0;
+    }
   }
 
   /* Respect reduced motion */
   @media (prefers-reduced-motion: reduce) {
     .hero-letters span,
-    .hero-robot,
     .slide-line,
     .hero-card,
     .hero-bottom {
@@ -682,8 +731,12 @@
       transform: none;
       translate: none;
     }
-    .robot-img { animation: none; }
-    .type-cursor { animation: none; }
-    .hero-scan, .hero-particles { display: none; }
+    .type-cursor {
+      animation: none;
+    }
+    .hero-scan,
+    .hero-particles {
+      display: none;
+    }
   }
 </style>
